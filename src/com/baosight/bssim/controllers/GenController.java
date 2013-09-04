@@ -1,10 +1,10 @@
 package com.baosight.bssim.controllers;
 
-import com.baosight.bssim.DbUtils.OracleDataSourceFactory;
+import com.baosight.bssim.exceptions.ModelException;
+import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import com.baosight.bssim.models.ConfigModel;
 import com.baosight.bssim.models.TableModel;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,12 +21,18 @@ public class GenController extends ApplicationController {
             List result = new ArrayList();
             req.setAttribute("result", result);
 
-            ConfigModel config = new ConfigModel("GlobalConfig");
-            JSONObject confingJson = config.getJson();
+            JSONObject config = new ConfigModel("GlobalConfig").getJson();
+            String database = config.getString("database") == null ? "oracle" : config.getString("database");
+            String clazz = "com.baosight.bssim.helpers." + StringUtils.capitalize(database) + "Helper";
 
-            QueryRunner run = new QueryRunner(OracleDataSourceFactory.createDataSource());
+            DatabaseHelper helper;
+            try{
+                helper = (DatabaseHelper)Class.forName(clazz).newInstance();
+            } catch (Exception ex) {
+                throw new ModelException("未找到类: "+clazz);
+            }
 
-            JSONArray userTables = confingJson.optJSONArray("user_tables");
+            JSONArray userTables = config.optJSONArray("user_tables");
             if(userTables == null)
                 return;
 
@@ -35,19 +41,11 @@ public class GenController extends ApplicationController {
                 JSONArray tables = userTables.getJSONObject(i).optJSONArray("tables");
 
                 if (user == null || tables == null)continue;
+                List row = helper.queryTableList(user, "'" + tables.join("', '").replaceAll("\"","") + "'");
 
-                String sql = "SELECT v1.OWNER, v2.TABLE_NAME, v2.COMMENTS,\n" +
-                        "               (SELECT count(1) FROM ALL_TAB_COLS WHERE TABLE_NAME = v1.TABLE_NAME AND OWNER = v1.OWNER) as COLUMN_COUNT,\n" +
-                        "               (SELECT count(1) FROM ALL_INDEXES WHERE TABLE_NAME = v1.TABLE_NAME AND OWNER = v1.OWNER) as INDEX_COUNT\n" +
-                        "          FROM ALL_TABLES v1, ALL_TAB_COMMENTS v2\n" +
-                        "         WHERE v1.TABLE_NAME = v2.TABLE_NAME\n" +
-                        "           AND v1.OWNER = v2.OWNER\n" +
-                        "           AND v1.OWNER = UPPER(?)\n" +
-                        "           AND V1.TABLE_NAME IN ('"+tables.join("', '").replaceAll("\"","")+"')\n" +
-                        "         ORDER BY\n" +
-                        "               v1.TABLE_NAME\n";
+                if (row.size() == 0)continue;
 
-                result.add(run.query(sql, new MapListHandler(), user));
+                result.add(row);
             }
         } catch (Exception e) {
             setMessage(e);

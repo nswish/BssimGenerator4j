@@ -38,6 +38,27 @@ public class OracleHelper implements DatabaseHelper {
     }
 
     @Override
+    public List<Map<String, Object>> queryTableList(String schemaName, String tableNames) {
+        String sql = "SELECT v1.OWNER, v2.TABLE_NAME, v2.COMMENTS,\n" +
+                "               (SELECT count(1) FROM ALL_TAB_COLS WHERE TABLE_NAME = v1.TABLE_NAME AND OWNER = v1.OWNER) as COLUMN_COUNT,\n" +
+                "               (SELECT count(1) FROM ALL_INDEXES WHERE TABLE_NAME = v1.TABLE_NAME AND OWNER = v1.OWNER) as INDEX_COUNT\n" +
+                "          FROM ALL_TABLES v1, ALL_TAB_COMMENTS v2\n" +
+                "         WHERE v1.TABLE_NAME = v2.TABLE_NAME\n" +
+                "           AND v1.OWNER = v2.OWNER\n" +
+                "           AND v1.OWNER = UPPER(?)\n" +
+                "           AND V1.TABLE_NAME IN (" + tableNames +")\n" +
+                "         ORDER BY\n" +
+                "               v1.TABLE_NAME\n";
+
+        try {
+            QueryRunner run = new QueryRunner(OracleDataSourceFactory.createDataSource());
+            return run.query(sql, new MapListHandler(), schemaName);
+        } catch (Exception e) {
+            throw new HelperException(e.getMessage());
+        }
+    }
+
+    @Override
     public ColumnModel[] createColumns(String schemaName, String tableName) {
         String sql = "SELECT T1.COLUMN_NAME, T1.DATA_TYPE, T1.DATA_LENGTH, T1.DATA_PRECISION, T1.DATA_SCALE, T1.NULLABLE, T2.COMMENTS\n" +
                      "FROM ALL_TAB_COLS T1, ALL_COL_COMMENTS T2 \n" +
@@ -55,8 +76,8 @@ public class OracleHelper implements DatabaseHelper {
 
                 columns[i] = new ColumnModel();
                 columns[i].setName(row.get("COLUMN_NAME")+"");
-                columns[i].setDbType(row.get("DATA_TYPE")+"");
-                columns[i].setComment(row.get("COMMENTS")+"");
+                columns[i].setDbType(row.get("DATA_TYPE") + "");
+                columns[i].setComment(row.get("COMMENTS") + "");
 
                 if("N".equals(row.get("NULLABLE"))){
                     columns[i].setNullable(false);
