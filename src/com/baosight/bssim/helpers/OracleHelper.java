@@ -2,6 +2,7 @@ package com.baosight.bssim.helpers;
 
 import com.baosight.bssim.DbUtils.OracleDataSourceFactory;
 import com.baosight.bssim.exceptions.HelperException;
+import com.baosight.bssim.exceptions.ModelException;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import com.baosight.bssim.models.ColumnModel;
 import org.apache.commons.dbutils.QueryRunner;
@@ -38,6 +39,44 @@ public class OracleHelper implements DatabaseHelper {
 
     @Override
     public ColumnModel[] createColumns(String schemaName, String tableName) {
-        return new ColumnModel[0];  //To change body of implemented methods use File | Settings | File Templates.
+        String sql = "SELECT T1.COLUMN_NAME, T1.DATA_TYPE, T1.DATA_LENGTH, T1.DATA_PRECISION, T1.DATA_SCALE, T1.NULLABLE, T2.COMMENTS\n" +
+                     "FROM ALL_TAB_COLS T1, ALL_COL_COMMENTS T2 \n" +
+                     "WHERE T1.OWNER = ? AND T1.TABLE_NAME = ? AND T1.OWNER = T2.OWNER AND T1.TABLE_NAME = T2.TABLE_NAME AND T1.COLUMN_NAME = T2.COLUMN_NAME\n" +
+                     "ORDER BY T1.COLUMN_ID";
+
+        try {
+            QueryRunner run = new QueryRunner(OracleDataSourceFactory.createDataSource());
+            List<Map<String, Object>> result = run.query(sql, new MapListHandler(), schemaName, tableName);
+
+            ColumnModel[] columns = new ColumnModel[result.size()];
+
+            for(int i=0; i<columns.length; i++){
+                Map row = result.get(i);
+
+                columns[i] = new ColumnModel();
+                columns[i].setName(row.get("COLUMN_NAME")+"");
+                columns[i].setDbType(row.get("DATA_TYPE")+"");
+                columns[i].setComment(row.get("COMMENTS")+"");
+
+                if("N".equals(row.get("NULLABLE"))){
+                    columns[i].setNullable(false);
+                } else {
+                    columns[i].setNullable(true);
+                }
+
+                if ((row.get("DATA_TYPE")+"").startsWith("VARCHAR")){
+                    columns[i].setType("C");
+                    columns[i].setLength(Integer.parseInt(row.get("DATA_LENGTH")+""));
+                } else if("NUMBER".equals(row.get("DATA_TYPE"))) {
+                    columns[i].setType("N");
+                    columns[i].setLength(Integer.parseInt(row.get("DATA_PRECISION")+""));
+                    columns[i].setScale(Integer.parseInt(row.get("DATA_SCALE")+""));
+                }
+            }
+
+            return columns;
+        } catch (Exception e) {
+            throw new ModelException(e.getMessage());
+        }
     }
 }

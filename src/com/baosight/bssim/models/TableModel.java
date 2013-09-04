@@ -1,16 +1,9 @@
 package com.baosight.bssim.models;
 
-import com.baosight.bssim.DbUtils.OracleDataSourceFactory;
 import com.baosight.bssim.exceptions.ModelException;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 映射数据表
@@ -97,53 +90,7 @@ public class TableModel {
      * 构造字段对象
      */
     private void createColumns() {
-        String sql = "SELECT COLUMN_NAME, DATA_TYPE, DATA_LENGTH, DATA_PRECISION, DATA_SCALE, DATA_TYPE, NULLABLE FROM ALL_TAB_COLS " +
-                     "WHERE OWNER = ? AND TABLE_NAME = ? ORDER BY COLUMN_ID";
-
-        try {
-            QueryRunner run = new QueryRunner(OracleDataSourceFactory.createDataSource());
-            List<Map<String, Object>> result = run.query(sql, new MapListHandler(), this.schemaName, this.tableName);
-
-            this.columns = new ColumnModel[result.size()];
-
-            for(int i=0; i<this.columns.length; i++){
-                Map row = result.get(i);
-
-                this.columns[i] = new ColumnModel();
-                this.columns[i].setName(row.get("COLUMN_NAME")+"");
-                this.columns[i].setDbType(row.get("DATA_TYPE")+"");
-
-                if("N".equals(row.get("NULLABLE"))){
-                    this.columns[i].setNullable(false);
-                } else {
-                    this.columns[i].setNullable(true);
-                }
-
-                if ((row.get("DATA_TYPE")+"").startsWith("VARCHAR")){
-                    this.columns[i].setType("C");
-                    this.columns[i].setLength(Integer.parseInt(row.get("DATA_LENGTH")+""));
-                } else if("NUMBER".equals(row.get("DATA_TYPE"))) {
-                    this.columns[i].setType("N");
-                    this.columns[i].setLength(Integer.parseInt(row.get("DATA_PRECISION")+""));
-                    this.columns[i].setScale(Integer.parseInt(row.get("DATA_SCALE")+""));
-                }
-            }
-
-            sql = "SELECT COLUMN_NAME, COMMENTS FROM ALL_COL_COMMENTS  WHERE OWNER = ? AND TABLE_NAME = ?";
-            result = run.query(sql, new MapListHandler(), this.schemaName, this.tableName);
-            Map nameCommentMap = new HashMap();
-
-            for(int i=0; i<result.size(); i++){
-                nameCommentMap.put(result.get(i).get("COLUMN_NAME")+"", result.get(i).get("COMMENTS")+"");
-            }
-
-            for(int i=0; i<this.columns.length; i++){
-                this.columns[i].setComment(nameCommentMap.get(this.columns[i].getName())+"");
-            }
-        } catch (Exception e) {
-            throw new ModelException(e.getMessage());
-        }
-
+        this.columns = this.helper.createColumns(this.schemaName, this.tableName);
     }
 
     /**
