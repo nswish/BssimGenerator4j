@@ -130,7 +130,7 @@ public class XmlModel {
         // doc comment
         result.append("<!-- Table Information\n")
               .append("    Generate Time: " + DateFormatUtils.format(new Date(), "y-MM-dd")).append("\n")
-              .append("    Table Name: " + table.getTableName()).append("\n\n")
+              .append("    Table Name: " + table.getTableName() + " " + table.getComment()).append("\n\n")
               .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SqlMapComment", "\n"))).append("\n")
               .append("-->\n\n");
 

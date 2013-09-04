@@ -33,8 +33,8 @@ public class JavaModel {
 
         this.classComment = "/**\n" +
                 " * " + table.getClassName() + "\n" +
-                " * table comment : \n" +
-                " * generate date : " + DateFormatUtils.format(new Date(), "y-MM-dd") + "\n" +
+                " * Table Comment : " + table.getComment() + "\n" +
+                " * Generate Date : " + DateFormatUtils.format(new Date(), "y-MM-dd") + "\n" +
                 " */";
     }
 
@@ -359,7 +359,7 @@ public class JavaModel {
                        .append("    return " + anotherOne.getClassName() + ".find(this." + anotherOne.getClassName().toLowerCase() + "Id);\n")
                        .append("}");
 
-                this.addInstanceMethod(CodeHelper.indent(content.toString()), "关联 ");
+                this.addInstanceMethod(CodeHelper.indent(content.toString()), "关联 "+anotherOne.getComment());
             }
         }
 
@@ -376,7 +376,7 @@ public class JavaModel {
                        .append("    return new ModelQuerier(\"" + anotherOne.getFullName() + "\", \"" + table.getTableName() + "_ID = #" + table.getTableName().toLowerCase() + "Id#\", arg);\n")
                        .append("}");
 
-                this.addInstanceMethod(CodeHelper.indent(content.toString()), "关联 ");
+                this.addInstanceMethod(CodeHelper.indent(content.toString()), "关联 " + anotherOne.getComment());
             }
         }
 
@@ -393,7 +393,7 @@ public class JavaModel {
                        .append("    return " + anotherOne.getClassName() + ".where(arg).first();\n")
                        .append("}");
 
-                this.addInstanceMethod(CodeHelper.indent(content.toString()), "关联 ");
+                this.addInstanceMethod(CodeHelper.indent(content.toString()), "关联 " + anotherOne.getComment());
             }
         }
     }

@@ -2,9 +2,11 @@ package com.baosight.bssim.models;
 
 import com.baosight.bssim.DbUtils.OracleDataSourceFactory;
 import com.baosight.bssim.exceptions.ModelException;
+import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +18,10 @@ import java.util.Map;
 public class TableModel {
     private String schemaName;
     private String tableName;
+    private String comment;
     private ColumnModel[] columns;
 
+    private DatabaseHelper helper;
     private JavaModel javaModel;
     private XmlModel xmlModel;
     private ConfigModel tableConfig;
@@ -64,11 +68,29 @@ public class TableModel {
         this.schemaName = schemaName.trim().toUpperCase();
         this.tableName = tableName.trim().toUpperCase();
 
+        JSONObject config = new ConfigModel("GlobalConfig").getJson();
+        String database = config.getString("database") == null ? "oracle" : config.getString("database");
+        String clazz = "com.baosight.bssim.helpers." + StringUtils.capitalize(database) + "Helper";
+
+        try{
+            this.helper = (DatabaseHelper)Class.forName(clazz).newInstance();
+        } catch (Exception ex) {
+            throw new ModelException("未找到类: "+clazz);
+        }
+
+        this.queryTableComment();
         this.createColumns();
 
         this.tableConfig = new ConfigModel(getFullName());
         this.javaModel = new JavaModel(this);
         this.xmlModel = new XmlModel(this);
+    }
+
+    /**
+     * 获取表的注释名称
+     */
+    private void queryTableComment() {
+        this.comment = this.helper.queryTableComment(this.schemaName, this.tableName);
     }
 
     /**
@@ -189,6 +211,13 @@ public class TableModel {
      */
     public String getClassName() {
         return StringUtils.capitalize(this.tableName.toLowerCase());
+    }
+
+    /**
+     * 表的注释名称
+     */
+    public String getComment() {
+        return this.comment;
     }
 
     /**
