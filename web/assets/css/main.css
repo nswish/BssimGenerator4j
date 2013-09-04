@@ -1,0 +1,64 @@
+.center {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.width1000 {
+    width: 1000px;
+}
+
+#header {
+    margin-bottom: 0;
+}
+
+#content {
+    margin-top: 1px;
+}
+
+#message {
+    padding: 3px 0;
+    min-height: 20px;
+}
+
+.no-message {
+    background: white;
+}
+
+.success {
+    background: green;
+    color: white;
+}
+
+.error {
+    background: indianred;
+    color: white;
+}
+
+.region {
+    border: 1px solid #EEE;
+}
+
+.region-head {
+    border-bottom: 0px solid #EEE;
+    margin-bottom: 10px;
+    padding: 6px 0px 6px 15px;
+    background: url(../img/background.png) 0 -476px;
+}
+
+.region-body {
+    padding: 0px 12px 0px 12px;
+}
+
+.table th {
+    text-align: center;
+}
+
+.CodeMirror {
+    border: 1px solid #eee;
+    height: auto;
+}
+
+.CodeMirror-scroll {
+    overflow-y: hidden;
+    overflow-x: auto;
+}

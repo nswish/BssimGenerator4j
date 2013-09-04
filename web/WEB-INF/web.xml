@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+           version="2.5">
+
+    <servlet>
+        <servlet-name>Generator</servlet-name>
+        <servlet-class>com.baosight.bssim.controllers.GenController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Generator</servlet-name>
+        <url-pattern>/gen/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Config</servlet-name>
+        <servlet-class>com.baosight.bssim.controllers.ConfigController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Config</servlet-name>
+        <url-pattern>/config/*</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>
+            com.baosight.bssim.listeners.AppServletContextListener
+        </listener-class>
+    </listener>
+</web-app>
