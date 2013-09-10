@@ -17,27 +17,23 @@
 
 <script>
     $(document).ready(function(){
-        var myCodeMirror = CodeMirror.fromTextArea($('#script_content').get(0), {
+        CodeMirror.fromTextArea($('#script_content').get(0), {
             mode : 'javascript',
             theme : 'eclipse',
             lineNumbers : true
-        });
-        myCodeMirror.setSize('100%', 'auto');
+        }).setSize('100%', 'auto');
 
-        var myCodeMirror = CodeMirror.fromTextArea($('#javaCode').get(0), {
+        CodeMirror.fromTextArea($('#javaCode').get(0), {
             mode : 'clike',
             theme : 'eclipse'
-        });
-        myCodeMirror.setSize('100%', 'auto');
+        }).setSize('100%', 'auto');
 
-        var myCodeMirror = CodeMirror.fromTextArea($('#xml_code').get(0), {
+        CodeMirror.fromTextArea($('#xml_code').get(0), {
             mode : 'xml',
             theme : 'eclipse'
-        });
-        myCodeMirror.setSize('100%', 'auto');
+        }).setSize('100%', 'auto');
 
-        $('#xml_div').hide();
-        $('#script_div').hide();
+        $('#xml_div, #script_div').hide();
     });
 
     var showjava = function() {
@@ -84,6 +80,8 @@
 <div id="xml_div" style="border: 1px grey dashed;">
     <textarea id="xml_code" name="xml_code"><%=xml_code%></textarea>
 </div>
+
+<form id="gen_code_form" method="POST" action="/gen/<%=id%>/commit"></form>
 
 <br />
 

@@ -154,7 +154,7 @@ public class ColumnModel {
     }
 
     public String fragmentForGetter() {
-        return new StringBuilder().append("public String " + getGetterName()).append("() {\n")
+        return new StringBuilder().append("public " + getJavaType() + " " + getGetterName()).append("() {\n")
                                   .append("    return this." + getCamelName()).append(";\n")
                                   .append("}")
                                   .toString();
@@ -171,7 +171,7 @@ public class ColumnModel {
     public String fragmentForMeta() {
         StringBuilder result = new StringBuilder();
 
-        result.append("eiColumn = new EiColumn(" + getCamelName() + ");\n")
+        result.append("eiColumn = new EiColumn(" + getQuoteCamelName() + ");\n")
               .append("eiColumn.setDescName(" + getQuoteComment() + ");\n")
               .append("eiColumn.setFieldLength(" + getLength() + ");\n");
 

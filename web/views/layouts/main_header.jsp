@@ -29,7 +29,7 @@
     <div id="message" class="<%=messageStatus%>">
         <% if (request.getAttribute("message") != null) { %>
         <div class="width1000 center">
-            <span id="message_text"><%= request.getAttribute("message") %></span>
+            <pre id="message_text"><%= request.getAttribute("message") %></pre>
         </div>
         <% } %>
     </div>

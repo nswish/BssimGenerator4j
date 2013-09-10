@@ -75,7 +75,7 @@ public class XmlModel {
         content = new StringBuilder()
                 .append("INSERT INTO " + table.getFullName() + " (\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "InsertWithColumns", ",\n"))).append("\n")
-                .append(") VALUES (").append(CodeHelper.concatFragments(table.getColumns(), "InsertWithValues", ", "));
+                .append(") VALUES (").append(CodeHelper.concatFragments(table.getColumns(), "InsertWithValues", ", ")).append(")");
 
         this.addInsert("insert", content.toString());
     }

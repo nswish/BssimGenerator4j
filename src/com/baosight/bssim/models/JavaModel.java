@@ -93,6 +93,7 @@ public class JavaModel {
                 .append("public Map toMap() {\n")
                 .append("    Map map = new HashMap();\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "ToMap", "\n"))).append("\n")
+                .append("    return map;\n")
                 .append("}");
 
         this.addMethod(this.instanceMethods, content.toString(), "set the value to Map");

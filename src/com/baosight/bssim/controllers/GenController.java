@@ -11,7 +11,9 @@ import org.json.JSONObject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,5 +73,31 @@ public class GenController extends ApplicationController {
 
         setMessage("已保存...");
         redirect_to("/gen/"+id);
+    }
+
+    private void commit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String id = req.getAttribute("id")+"";
+
+        String[] cmd = new String[]{"/bin/sh", "-c", "svn up | tail -n1" };
+
+        Process p = Runtime.getRuntime().exec(cmd, null, new File("/home/ns/dev/RubymineProjects/BssimGenerator/repo/bssim"));
+
+        try {
+            p.waitFor();
+        } catch (InterruptedException e) {
+
+        }
+
+        String result = getExecResult(p.getInputStream());
+        System.out.print(result);
+
+        setMessage(result);
+        redirect_to("/gen/" + id);
+    }
+
+    private String getExecResult(InputStream in) throws IOException{
+        byte[] buffer = new byte[in.available()];
+        in.read(buffer);
+        return new String(buffer, "UTF-8");
     }
 }
