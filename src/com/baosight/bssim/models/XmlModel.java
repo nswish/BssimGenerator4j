@@ -19,60 +19,52 @@ public class XmlModel {
 
     public XmlModel(TableModel table) {
         this.table = table;
-
-        generateSelectStatements();
-        generateInsertStatements();
-        generateUpdateStatements();
-        generateDeleteStatements();
     }
 
     public void generateSelectStatements() {
         StringBuilder content;
 
         // select_by_id
-        content = new StringBuilder();
-
-        content.append("SELECT\n")
-               .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
-               .append("FROM " + table.getFullName() + "\n")
-               .append("WHERE ID = #id#");
+        content = new StringBuilder()
+                .append("SELECT\n")
+                .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
+                .append("FROM " + table.getFullName() + "\n")
+                .append("WHERE ID = #id#");
 
         this.addSelect("select_by_id", "java.util.HashMap", table.getPackage() + "." + table.getClassName(), content.toString());
 
         // select_by_ids
-        content = new StringBuilder();
-
-        content.append("SELECT\n")
-               .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
-               .append("FROM " + table.getFullName() + "\n")
-               .append("WHERE ID IN\n")
-               .append("<iterate property=\"ids\" conjunction=\",\" open=\"(\" close=\")\">\n")
-               .append("    #ids[]#\n")
-               .append("</iterate>\n")
-               .append("ORDER BY ID");
+        content = new StringBuilder()
+                .append("SELECT\n")
+                .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
+                .append("FROM " + table.getFullName() + "\n")
+                .append("WHERE ID IN\n")
+                .append("<iterate property=\"ids\" conjunction=\",\" open=\"(\" close=\")\">\n")
+                .append("    #ids[]#\n")
+                .append("</iterate>\n")
+                .append("ORDER BY ID");
 
         this.addSelect("select_by_ids", "java.util.HashMap", table.getPackage() + "." + table.getClassName(), content.toString());
 
         // select_ex
-        content = new StringBuilder();
-
-        content.append("SELECT\n")
-               .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
-               .append("FROM " + table.getFullName() + "\n")
-               .append("WHERE 1=1\n")
-               .append("<isNotEmpty prepend=\" AND \" property=\"fixWhere\">\n")
-               .append("    $fixWhere$\n")
-               .append("</isNotEmpty>\n")
-               .append("\n")
-               .append("<isNotEmpty prepend=\" AND \" property=\"where\">\n")
-               .append("    $where$\n")
-               .append("</isNotEmpty>\n")
-               .append("\n")
-               .append(CodeHelper.concatFragments(table.getColumns(), "SelectWithWhere", "\n")).append("\n")
-               .append("\n")
-               .append("<isNotEmpty prepend=\" ORDER BY \" property=\"orderBy\">\n")
-               .append("    $orderBy$\n")
-               .append("</isNotEmpty>");
+        content = new StringBuilder()
+                .append("SELECT\n")
+                .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
+                .append("FROM " + table.getFullName() + "\n")
+                .append("WHERE 1=1\n")
+                .append("<isNotEmpty prepend=\" AND \" property=\"fixWhere\">\n")
+                .append("    $fixWhere$\n")
+                .append("</isNotEmpty>\n")
+                .append("\n")
+                .append("<isNotEmpty prepend=\" AND \" property=\"where\">\n")
+                .append("    $where$\n")
+                .append("</isNotEmpty>\n")
+                .append("\n")
+                .append(CodeHelper.concatFragments(table.getColumns(), "SelectWithWhere", "\n")).append("\n")
+                .append("\n")
+                .append("<isNotEmpty prepend=\" ORDER BY \" property=\"orderBy\">\n")
+                .append("    $orderBy$\n")
+                .append("</isNotEmpty>");
 
         this.addSelect("select_ex", "java.util.HashMap", table.getPackage() + "." + table.getClassName(), content.toString());
     }
@@ -80,10 +72,10 @@ public class XmlModel {
     public void generateInsertStatements() {
         StringBuilder content;
 
-        content = new StringBuilder();
-        content.append("INSERT INTO " + table.getFullName() + " (\n")
-               .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "InsertWithColumns", ",\n"))).append("\n")
-               .append(") VALUES (").append(CodeHelper.concatFragments(table.getColumns(), "InsertWithValues", ", "));
+        content = new StringBuilder()
+                .append("INSERT INTO " + table.getFullName() + " (\n")
+                .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "InsertWithColumns", ",\n"))).append("\n")
+                .append(") VALUES (").append(CodeHelper.concatFragments(table.getColumns(), "InsertWithValues", ", "));
 
         this.addInsert("insert", content.toString());
     }
@@ -91,11 +83,11 @@ public class XmlModel {
     public void generateUpdateStatements() {
         StringBuilder content;
 
-        content = new StringBuilder();
-        content.append("UPDATE " + table.getFullName() + "\n")
-               .append("SET ID = ID\n")
-               .append(CodeHelper.concatFragments(table.getColumnsWithoutId(), "UpdateWithSet", ",\n")).append("\n")
-               .append("WHERE ID = #id#");
+        content = new StringBuilder()
+                .append("UPDATE " + table.getFullName() + "\n")
+                .append("SET ID = ID\n")
+                .append(CodeHelper.concatFragments(table.getColumnsWithoutId(), "UpdateWithSet", ",\n")).append("\n")
+                .append("WHERE ID = #id#");
 
         this.addUpdate("update_by_id", content.toString());
     }
@@ -104,90 +96,95 @@ public class XmlModel {
         StringBuilder content;
 
         // delete_by_id
-        content = new StringBuilder();
-        content.append("DELETE FROM " + table.getFullName() + " WHERE ID = #id#");
+        content = new StringBuilder()
+                .append("DELETE FROM " + table.getFullName() + " WHERE ID = #id#");
 
         this.addDelete("delete_by_id", content.toString());
 
         // delete_by_ids
-        content = new StringBuilder();
-        content.append("DELETE FROM " + table.getFullName()).append("\n")
-               .append("WHERE ID IN\n")
-               .append("<iterate property=\"ids\" conjunction=\",\" open=\"(\" close=\")\">\n")
-               .append("    #ids[]#\n")
-               .append("</iterate>");
+        content = new StringBuilder()
+                .append("DELETE FROM " + table.getFullName()).append("\n")
+                .append("WHERE ID IN\n")
+                .append("<iterate property=\"ids\" conjunction=\",\" open=\"(\" close=\")\">\n")
+                .append("    #ids[]#\n")
+                .append("</iterate>");
 
         this.addDelete("delete_by_ids", content.toString());
     }
 
     public String toCode() {
-        StringBuilder result = new StringBuilder();
 
-        // doc header & doc type
-        result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-              .append("<!DOCTYPE sqlMap PUBLIC \"-//iBATIS.com//DTD SQL Map 2.0//EN\" \"http://www.ibatis.com/dtd/sql-map-2.dtd\">\n");
+        // generate code fragments
+        generateSelectStatements();
+        generateInsertStatements();
+        generateUpdateStatements();
+        generateDeleteStatements();
 
-        // doc comment
-        result.append("<!-- Table Information\n")
-              .append("    Generate Time: " + DateFormatUtils.format(new Date(), "y-MM-dd")).append("\n")
-              .append("    Table Name: " + table.getTableName() + " " + table.getComment()).append("\n\n")
-              .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SqlMapComment", "\n"))).append("\n")
-              .append("-->\n\n");
+        // combine fragments to full code
+        StringBuilder result = new StringBuilder()
 
-        // sqlmap
-        result.append("<sqlMap namespace=\"" + table.getTableName().substring(1)  + "E\">\n");
+                // doc header & doc type
+                .append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+                .append("<!DOCTYPE sqlMap PUBLIC \"-//iBATIS.com//DTD SQL Map 2.0//EN\" \"http://www.ibatis.com/dtd/sql-map-2.dtd\">\n")
+                .append("<!-- Table Information\n")
 
-        // select statement
-        result.append(CodeHelper.indent(StringUtils.join(this.selectStatements, "\n\n"))).append("\n\n");
+                // doc comment
+                .append("    Generate Time: " + DateFormatUtils.format(new Date(), "y-MM-dd")).append("\n")
+                .append("    Table Name: " + table.getTableName() + " " + table.getComment()).append("\n\n")
+                .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SqlMapComment", "\n"))).append("\n")
+                .append("-->\n\n")
 
-        // insert statement
-        result.append(CodeHelper.indent(StringUtils.join(this.insertStatements, "\n\n"))).append("\n\n");
+                // sqlmap
+                .append("<sqlMap namespace=\"" + table.getTableName().substring(1)  + "E\">\n")
 
-        // update statement
-        result.append(CodeHelper.indent(StringUtils.join(this.updateStatements, "\n\n"))).append("\n\n");
+                // sqlmap statements
+                .append(CodeHelper.indent(StringUtils.join(new String[]{
+                        StringUtils.join(this.selectStatements, "\n\n"),
 
-        // delete statement
-        result.append(CodeHelper.indent(StringUtils.join(this.deleteStatements, "\n\n"))).append("\n\n");
+                        StringUtils.join(this.insertStatements, "\n\n"),
 
-        return result.append("</sqlMap>").toString();
+                        StringUtils.join(this.updateStatements, "\n\n"),
+
+                        StringUtils.join(this.deleteStatements, "\n\n")
+                }, "\n\n")))
+                .append("\n")
+                .append("</sqlMap>");
+
+        return result.toString();
     }
 
     public void addSelect(String id, String paramType, String resultType, String content) {
-        StringBuilder result = new StringBuilder();
-
-        result.append("<select id=\"" + id + "\" parameterClass=\"" + paramType + "\" resultClass=\"" + resultType + "\">\n")
-              .append(CodeHelper.indent(content)).append("\n")
-              .append("</select>");
+        StringBuilder result = new StringBuilder()
+                .append("<select id=\"" + id + "\" parameterClass=\"" + paramType + "\" resultClass=\"" + resultType + "\">\n")
+                .append(CodeHelper.indent(content)).append("\n")
+                .append("</select>");
 
         this.selectStatements.add(result.toString());
     }
 
     public void addInsert(String id, String content) {
-        StringBuilder result = new StringBuilder();
-
-        result.append("<insert id=\"" + id + "\">\n")
-              .append(CodeHelper.indent(content)).append("\n")
-              .append("</insert>");
+        StringBuilder result = new StringBuilder()
+                .append("<insert id=\"" + id + "\">\n")
+                .append(CodeHelper.indent(content)).append("\n")
+                .append("</insert>");
 
         this.insertStatements.add(result.toString());
     }
 
     public void addUpdate(String id, String content) {
-        StringBuilder result = new StringBuilder();
-
-        result.append("<update id=\"" + id + "\">\n")
-              .append(CodeHelper.indent(content)).append("\n")
-              .append("</update>");
+        StringBuilder result = new StringBuilder()
+                .append("<update id=\"" + id + "\">\n")
+                .append(CodeHelper.indent(content)).append("\n")
+                .append("</update>");
 
         this.updateStatements.add(result.toString());
     }
 
     public void addDelete(String id, String content) {
-        StringBuilder result = new StringBuilder();
-
-        result.append("<delete id=\"" + id + "\">\n")
-              .append(CodeHelper.indent(content)).append("\n")
-              .append("</delete>");
+        StringBuilder result = new StringBuilder()
+                .append("<delete id=\"" + id + "\">\n")
+                .append(CodeHelper.indent(content)).append("\n")
+                .append("</delete>");
 
         this.deleteStatements.add(result.toString());
     }

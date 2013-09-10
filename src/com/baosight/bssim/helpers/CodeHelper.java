@@ -6,13 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;
 
-/**
- * Created with IntelliJ IDEA.
- * User: ns
- * Date: 13-9-3
- * Time: 上午9:13
- * To change this template use File | Settings | File Templates.
- */
 public class CodeHelper {
     public static String formatComment(String comment) {
         StringBuilder result = new StringBuilder();

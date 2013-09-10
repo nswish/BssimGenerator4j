@@ -149,6 +149,53 @@ public class ColumnModel {
     }
 
 /////////////////////////////////////////////// For Java Code Generation ///////////////////////////////////////////////
+    public String fragmentForAttr() {
+        return new StringBuilder().append("private " + getJavaType() + " " + getCamelName() + " = " + getDefaultValue() + ";").append("    /*" + getComment() + "*/").toString();
+    }
+
+    public String fragmentForGetter() {
+        return new StringBuilder().append("public String " + getGetterName()).append("() {\n")
+                                  .append("    return this." + getCamelName()).append(";\n")
+                                  .append("}")
+                                  .toString();
+    }
+
+    public String fragmentForSetter() {
+        return new StringBuilder().append("public void " + getSetterName() + "(" + getJavaType() + " " + getCamelName()).append(") {\n")
+                                  .append("    if(this.isInDB)taintedAttrs.put(" + getQuoteCamelName() + ", " + getCamelName()).append(");\n")
+                                  .append("    this." + getCamelName() + " = " + getCamelName()).append(";\n")
+                                  .append("}")
+                                  .toString();
+    }
+
+    public String fragmentForMeta() {
+        StringBuilder result = new StringBuilder();
+
+        result.append("eiColumn = new EiColumn(" + getCamelName() + ");\n")
+              .append("eiColumn.setDescName(" + getQuoteComment() + ");\n")
+              .append("eiColumn.setFieldLength(" + getLength() + ");\n");
+
+        if ("N".equals(getType())){
+            result.append("eiColumn.setType(\"N\");\n")
+                  .append("eiColumn.setScaleLength(" + getScale() + ");\n");
+        }
+
+        return result.append("eiMetadata.addMeta(eiColumn);").toString();
+    }
+
+    public String fragmentForFromMap() {
+        if ("C".equals(getType())) {
+            return getSetterName() + "(StringUtils.defaultIfEmpty(StringUtils.toString(map.get(" + getQuoteCamelName() + ")), " + getCamelName() + "));";
+        } else if("N".equals(getType())) {
+            return getSetterName() + "(NumberUtils.to" + getJavaType() + "(StringUtils.toString(map.get(" + getQuoteCamelName() + ")), " + getCamelName() + "));";
+        } else {
+            return "";
+        }
+    }
+
+    public String fragmentForToMap() {
+        return "map.put(" + getQuoteCamelName() + ", StringUtils.toString(recCreator, eiMetadata.getMeta(" + getQuoteCamelName() + ")));";
+    }
 
     public String fragmentForField() {
         String comment = CodeHelper.formatComment(this.getComment());
