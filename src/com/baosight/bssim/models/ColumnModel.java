@@ -194,7 +194,7 @@ public class ColumnModel {
     }
 
     public String fragmentForToMap() {
-        return "map.put(" + getQuoteCamelName() + ", StringUtils.toString(recCreator, eiMetadata.getMeta(" + getQuoteCamelName() + ")));";
+        return "map.put(" + getQuoteCamelName() + ", StringUtils.toString(" + getCamelName() + ", eiMetadata.getMeta(" + getQuoteCamelName() + ")));";
     }
 
     public String fragmentForField() {
