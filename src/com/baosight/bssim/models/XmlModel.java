@@ -28,29 +28,29 @@ public class XmlModel {
         content = new StringBuilder()
                 .append("SELECT\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
-                .append("FROM " + table.getFullName() + "\n")
+                .append("FROM " + table.getFullTableName() + "\n")
                 .append("WHERE ID = #id#");
 
-        this.addSelect("select_by_id", "java.util.HashMap", table.getPackage() + "." + table.getClassName(), content.toString());
+        this.addSelect("select_by_id", "java.util.HashMap", table.getFullClassName(), content.toString());
 
         // select_by_ids
         content = new StringBuilder()
                 .append("SELECT\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
-                .append("FROM " + table.getFullName() + "\n")
+                .append("FROM " + table.getFullTableName() + "\n")
                 .append("WHERE ID IN\n")
                 .append("<iterate property=\"ids\" conjunction=\",\" open=\"(\" close=\")\">\n")
                 .append("    #ids[]#\n")
                 .append("</iterate>\n")
                 .append("ORDER BY ID");
 
-        this.addSelect("select_by_ids", "java.util.HashMap", table.getPackage() + "." + table.getClassName(), content.toString());
+        this.addSelect("select_by_ids", "java.util.HashMap", table.getFullClassName(), content.toString());
 
         // select_ex
         content = new StringBuilder()
                 .append("SELECT\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
-                .append("FROM " + table.getFullName() + "\n")
+                .append("FROM " + table.getFullTableName() + "\n")
                 .append("WHERE 1=1\n")
                 .append("<isNotEmpty prepend=\" AND \" property=\"fixWhere\">\n")
                 .append("    $fixWhere$\n")
@@ -66,14 +66,14 @@ public class XmlModel {
                 .append("    $orderBy$\n")
                 .append("</isNotEmpty>");
 
-        this.addSelect("select_ex", "java.util.HashMap", table.getPackage() + "." + table.getClassName(), content.toString());
+        this.addSelect("select_ex", "java.util.HashMap", table.getFullClassName(), content.toString());
     }
 
     public void generateInsertStatements() {
         StringBuilder content;
 
         content = new StringBuilder()
-                .append("INSERT INTO " + table.getFullName() + " (\n")
+                .append("INSERT INTO " + table.getFullTableName() + " (\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "InsertWithColumns", ",\n"))).append("\n")
                 .append(") VALUES (").append(CodeHelper.concatFragments(table.getColumns(), "InsertWithValues", ", ")).append(")");
 
@@ -84,7 +84,7 @@ public class XmlModel {
         StringBuilder content;
 
         content = new StringBuilder()
-                .append("UPDATE " + table.getFullName() + "\n")
+                .append("UPDATE " + table.getFullTableName() + "\n")
                 .append("SET ID = ID\n")
                 .append(CodeHelper.concatFragments(table.getColumnsWithoutId(), "UpdateWithSet", "\n")).append("\n")
                 .append("WHERE ID = #id#");
@@ -97,13 +97,13 @@ public class XmlModel {
 
         // delete_by_id
         content = new StringBuilder()
-                .append("DELETE FROM " + table.getFullName() + " WHERE ID = #id#");
+                .append("DELETE FROM " + table.getFullTableName() + " WHERE ID = #id#");
 
         this.addDelete("delete_by_id", content.toString());
 
         // delete_by_ids
         content = new StringBuilder()
-                .append("DELETE FROM " + table.getFullName()).append("\n")
+                .append("DELETE FROM " + table.getFullTableName()).append("\n")
                 .append("WHERE ID IN\n")
                 .append("<iterate property=\"ids\" conjunction=\",\" open=\"(\" close=\")\">\n")
                 .append("    #ids[]#\n")
@@ -129,7 +129,7 @@ public class XmlModel {
                 .append("<!-- Table Information\n")
 
                 // doc comment
-                .append("    Generate Time: " + DateFormatUtils.format(new Date(), "y-MM-dd")).append("\n")
+                .append("    Generate Time: " + DateFormatUtils.format(new Date(), "y-MM-dd HH:mm:ss")).append("\n")
                 .append("    Table Name: " + table.getTableName() + " " + table.getComment()).append("\n\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SqlMapComment", "\n"))).append("\n")
                 .append("-->\n\n")

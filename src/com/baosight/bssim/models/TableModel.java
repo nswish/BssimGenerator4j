@@ -5,6 +5,8 @@ import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
+import java.io.File;
+
 /**
  * 映射数据表
  */
@@ -74,7 +76,7 @@ public class TableModel {
         this.queryTableComment();
         this.createColumns();
 
-        this.tableConfig = new ConfigModel(getFullName());
+        this.tableConfig = new ConfigModel(getFullTableName());
         this.javaModel = new JavaModel(this);
         this.xmlModel = new XmlModel(this);
     }
@@ -96,15 +98,15 @@ public class TableModel {
     /**
      * 表的全名，大写
      */
-    public String getFullName() {
+    public String getFullTableName() {
         return this.schemaName + "." + this.tableName;
     }
 
     /**
      * 带引号的表的全名，大写
      */
-    public String getQuoteFullName() {
-        return "\"" + getFullName() + "\"";
+    public String getQuoteFullTableName() {
+        return "\"" + getFullTableName() + "\"";
     }
 
     /**
@@ -192,6 +194,13 @@ public class TableModel {
     }
 
     /**
+     * Java 类的全名
+     */
+    public String getFullClassName() {
+        return getPackage() + "." + getClassName();
+    }
+
+    /**
      * 生成 Java 代码
      */
     public String genJavaCode() {
@@ -203,5 +212,21 @@ public class TableModel {
      */
     public String genXmlCode() {
         return this.xmlModel.toCode();
+    }
+
+    /**
+     * Java 文件的存放路径
+     */
+    public String getJavaPath() {
+        return getFullClassName().replaceAll("\\.", File.separator) + "." + "java";
+    }
+
+    /**
+     * Xml 文件的存放路径
+     */
+    public String getXmlPath() {
+        return ("com.baosight.bssim." + getFirstModuleName().toLowerCase()
+                + (StringUtils.isBlank(getSecondModuleName()) ? "" : "." + getSecondModuleName().toLowerCase())
+                + ".sql." + getTableName().substring(1)).replaceAll("\\.", File.separator) + "E.xml";
     }
 }

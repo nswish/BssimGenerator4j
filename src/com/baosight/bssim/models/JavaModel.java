@@ -34,7 +34,7 @@ public class JavaModel {
         this.classComment = CodeHelper.formatComment(
             table.getClassName() + "\n" +
             "Table Comment : " + table.getComment() + "\n" +
-            "Generate Date : " + DateFormatUtils.format(new Date(), "y-MM-dd")
+            "Generate Date : " + DateFormatUtils.format(new Date(), "y-MM-dd HH:mm:ss")
         );
     }
 
@@ -198,7 +198,7 @@ public class JavaModel {
         // static methods -- where(Map arg)
         content = new StringBuilder()
                 .append("public static ModelQuerier where(Map arg) {\n")
-                .append("    return new ModelQuerier(" + table.getQuoteFullName() + ").where(arg);\n")
+                .append("    return new ModelQuerier(" + table.getQuoteFullTableName() + ").where(arg);\n")
                 .append("}");
 
         this.addMethod(this.classMethods, content.toString(), "简单Where查询\n传入的参数最终会转换为 'key1 = value1 and key2 = value2 and ...' 这样形式的字符串");
@@ -206,7 +206,7 @@ public class JavaModel {
         // static methods -- where(String where, Map arg)
         content = new StringBuilder()
                 .append("public static ModelQuerier where(String where, Map arg) {\n")
-                .append("    return new ModelQuerier(" + table.getQuoteFullName() + ").where(where, arg);\n")
+                .append("    return new ModelQuerier(" + table.getQuoteFullTableName() + ").where(where, arg);\n")
                 .append("}");
 
         this.addMethod(this.classMethods, content.toString(), "Where查询\nMap中的key和value做替换\n   { type: \"a\", name: \"b\" }\n   \"type = #type# or name like #name# || '%'\"\n=> \"type = 'a' or name like 'b' || ‘%’\"");
@@ -214,7 +214,7 @@ public class JavaModel {
         // static methods -- getFullTableName
         content = new StringBuilder()
                 .append("public String getFullTableName() {\n")
-                .append("    return " + table.getQuoteFullName() + ";\n")
+                .append("    return " + table.getQuoteFullTableName() + ";\n")
                 .append("}");
 
         this.addMethod(this.classMethods, content.toString(), "得到对应数据表的全称");
@@ -222,7 +222,7 @@ public class JavaModel {
         // static methods -- delete
         content = new StringBuilder()
                 .append("public void delete() {\n")
-                .append("    super.delete(" + table.getQuoteFullName() + ");\n")
+                .append("    super.delete(" + table.getQuoteFullTableName() + ");\n")
                 .append("}");
 
         this.addMethod(this.classMethods, content.toString(), "删除");
@@ -305,7 +305,7 @@ public class JavaModel {
                         .append("public ModelQuerier " + anotherOne.getClassName().toLowerCase() + "s() {\n")
                         .append("    Map arg = new HashMap();\n")
                         .append("    arg.put(\"" + table.getClassName().toLowerCase() + "Id\", this.id);\n")
-                        .append("    return new ModelQuerier(\"" + anotherOne.getFullName() + "\", \"" + table.getTableName() + "_ID = #" + table.getTableName().toLowerCase() + "Id#\", arg);\n")
+                        .append("    return new ModelQuerier(\"" + anotherOne.getFullTableName() + "\", \"" + table.getTableName() + "_ID = #" + table.getTableName().toLowerCase() + "Id#\", arg);\n")
                         .append("}");
 
                 this.addMethod(this.instanceMethods, content.toString(), "关联 " + anotherOne.getComment());

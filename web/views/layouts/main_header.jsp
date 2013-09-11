@@ -31,6 +31,13 @@
         <div class="width1000 center">
             <pre id="message_text"><%= request.getAttribute("message") %></pre>
         </div>
+        <script>
+            var dismissMsg = function() {
+                $('#message').removeClass('success').removeClass('error').addClass('no-message');
+                $('#message_text').remove();
+            }
+            $('#message_text').bind('dblclick', dismissMsg);
+        </script>
         <% } %>
     </div>
 </div>

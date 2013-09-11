@@ -19,6 +19,8 @@ import java.io.File;
  *      database_username : 'simdvlp'
  *      database_password : 'simdvlp'
  *
+ *      svn_repo_path     : 'path_to_svn_repo'
+ *
  *      user_tables : [{
  *          user   ：'XSSA',
  *          tables : ['TSA01', 'TSASA01', 'TSASA02', 'TSASS02', 'TSASS03']

@@ -9,7 +9,7 @@ public class TableModelTestCase {
     public void testConstructor1() {
         TableModel table = new TableModel("XssA.TSaSa01");
 
-        assertEquals("XSSA.TSASA01", table.getFullName());
+        assertEquals("XSSA.TSASA01", table.getFullTableName());
         assertEquals("XSSA", table.getSchemaName());
         assertEquals("TSASA01", table.getTableName());
         assertEquals("SA", table.getFirstModuleName());
@@ -19,7 +19,7 @@ public class TableModelTestCase {
 
         table = new TableModel("XssA.TSa01");
 
-        assertEquals("XSSA.TSA01", table.getFullName());
+        assertEquals("XSSA.TSA01", table.getFullTableName());
         assertEquals("XSSA", table.getSchemaName());
         assertEquals("TSA01", table.getTableName());
         assertEquals("SA", table.getFirstModuleName());
@@ -31,7 +31,7 @@ public class TableModelTestCase {
     public void testConstructor2() {
         TableModel table = new TableModel("XssA", "TSaSa01");
 
-        assertEquals("XSSA.TSASA01", table.getFullName());
+        assertEquals("XSSA.TSASA01", table.getFullTableName());
         assertEquals("XSSA", table.getSchemaName());
         assertEquals("TSASA01", table.getTableName());
         assertEquals("SA", table.getFirstModuleName());
@@ -41,7 +41,7 @@ public class TableModelTestCase {
 
         table = new TableModel("XssA", "TSa01");
 
-        assertEquals("XSSA.TSA01", table.getFullName());
+        assertEquals("XSSA.TSA01", table.getFullTableName());
         assertEquals("XSSA", table.getSchemaName());
         assertEquals("TSA01", table.getTableName());
         assertEquals("SA", table.getFirstModuleName());

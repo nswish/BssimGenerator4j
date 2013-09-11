@@ -1,9 +1,11 @@
 package com.baosight.bssim.controllers;
 
+import com.baosight.bssim.exceptions.ControllerException;
 import com.baosight.bssim.exceptions.ModelException;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import com.baosight.bssim.models.ConfigModel;
 import com.baosight.bssim.models.TableModel;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,27 +79,82 @@ public class GenController extends ApplicationController {
 
     private void commit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String id = req.getAttribute("id")+"";
+        JSONObject config = new ConfigModel("GlobalConfig").getJson();
 
-        String[] cmd = new String[]{"/bin/sh", "-c", "svn up | tail -n1" };
-
-        Process p = Runtime.getRuntime().exec(cmd, null, new File("/home/ns/dev/RubymineProjects/BssimGenerator/repo/bssim"));
-
-        try {
-            p.waitFor();
-        } catch (InterruptedException e) {
-
+        if (config.optString("svn_repo_path") == null) {
+            throw new ControllerException("请在配置中指定svn版本库的路径(svn_repo_path)！");
         }
 
-        String result = getExecResult(p.getInputStream());
-        System.out.print(result);
+        boolean debug = config.optBoolean("svn_debug", false);
 
-        setMessage(result);
-        redirect_to("/gen/" + id);
+        try {
+            Process p;
+            String cmd;
+            StringBuilder result = new StringBuilder();
+            File dir = new File(config.getString("svn_repo_path"));
+
+            // svn update
+            cmd = "svn up";
+            p = Runtime.getRuntime().exec(cmd, null, dir);
+            p.waitFor();
+            if(debug)
+                result.append(getExecResult(p));
+
+            // generate code and save to filesystem
+            TableModel model = new TableModel(id);
+
+            String javaPath = model.getJavaPath();
+            FileUtils.writeStringToFile(new File(dir+File.separator+"src"+File.separator+javaPath), model.genJavaCode(), "UTF8");
+
+            String xmlPath = model.getXmlPath();
+            FileUtils.writeStringToFile(new File(dir+File.separator+"src"+File.separator+xmlPath), model.genXmlCode(), "UTF8");
+
+            // svn add
+            cmd = "svn add " + "src" + File.separator + javaPath;
+            p = Runtime.getRuntime().exec(cmd, null, dir);
+            p.waitFor();
+            if (debug)
+                result.append(getExecResult(p));
+
+            cmd = "svn add " + "src" + File.separator + xmlPath;
+            p = Runtime.getRuntime().exec(cmd, null, dir);
+            p.waitFor();
+            if (debug)
+                result.append(getExecResult(p));
+
+            // svn commit
+            cmd = "svn commit -m BssimGenerator";
+            p = Runtime.getRuntime().exec(cmd, null, dir);
+            p.waitFor();
+            result.append(getExecResult(p));
+
+            setMessage(result.toString());
+
+            redirect_to("/gen/" + id);
+        } catch (InterruptedException e) {
+            throw new ControllerException("版本库操作异常！"+e.getMessage());
+        }
+
     }
 
-    private String getExecResult(InputStream in) throws IOException{
-        byte[] buffer = new byte[in.available()];
-        in.read(buffer);
-        return new String(buffer, "UTF-8");
+    private String getExecResult(Process p) throws IOException{
+        byte[] buffer;
+        StringBuilder result = new StringBuilder();
+        InputStream in = p.getInputStream();
+        InputStream err = p.getErrorStream();
+
+        if (in.available() > 0) {
+            buffer = new byte[in.available()];
+            in.read(buffer);
+            result.append(new String(buffer));
+        }
+
+        if (err.available() > 0) {
+            buffer = new byte[err.available()];
+            err.read(buffer);
+            result.append(new String(buffer));
+        }
+
+        return result.toString();
     }
 }
