@@ -52,7 +52,11 @@ public class ColumnModel {
         StringBuilder result = new StringBuilder();
 
         String[] tokens = this.name.toLowerCase().split("_");
-        result.append(tokens[0].toLowerCase());
+        // for conforming javabean specification:
+        //     “FooBah” becomes “fooBah”
+        //     “Z” becomes “z”
+        //     “URL” becomes “URL”
+        result.append(tokens.length > 1 && tokens[0].length() == 1 ? tokens[0].toUpperCase() : tokens[0].toLowerCase());
         for(int i=1; i<tokens.length; i++){
             result.append(StringUtils.capitalize(tokens[i]));
         }
