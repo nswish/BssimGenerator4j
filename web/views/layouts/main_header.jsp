@@ -29,14 +29,14 @@
     <div id="message" class="<%=messageStatus%>">
         <% if (request.getAttribute("message") != null) { %>
         <div class="width1000 center">
+            <a id="message_close_tag" style="text-decoration: none;color: white;float: right;margin-right:3px;" href="#">X</a>
             <pre id="message_text"><%= request.getAttribute("message") %></pre>
         </div>
         <script>
-            var dismissMsg = function() {
+            $('#message_close_tag').bind('click', function() {
                 $('#message').removeClass('success').removeClass('error').addClass('no-message');
-                $('#message_text').remove();
-            }
-            $('#message_text').bind('dblclick', dismissMsg);
+                $('#message_text').parent().empty();
+            });
         </script>
         <% } %>
     </div>

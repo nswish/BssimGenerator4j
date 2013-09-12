@@ -20,12 +20,12 @@ import java.lang.reflect.Method;
  *
  * 路由规则：
  *    动词：GET
- *    /resource           -> index
- *    /resource/id        -> show
+ *    /controller           -> controller.index
+ *    /controller/id        -> controller.show
  *
  *    动词：POST
- *    /resource/action    -> action
- *    /resource/id/action -> action
+ *    /controller/action    -> controller.action
+ *    /controller/id/action -> controller.action
  */
 public abstract class ApplicationController  extends HttpServlet {
     public static String BASE_PATH = "/tmp";

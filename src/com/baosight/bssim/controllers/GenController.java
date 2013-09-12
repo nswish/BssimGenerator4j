@@ -1,12 +1,11 @@
 package com.baosight.bssim.controllers;
 
 import com.baosight.bssim.exceptions.ControllerException;
-import com.baosight.bssim.exceptions.ModelException;
+import com.baosight.bssim.helpers.DatabaseHelperFactory;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import com.baosight.bssim.models.ConfigModel;
 import com.baosight.bssim.models.TableModel;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,15 +25,7 @@ public class GenController extends ApplicationController {
             req.setAttribute("result", result);
 
             JSONObject config = new ConfigModel("GlobalConfig").getJson();
-            String database = config.getString("database") == null ? "oracle" : config.getString("database");
-            String clazz = "com.baosight.bssim.helpers." + StringUtils.capitalize(database) + "Helper";
-
-            DatabaseHelper helper;
-            try{
-                helper = (DatabaseHelper)Class.forName(clazz).newInstance();
-            } catch (Exception ex) {
-                throw new ModelException("未找到类: "+clazz);
-            }
+            DatabaseHelper helper = DatabaseHelperFactory.newInstance();
 
             JSONArray userTables = config.optJSONArray("user_tables");
             if(userTables == null)
@@ -45,6 +36,7 @@ public class GenController extends ApplicationController {
                 JSONArray tables = userTables.getJSONObject(i).optJSONArray("tables");
 
                 if (user == null || tables == null)continue;
+
                 List row = helper.queryTableList(user, "'" + tables.join("', '").replaceAll("\"","") + "'");
 
                 if (row.size() == 0)continue;
@@ -104,10 +96,10 @@ public class GenController extends ApplicationController {
             TableModel model = new TableModel(id);
 
             String javaPath = model.getJavaPath();
-            FileUtils.writeStringToFile(new File(dir+File.separator+"src"+File.separator+javaPath), model.genJavaCode(), "UTF8");
+            FileUtils.writeStringToFile(new File(dir + File.separator + "src" + File.separator + javaPath), model.genJavaCode(), "UTF8");
 
             String xmlPath = model.getXmlPath();
-            FileUtils.writeStringToFile(new File(dir+File.separator+"src"+File.separator+xmlPath), model.genXmlCode(), "UTF8");
+            FileUtils.writeStringToFile(new File(dir + File.separator + "src" + File.separator + xmlPath), model.genXmlCode(), "UTF8");
 
             // svn add
             cmd = "svn add " + "src" + File.separator + javaPath;
@@ -130,9 +122,10 @@ public class GenController extends ApplicationController {
 
             setMessage(result.toString());
 
-            redirect_to("/gen/" + id);
         } catch (InterruptedException e) {
             throw new ControllerException("版本库操作异常！"+e.getMessage());
+        } finally {
+            redirect_to("/gen/" + id);
         }
 
     }

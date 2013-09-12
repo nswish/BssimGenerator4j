@@ -1,9 +1,9 @@
 package com.baosight.bssim.models;
 
 import com.baosight.bssim.exceptions.ModelException;
+import com.baosight.bssim.helpers.DatabaseHelperFactory;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
 
 import java.io.File;
 
@@ -63,18 +63,9 @@ public class TableModel {
         this.schemaName = schemaName.trim().toUpperCase();
         this.tableName = tableName.trim().toUpperCase();
 
-        JSONObject config = new ConfigModel("GlobalConfig").getJson();
-        String database = config.getString("database") == null ? "oracle" : config.getString("database");
-        String clazz = "com.baosight.bssim.helpers." + StringUtils.capitalize(database) + "Helper";
-
-        try{
-            this.helper = (DatabaseHelper)Class.forName(clazz).newInstance();
-        } catch (Exception ex) {
-            throw new ModelException("未找到类: "+clazz);
-        }
+        this.helper = DatabaseHelperFactory.newInstance();
 
         this.queryTableComment();
-        this.createColumns();
 
         this.tableConfig = new ConfigModel(getFullTableName());
         this.javaModel = new JavaModel(this);
@@ -173,6 +164,8 @@ public class TableModel {
      * 字段
      */
     public ColumnModel[] getColumns() {
+        if (this.columns == null)
+            this.createColumns();
         return this.columns;
     }
 
@@ -180,6 +173,9 @@ public class TableModel {
      * 字段(不包含ID)
      */
     public ColumnModel[] getColumnsWithoutId() {
+        if (this.columns == null)
+            this.createColumns();
+
         ColumnModel[] result = new ColumnModel[this.columns.length - 1];
         for (int i=0, j=0; i<this.columns.length; i++) {
             if (!"ID".equals(this.columns[i].getName())){
@@ -218,15 +214,19 @@ public class TableModel {
      * Java 文件的存放路径
      */
     public String getJavaPath() {
-        return getFullClassName().replaceAll("\\.", File.separator) + "." + "java";
+        return "com" + File.separator + "baosight" + File.separator + "bssim" + File.separator
+                + getFirstModuleName().toLowerCase()
+                + (StringUtils.isBlank(getSecondModuleName()) ? "" : File.separator + getSecondModuleName().toLowerCase())
+                + File.separator + "domain" + File.separator + "model" + File.separator + getClassName()+ ".java";
     }
 
     /**
      * Xml 文件的存放路径
      */
     public String getXmlPath() {
-        return ("com.baosight.bssim." + getFirstModuleName().toLowerCase()
-                + (StringUtils.isBlank(getSecondModuleName()) ? "" : "." + getSecondModuleName().toLowerCase())
-                + ".sql." + getTableName().substring(1)).replaceAll("\\.", File.separator) + "E.xml";
+        return "com" + File.separator + "baosight" + File.separator + "bssim" + File.separator
+                + getFirstModuleName().toLowerCase()
+                + (StringUtils.isBlank(getSecondModuleName()) ? "" : File.separator + getSecondModuleName().toLowerCase())
+                + File.separator + "sql" + File.separator + getTableName().substring(1) + "E.xml";
     }
 }

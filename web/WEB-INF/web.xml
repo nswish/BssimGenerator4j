@@ -6,11 +6,11 @@
            version="2.5">
 
     <servlet>
-        <servlet-name>Generator</servlet-name>
+        <servlet-name>Gen</servlet-name>
         <servlet-class>com.baosight.bssim.controllers.GenController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Generator</servlet-name>
+        <servlet-name>Gen</servlet-name>
         <url-pattern>/gen/*</url-pattern>
     </servlet-mapping>
 

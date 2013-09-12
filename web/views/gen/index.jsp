@@ -66,6 +66,7 @@
             </table>
         </div>
     </div>
+    <br />
     <% } %>
 </div>
 <jsp:include page="/views/layouts/main_footer.jsp" />

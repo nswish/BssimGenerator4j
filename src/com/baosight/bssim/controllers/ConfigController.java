@@ -40,5 +40,6 @@ public class ConfigController extends ApplicationController {
             render("/views/config/index.jsp");
         }
 
+
     }
 }
