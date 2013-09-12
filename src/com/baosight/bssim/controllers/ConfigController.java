@@ -17,7 +17,7 @@ import java.io.IOException;
 public class ConfigController extends ApplicationController {
     private void index(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
         ConfigModel config = new ConfigModel("GlobalConfig");
-        req.setAttribute("config", config.getFileContent());
+        req.setAttribute("configuration", config.getFileContent());
 
         try {
             config.getJson();
@@ -36,7 +36,6 @@ public class ConfigController extends ApplicationController {
             redirect_to("/config");
         } catch (Exception ex) {
             setMessage(ex);
-            req.setAttribute("config", req.getParameter("configuration"));
             render("/views/config/index.jsp");
         }
 

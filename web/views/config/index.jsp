@@ -26,7 +26,7 @@
 
 <form id="config" name="config" method="POST" action="/config/update">
     <div id="config_div">
-        <textarea id="configuration" name="configuration"><%=request.getAttribute("config")%></textarea>
+        <textarea id="configuration" name="configuration"><%=request.getAttribute("configuration")%></textarea>
     </div>
     <a href="javascript: document.config.submit();" class="btn pull-right">保存</a>
 </form>

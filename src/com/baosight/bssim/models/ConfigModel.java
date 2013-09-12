@@ -75,7 +75,7 @@ public class ConfigModel {
 
             FileUtils.writeStringToFile(this.configFile, this.fileContent, "UTF-8");
         } catch (Exception ex){
-            throw new ModelException(ex.getMessage());
+            throw new ModelException("json格式转换出错！"+ex.getMessage());
         }
     }
 }

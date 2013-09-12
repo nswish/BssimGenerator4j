@@ -62,11 +62,17 @@ public class GenController extends ApplicationController {
     private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String id = req.getAttribute("id")+"";
 
-        ConfigModel config = new ConfigModel(id);
-        config.save(req.getParameter("script_content"));
-
-        setMessage("已保存...");
-        redirect_to("/gen/"+id);
+        try{
+            ConfigModel config = new ConfigModel(id);
+            config.save(req.getParameter("script_content"));
+            setMessage("已保存...");
+            redirect_to("/gen/"+id);
+        } catch (Exception ex) {
+            show(req, resp);
+            req.setAttribute("script_content", req.getParameter("script_content"));
+            setMessage(ex);
+            render("/views/gen/show.jsp");
+        }
     }
 
     private void commit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

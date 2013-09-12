@@ -4,7 +4,7 @@
     String id = request.getAttribute("id")+"";
     String script_content = request.getAttribute("script_content")+"";
     String javaCode = request.getAttribute("javaCode")+"";
-    String xml_code = request.getAttribute("xmlCode")+"";
+    String xmlCode = request.getAttribute("xmlCode")+"";
 %>
 
 <jsp:include page="/views/layouts/main_header.jsp" />
@@ -28,7 +28,7 @@
             theme : 'eclipse'
         }).setSize('100%', 'auto');
 
-        CodeMirror.fromTextArea($('#xml_code').get(0), {
+        CodeMirror.fromTextArea($('#xmlCode').get(0), {
             mode : 'xml',
             theme : 'eclipse'
         }).setSize('100%', 'auto');
@@ -73,15 +73,15 @@
     <a href="javascript: showxml();">Xml</a>
 </div>
 
-<div id="java_div" style="border: 1px grey dashed;">
-    <textarea id="javaCode" name="javaCode"><%=javaCode%></textarea>
-</div>
+<form id="gen_code_form" method="POST" action="/gen/<%=id%>/commit">
+    <div id="java_div" style="border: 1px grey dashed;">
+        <textarea id="javaCode" name="javaCode"><%=javaCode%></textarea>
+    </div>
 
-<div id="xml_div" style="border: 1px grey dashed;">
-    <textarea id="xml_code" name="xml_code"><%=xml_code%></textarea>
-</div>
-
-<form id="gen_code_form" method="POST" action="/gen/<%=id%>/commit"></form>
+    <div id="xml_div" style="border: 1px grey dashed;">
+        <textarea id="xmlCode" name="xmlCode"><%=xmlCode%></textarea>
+    </div>
+</form>
 
 <br />
 

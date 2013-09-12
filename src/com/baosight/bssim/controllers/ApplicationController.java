@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Enumeration;
 
 /**
  * 此类负责：
@@ -37,6 +38,12 @@ public abstract class ApplicationController  extends HttpServlet {
     private Object message;
 
     public void service(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+        Enumeration enu = req.getParameterNames();
+        for (;enu.hasMoreElements();) {
+            String name = enu.nextElement().toString();
+            req.setAttribute(name, req.getParameter(name));
+        }
+
         super.service(req, resp);
 
         Object message = getMessage();
@@ -57,6 +64,7 @@ public abstract class ApplicationController  extends HttpServlet {
             RequestDispatcher dispatcher;
             if(this.render_path != null){
                 dispatcher = req.getRequestDispatcher(render_path);
+                this.render_path = null;
             } else {
                 this.controller = StringUtils.strip(req.getServletPath(), "/").split("/")[0];
                 dispatcher = req.getRequestDispatcher("/views/"+this.controller+"/"+this.methodName+".jsp");
