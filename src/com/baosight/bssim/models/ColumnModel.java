@@ -56,7 +56,18 @@ public class ColumnModel {
         //     “FooBah” becomes “fooBah”
         //     “Z” becomes “z”
         //     “URL” becomes “URL”
-        result.append(tokens.length > 1 && tokens[0].length() == 1 ? tokens[0].toUpperCase() : tokens[0].toLowerCase());
+        //     "f_invoice_no" becomes "f_invoiceNo"
+        if (tokens.length > 1 && tokens[0].length() == 1) {
+            String[] tempTokens = tokens;
+            tokens = new String[tempTokens.length - 1];
+
+            tokens[0] = tempTokens[0] + "_" + tempTokens[1];
+            for (int i=1; i<tokens.length; i++) {
+                tokens[i] = tempTokens[i+1];
+            }
+        }
+
+        result.append(tokens[0].toLowerCase());
         for(int i=1; i<tokens.length; i++){
             result.append(StringUtils.capitalize(tokens[i]));
         }

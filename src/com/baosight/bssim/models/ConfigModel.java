@@ -20,6 +20,7 @@ import java.io.File;
  *      database_password : 'simdvlp'
  *
  *      svn_repo_path     : 'path_to_svn_repo'
+ *      svn_debug         : false
  *
  *      user_tables : [{
  *          user   ：'XSSA',
