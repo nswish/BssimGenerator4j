@@ -142,8 +142,25 @@ public class JavaModel {
         // static methods -- find(Long id)
         content = new StringBuilder()
                 .append("public static " + table.getClassName() + " find(Long id) {\n")
+                .append("    return find(id, false);\n")
+                .append("}");
+
+        this.addMethod(this.classMethods, content.toString(), "按id查找");
+
+        // static methods -- findWithLock(Long id)
+        content = new StringBuilder()
+                .append("public static " + table.getClassName() + " findWithLock(Long id) {\n")
+                .append("    return find(id, true);\n")
+                .append("}");
+
+        this.addMethod(this.classMethods, content.toString(), "按id查找(上锁)");
+
+        // static methods -- find(Long id, boolean isLocked)
+        content = new StringBuilder()
+                .append("private static " + table.getClassName() + " find(Long id, boolean isLocked) {\n")
                 .append("    Map arg = new HashMap();\n")
                 .append("    arg.put(\"id\", id);\n")
+                .append("    if(isLocked)arg.put(\"forUpdate\", \"FOR UPDATE\");\n")
                 .append("    List<" + table.getClassName() + "> result = getDao().query(\"" + table.getTableName().substring(1) + "E.select_by_id\", arg);\n")
                 .append("\n")
                 .append("    if(result.size() > 0){\n")
@@ -156,25 +173,50 @@ public class JavaModel {
                 .append("    }\n")
                 .append("}");
 
-        this.addMethod(this.classMethods, content.toString(), "按id查找");
+        this.addMethod(this.classMethods, content.toString(), "按id查找(可选择是否上锁)");
         this.addImport("java.util.HashMap");
         this.addImport("java.util.List");
 
         // static methods -- find(String id)
         content = new StringBuilder()
                 .append("public static " + table.getClassName() + " find(String id) {\n")
-                .append("    return find(Long.parseLong(id));\n")
+                .append("    return find(Long.parseLong(id), false);\n")
                 .append("}");
 
         this.addMethod(this.classMethods, content.toString(), "按id查找，参数为String类型");
 
+        // static methods -- findWithLock(String id)
+        content = new StringBuilder()
+                .append("public static " + table.getClassName() + " findWithLock(String id) {\n")
+                .append("    return find(Long.parseLong(id), true);\n")
+                .append("}");
+
+        this.addMethod(this.classMethods, content.toString(), "按id查找，参数为String类型(上锁)");
+
         // static methods -- find(Long[] ids)
         content = new StringBuilder()
                 .append("public static " + table.getClassName() + "[] find(Long[] ids) {\n")
+                .append("    return find(ids, false);\n")
+                .append("}");
+
+        this.addMethod(this.classMethods, content.toString(), "按id数组查找\n如果结果集包含的项数少于id数组的项数，则抛出异常");
+
+        // static methods -- findWithLock(Long[] ids)
+        content = new StringBuilder()
+                .append("public static " + table.getClassName() + "[] findWithLock(Long[] ids) {\n")
+                .append("    return find(ids, true);\n")
+                .append("}");
+
+        this.addMethod(this.classMethods, content.toString(), "按id数组查找(上锁)\n如果结果集包含的项数少于id数组的项数，则抛出异常");
+
+        // static methods -- find(Long[] ids, boolean isLocked)
+        content = new StringBuilder()
+                .append("private static " + table.getClassName() + "[] find(Long[] ids, boolean isLocked) {\n")
                 .append("    if(ids == null || ids.length == 0) throw new ModelException(\"id数组不能为null或者空\");\n")
                 .append("\n")
                 .append("    Map arg = new HashMap();\n")
                 .append("    arg.put(\"ids\", ids);\n")
+                .append("    if(isLocked)arg.put(\"forUpdate\", \"FOR UPDATE\");\n")
                 .append("    List<" + table.getClassName() + "> result = getDao().query(\"" + table.getTableName().substring(1) + "E.select_by_ids\", arg);\n")
                 .append("\n")
                 .append("    if(result.size() != ids.length) {\n")
@@ -184,7 +226,7 @@ public class JavaModel {
                 .append("    }\n")
                 .append("}");
 
-        this.addMethod(this.classMethods, content.toString(), "按id数组查找\n如果结果集包含的项数少于id数组的项数，则抛出异常");
+        this.addMethod(this.classMethods, content.toString(), "按id数组查找(可选择是否上锁)\n如果结果集包含的项数少于id数组的项数，则抛出异常");
         this.addImport("com.baosight.bssim.common.exception.ModelException");
 
         // static methods -- q(String sqlmap, Map arg)

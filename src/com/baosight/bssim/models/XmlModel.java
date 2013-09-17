@@ -29,7 +29,10 @@ public class XmlModel {
                 .append("SELECT\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
                 .append("FROM " + table.getFullTableName() + "\n")
-                .append("WHERE ID = #id#");
+                .append("WHERE ID = #id#\n\n")
+                .append("<isNotEmpty property=\"forUpdate\">\n")
+                .append("    $forUpdate$\n")
+                .append("</isNotEmpty>");
 
         this.addSelect("select_by_id", "java.util.HashMap", table.getFullClassName(), content.toString());
 
@@ -42,7 +45,10 @@ public class XmlModel {
                 .append("<iterate property=\"ids\" conjunction=\",\" open=\"(\" close=\")\">\n")
                 .append("    #ids[]#\n")
                 .append("</iterate>\n")
-                .append("ORDER BY ID");
+                .append("ORDER BY ID\n\n")
+                .append("<isNotEmpty property=\"forUpdate\">\n")
+                .append("    $forUpdate$\n")
+                .append("</isNotEmpty>");
 
         this.addSelect("select_by_ids", "java.util.HashMap", table.getFullClassName(), content.toString());
 
@@ -64,6 +70,9 @@ public class XmlModel {
                 .append("\n")
                 .append("<isNotEmpty prepend=\" ORDER BY \" property=\"orderBy\">\n")
                 .append("    $orderBy$\n")
+                .append("</isNotEmpty>\n\n")
+                .append("<isNotEmpty property=\"forUpdate\">\n")
+                .append("    $forUpdate$\n")
                 .append("</isNotEmpty>");
 
         this.addSelect("select_ex", "java.util.HashMap", table.getFullClassName(), content.toString());
