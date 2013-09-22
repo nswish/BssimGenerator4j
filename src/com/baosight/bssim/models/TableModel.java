@@ -200,6 +200,7 @@ public class TableModel {
      * 生成 Java 代码
      */
     public String genJavaCode() {
+        checkRequirement();
         return this.javaModel.toCode();
     }
 
@@ -207,7 +208,23 @@ public class TableModel {
      * 生成 Xml 代码
      */
     public String genXmlCode() {
+        checkRequirement();
         return this.xmlModel.toCode();
+    }
+
+    private void checkRequirement() {
+        boolean idFlag = false;
+        for (int i=0; i<getColumns().length; i++) {
+            ColumnModel column = getColumns()[i];
+            if ("ID".equals(column.getName())){
+                idFlag = true;
+                break;
+            }
+        }
+
+        if (!idFlag) {
+            throw new ModelException("因为数据表[" + this.getFullTableName() + "]没有ID字段，所以无法正确生成代码！");
+        }
     }
 
     /**

@@ -90,6 +90,7 @@ public abstract class ApplicationController  extends HttpServlet {
             method.invoke(this, req, resp);
         } catch (InvocationTargetException e){
             setMessage(e.getTargetException());
+            e.printStackTrace();
         } catch (Exception e) {
             setMessage(e);
         }

@@ -107,6 +107,27 @@ public class GenController extends ApplicationController {
             String xmlPath = model.getXmlPath();
             FileUtils.writeStringToFile(new File(dir + File.separator + "src" + File.separator + xmlPath), model.genXmlCode(), "UTF8");
 
+            // svn status
+            cmd = "svn status";
+            p = Runtime.getRuntime().exec(cmd, null, dir);
+            p.waitFor();
+            String statusMsg = getExecResult(p);
+            if (debug)
+                result.append(getExecResult(p));
+
+            // svn add
+            String[] addTokens = statusMsg.split("\n");
+            for (int i=0; i<addTokens.length; i++) {
+                int index = addTokens[i].indexOf("src/com/baosight");
+                if (index > -1) {
+                    cmd = "svn add " + addTokens[i].substring(index);
+                    p = Runtime.getRuntime().exec(cmd, null, dir);
+                    p.waitFor();
+                    if (debug)
+                        result.append(getExecResult(p));
+                }
+            }
+/*
             // svn add
             cmd = "svn add " + "src" + File.separator + javaPath;
             p = Runtime.getRuntime().exec(cmd, null, dir);
@@ -119,6 +140,7 @@ public class GenController extends ApplicationController {
             p.waitFor();
             if (debug)
                 result.append(getExecResult(p));
+*/
 
             // svn commit
             cmd = "svn commit -m BssimGenerator";

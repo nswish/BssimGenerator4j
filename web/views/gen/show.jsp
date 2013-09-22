@@ -1,10 +1,11 @@
+<%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
     String id = request.getAttribute("id")+"";
-    String script_content = request.getAttribute("script_content")+"";
-    String javaCode = request.getAttribute("javaCode")+"";
-    String xmlCode = request.getAttribute("xmlCode")+"";
+    String script_content = StringUtils.defaultIfBlank((String)request.getAttribute("script_content"), "");
+    String javaCode = StringUtils.defaultIfBlank((String)request.getAttribute("javaCode"), "");
+    String xmlCode = StringUtils.defaultIfBlank((String)request.getAttribute("xmlCode"), "");
 %>
 
 <jsp:include page="/views/layouts/main_header.jsp" />
