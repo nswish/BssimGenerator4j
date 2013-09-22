@@ -95,8 +95,9 @@ public class XmlModel {
         content = new StringBuilder()
                 .append("UPDATE " + table.getFullTableName() + "\n")
                 .append("SET ID = ID\n")
-                .append(CodeHelper.concatFragments(table.getColumnsWithoutId(), "UpdateWithSet", "\n")).append("\n")
-                .append("WHERE ID = #id#");
+                .append(CodeHelper.concatFragments(table.getColumnsWithoutId(), "UpdateWithSet", "\n")).append("\n\n")
+                .append("WHERE ID = #id#\n\n")
+                .append(CodeHelper.concatFragments(table.getColumnsWithoutId(), "UpdateWithWhere", "\n"));
 
         this.addUpdate("update_by_id", content.toString());
     }

@@ -3,13 +3,6 @@ package com.baosight.bssim.models;
 import com.baosight.bssim.helpers.CodeHelper;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * Created with IntelliJ IDEA.
- * User: ns
- * Date: 13-8-30
- * Time: 下午4:22
- * To change this template use File | Settings | File Templates.
- */
 public class ColumnModel {
     private String  name;
     private String  comment;
@@ -75,8 +68,16 @@ public class ColumnModel {
         return result.toString();
     }
 
+    public String getUnderscoreCamelName() {
+        return new StringBuilder().append("_").append(this.getCamelName()).toString();
+    }
+
     public String getQuoteCamelName() {
         return new StringBuilder().append("\"").append(this.getCamelName()).append("\"").toString();
+    }
+
+    public String getQuoteUnderscoreCamelName() {
+        return new StringBuilder().append("\"").append(this.getUnderscoreCamelName()).append("\"").toString();
     }
 
     public String getCapName(){
@@ -177,7 +178,7 @@ public class ColumnModel {
 
     public String fragmentForSetter() {
         return new StringBuilder().append("public void " + getSetterName() + "(" + getJavaType() + " " + getCamelName()).append(") {\n")
-                                  .append("    if(this.isInDB)taintedAttrs.put(" + getQuoteCamelName() + ", " + getCamelName()).append(");\n")
+                                  .append("    if(this.isInDB && !taintedAttrs.containsKey(" + getQuoteCamelName() + "))taintedAttrs.put(" + getQuoteCamelName() + ", this." + getCamelName()).append(");\n")
                                   .append("    this." + getCamelName() + " = " + getCamelName()).append(";\n")
                                   .append("}")
                                   .toString();
@@ -255,6 +256,12 @@ public class ColumnModel {
     public String fragmentForUpdateWithSet() {
         return new StringBuilder().append("<isNotEmpty property=" + getQuoteCamelName() + ">\n")
                                   .append("    ," + getName() + " = #" + getCamelName() + "#\n")
+                                  .append("</isNotEmpty>").toString();
+    }
+
+    public String fragmentForUpdateWithWhere() {
+        return new StringBuilder().append("<isNotEmpty prepend=\" AND \" property=" + getQuoteUnderscoreCamelName() + ">\n")
+                                  .append("    " + getName() + " = #" + getUnderscoreCamelName() + "#\n")
                                   .append("</isNotEmpty>").toString();
     }
 

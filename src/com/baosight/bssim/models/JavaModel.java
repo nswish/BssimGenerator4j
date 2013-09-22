@@ -103,6 +103,13 @@ public class JavaModel {
         StringBuilder content;
         JSONObject configJson = this.table.getTableConfig().getJson();
 
+        // instanceMethods -- getVersion
+        content = new StringBuilder()
+                .append("public int getVersion() {\n")
+                .append("    return 1;")
+                .append("}");
+        this.addMethod(this.instanceMethods, content.toString(), "生成代码的版本号");
+
         // fieldsAndColumns -- fields
         content = new StringBuilder()
                 .append("public static class fields {\n")
