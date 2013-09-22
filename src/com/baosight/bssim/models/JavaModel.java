@@ -341,6 +341,7 @@ public class JavaModel {
                         .append("}");
 
                 this.addMethod(this.instanceMethods, content.toString(), "关联 "+anotherOne.getComment());
+                this.addImport(anotherOne.getFullClassName());
             }
         }
 
@@ -375,6 +376,7 @@ public class JavaModel {
                         .append("}");
 
                 this.addMethod(this.instanceMethods, content.toString(), "关联 " + anotherOne.getComment());
+                this.addImport(anotherOne.getFullClassName());
             }
         }
     }
