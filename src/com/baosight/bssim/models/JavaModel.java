@@ -1,5 +1,6 @@
 package com.baosight.bssim.models;
 
+import com.baosight.bssim.exceptions.ModelException;
 import com.baosight.bssim.helpers.CodeHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -106,7 +107,7 @@ public class JavaModel {
         // instanceMethods -- getVersion
         content = new StringBuilder()
                 .append("public int getVersion() {\n")
-                .append("    return 1;")
+                .append("    return 1;\n")
                 .append("}");
         this.addMethod(this.instanceMethods, content.toString(), "生成代码的版本号");
 
@@ -333,11 +334,17 @@ public class JavaModel {
         JSONArray belongsTo = configJson.optJSONArray("belongs_to");
         if (belongsTo != null) {
             for(int i=0; i<belongsTo.length(); i++) {
-                TableModel anotherOne = new TableModel(belongsTo.getString(i));
+                JSONObject json = convertRelationConfig(belongsTo.get(i));
+                
+                String fullName = json.getString("table"); // 关系表全名，例如：XSSD.TSDSD01
+                String suffix = json.optString("suffix", "");
+                
+                TableModel anotherOne = new TableModel(fullName);
+                String table_name = anotherOne.getClassName().toLowerCase();
 
                 content = new StringBuilder()
-                        .append("public " + anotherOne.getClassName() + " " + anotherOne.getClassName().toLowerCase() +"() {\n")
-                        .append("    return " + anotherOne.getClassName() + ".find(this." + anotherOne.getClassName().toLowerCase() + "Id);\n")
+                        .append("public " + anotherOne.getClassName() + " " + table_name + ("".equals(suffix) ? suffix : ("By" + suffix)) +"() {\n")
+                        .append("    return " + anotherOne.getClassName() + ".find(this." + table_name + "Id" + suffix + ");\n")
                         .append("}");
 
                 this.addMethod(this.instanceMethods, content.toString(), "关联 "+anotherOne.getComment());
@@ -349,13 +356,19 @@ public class JavaModel {
         JSONArray hasMany = configJson.optJSONArray("has_many");
         if (hasMany != null) {
             for(int i=0; i<hasMany.length(); i++) {
-                TableModel anotherOne = new TableModel(hasMany.getString(i));
+                JSONObject json = convertRelationConfig(hasMany.get(i));
 
+                String fullName = json.getString("table"); // 关系表全名，例如：XSSD.TSDSD02
+                String suffix = json.optString("suffix", "");
+                String columnName = table.getTableName() + "_ID" + ("".equals(suffix) ? suffix : ("_" + suffix.toUpperCase()));
+                
+                TableModel anotherOne = new TableModel(fullName);
+                
                 content = new StringBuilder()
-                        .append("public ModelQuerier " + anotherOne.getClassName().toLowerCase() + "s() {\n")
+                        .append("public ModelQuerier " + anotherOne.getClassName().toLowerCase() + ("".equals(suffix) ? suffix : ("By" + suffix)) + "s() {\n")
                         .append("    Map arg = new HashMap();\n")
-                        .append("    arg.put(\"" + table.getClassName().toLowerCase() + "Id\", this.id);\n")
-                        .append("    return new ModelQuerier(\"" + anotherOne.getFullTableName() + "\", \"" + table.getTableName() + "_ID = #" + table.getTableName().toLowerCase() + "Id#\", arg);\n")
+                        .append("    arg.put(\"" + CodeHelper.toCamel(columnName) +"\", this.id);\n")
+                        .append("    return new ModelQuerier(" + anotherOne.getQuoteFullTableName() + ", \"" + columnName + " = #" + CodeHelper.toCamel(columnName) + "#\", arg);\n")
                         .append("}");
 
                 this.addMethod(this.instanceMethods, content.toString(), "关联 " + anotherOne.getComment());
@@ -366,7 +379,9 @@ public class JavaModel {
         JSONArray hasOne = configJson.optJSONArray("has_one");
         if (hasOne != null) {
             for(int i=0; i<hasOne.length(); i++) {
-                TableModel anotherOne = new TableModel(hasOne.getString(i));
+                JSONObject json = convertRelationConfig(hasOne.getString(i));
+
+                TableModel anotherOne = new TableModel(json.getString("table"));
 
                 content = new StringBuilder()
                         .append("public " + anotherOne.getClassName() + " " + anotherOne.getTableName().toLowerCase() + "() {\n")
@@ -424,5 +439,20 @@ public class JavaModel {
 
     public void addMethod(List list, String content, String comment) {
         list.add(new StringBuilder().append(CodeHelper.formatComment(comment)).append("\n").append(content));
+    }
+
+    private JSONObject convertRelationConfig(Object configFragment) {
+        JSONObject json;
+
+        if(configFragment instanceof String){
+            json = new JSONObject();
+            json.put("table", configFragment);
+        }else if(configFragment instanceof JSONObject){
+            json = (JSONObject)configFragment;
+        }else{
+            throw new ModelException("不合法的配置！");
+        }
+
+        return json;
     }
 }

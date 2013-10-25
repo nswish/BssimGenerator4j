@@ -45,4 +45,31 @@ public class CodeHelper {
             throw new ModelException(ex.getMessage());
         }
     }
+    
+    public static String toCamel(String name) {
+        StringBuilder result = new StringBuilder();
+
+        String[] tokens = name.toLowerCase().split("_");
+        // for conforming javabean specification:
+        //     “FooBah” becomes “fooBah”
+        //     “Z” becomes “z”
+        //     “URL” becomes “URL”
+        //     "f_invoice_no" becomes "f_invoiceNo"
+        if (tokens.length > 1 && tokens[0].length() == 1) {
+            String[] tempTokens = tokens;
+            tokens = new String[tempTokens.length - 1];
+
+            tokens[0] = tempTokens[0] + "_" + tempTokens[1];
+            for (int i=1; i<tokens.length; i++) {
+                tokens[i] = tempTokens[i+1];
+            }
+        }
+
+        result.append(tokens[0].toLowerCase());
+        for(int i=1; i<tokens.length; i++){
+            result.append(StringUtils.capitalize(tokens[i]));
+        }
+
+        return result.toString();
+    }
 }
