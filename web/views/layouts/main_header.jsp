@@ -25,7 +25,7 @@
                 <li><a href="/config">配置</a></li>
             </ul>
             <ul class="nav">
-                <li><a href="/doc">文档</a></li>
+                <li><a href="/doc/main">文档</a></li>
             </ul>
         </div>
     </div>

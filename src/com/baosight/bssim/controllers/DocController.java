@@ -17,9 +17,10 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class DocController extends ApplicationController {
-    private void index(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String content = FileUtils.readFileToString(new File(ApplicationController.BASE_PATH+"/docs/main.md"), "UTF-8");
+    private void show(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String id = req.getAttribute("id")+"";
 
+        String content = FileUtils.readFileToString(new File(ApplicationController.BASE_PATH + "/docs/" +id + ".md"), "UTF-8");
         req.setAttribute("content", new PegDownProcessor().markdownToHtml(content));
     }
 }

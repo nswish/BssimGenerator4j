@@ -3,4 +3,6 @@
 <div>
     <%=request.getAttribute("content")%>
 </div>
+
+<br />
 <jsp:include page="/views/layouts/main_footer.jsp" />
