@@ -104,7 +104,7 @@ _注意：在使用以上内容作为配置模板时，请去除 `# 说明文字
 
     _在下一个版本中，可以通过配置，指定生成代码所属的包名前缀。_
 
-        # 将A表放置于 com.baosight.slms 为前缀的包名下，而不是默认的 com.baosight.bssim
+        # 放置于 com.baosight.slms 为前缀的包名下，而不是默认的 com.baosight.bssim
         {
             "package": "com.baosight.slms"
         }
