@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,6 +157,32 @@ public class GenController extends ApplicationController {
             redirect_to("/gen/" + id);
         }
 
+    }
+
+    private void downloadJava(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String id = req.getAttribute("id")+"";
+        TableModel model = new TableModel(id);
+
+        resp.setContentType("application/x-download");
+        resp.addHeader("Content-Disposition","attachment;filename=" + model.getClassName() + ".java");
+
+        OutputStream out = resp.getOutputStream();
+        out.write(model.genJavaCode().getBytes());
+        out.flush();
+        out.close();
+    }
+
+    private void downloadXml(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String id = req.getAttribute("id")+"";
+        TableModel model = new TableModel(id);
+
+        resp.setContentType("application/x-download");
+        resp.addHeader("Content-Disposition","attachment;filename=" + model.getTableName().substring(1) + "E.XML");
+
+        OutputStream out = resp.getOutputStream();
+        out.write(model.genXmlCode().getBytes());
+        out.flush();
+        out.close();
     }
 
     private String getExecResult(Process p) throws IOException{

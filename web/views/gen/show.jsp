@@ -34,7 +34,9 @@
             theme : 'eclipse'
         }).setSize('100%', 'auto');
 
-        $('#xml_div, #script_div').hide();
+        $('#script_div').hide();
+
+        setTimeout('$("#xml_div").hide()', 500);
     });
 
     var showjava = function() {
@@ -59,6 +61,7 @@
 <div style="border-bottom: grey dashed 1px;">
     <a href="javascript: showscript();"><%= id %></a>
     <a class="pull-right" href='javascript: $("#gen_code_form").submit();'>提交</a>
+    <a class="pull-right" style="margin-right: 10px;" href="javascript: showscript();">编辑</a>
 </div>
 
 <div id="script_div" style="padding-top: 4px;">
@@ -74,15 +77,23 @@
     <a href="javascript: showxml();">Xml</a>
 </div>
 
-<form id="gen_code_form" method="POST" action="/gen/<%=id%>/commit">
-    <div id="java_div" style="border: 1px grey dashed;">
-        <textarea id="javaCode" name="javaCode"><%=javaCode%></textarea>
+<div id="java_div" style="border: 1px grey dashed; overflow: hidden;">
+    <div style="position:relative; margin:-20px 7px 0px 0px; top:22px; float:right;z-index: 11111111;">
+        <a href='javascript: $("#download_java_file_form").submit();'>下载</a>
     </div>
+    <textarea id="javaCode" name="javaCode"><%=javaCode%></textarea>
+</div>
 
-    <div id="xml_div" style="border: 1px grey dashed;">
-        <textarea id="xmlCode" name="xmlCode"><%=xmlCode%></textarea>
+<div id="xml_div" style="border: 1px grey dashed; overflow: hidden;">
+    <div style="position:relative; margin:-20px 7px 0px 0px; top:22px; float:right;z-index: 11111111;">
+        <a href='javascript: $("#download_xml_file_form").submit();'>下载</a>
     </div>
-</form>
+    <textarea id="xmlCode" name="xmlCode"><%=xmlCode%></textarea>
+</div>
+
+<form id="gen_code_form" method="POST" action="/gen/<%=id%>/commit"></form>
+<form id="download_java_file_form" method="POST" action="/gen/<%=id%>/downloadJava"></form>
+<form id="download_xml_file_form" method="POST" action="/gen/<%=id%>/downloadXml"></form>
 
 <br />
 
