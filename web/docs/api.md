@@ -11,7 +11,7 @@
 - [+ ModelClass newInstance()](#newInstance)
 - [+ ModelClass newInstance(Map attr)](#newInstance_attr)
 
-#### 从数据库读取
+#### 读取
 
 - [+ ModelClass find(Long id)](#find_long_id)
 - [+ ModelClass findWithLock(Long id)](#findWithLock_long_id)
@@ -20,11 +20,17 @@
 - <a href="#find_long_ids">+ ModelClass[] find(Long[] ids)</a>
 - <a href="#findWithLock_long_ids">+ ModelClass[] findWithLock(Long[] ids)</a>
 - [+ CustomQuerier q(String sqlmap, Map arg)](#q_sqlmap_arg)
-- [+ ModelQuerier where(Map arg)](where_arg)
+- [+ ModelQuerier where(Map arg)](#where_arg)
+- [+ ModelQuerier where(String where, Map arg)](#where_where_arg)
+
+#### 增删修
+
+- [- void delete()](#delete)
 
 #### 其他
 
 - [- int getVersion()](#getVersion)
+- [- String getFullTableName()](#getFullTableName)
 
 -------------------------------------------------------------------------------------------------
 
@@ -124,13 +130,68 @@
         SELECT ...
         FROM   TSMSR01
         WHERE  COMPANY_CODE = 'DS'
-          AND  PEROIDNUM    = '201401'
+          AND  PEROID_NUM   = '201401'
      */
     Tsmsr01 aModel = Tsmsr01.where(arg).first();   // 取符合条件的第一条记录
 
+#### <a name="where_where_arg">+ ModelQuerier where(String where, Map arg)</a>
+
+比 [+ ModelQuerier where(Map arg)](where_arg) 更为灵活的一个方法。第一个参数是作为where字句的sql语句片段，第二个参数用以替换第一个参数中定义的变量。
+
+    String where = "COMPANY_CODE = #companyCode# AND PEROID_NUM = #periodNum#";
+    Map arg = new HashMap();
+    arg.put("companyCode", "DS");
+    arg.put("periodNum", "201401");
+     /*
+         转换后的SQL：
+
+         SELECT ...
+         FROM   TSMSR01
+         WHERE  COMPANY_CODE = 'DS'
+           AND  PEROID_NUM   = '201401'
+      */
+    Tsmsr01 aModel = Tsmsr01.where(where, arg).first();   // 取符合条件的第一条记录
+
+第一个参数支持<isNotEmpty>标签。
+
+    String where = "COMPANY_CODE = #companyCode#"
+                 + "<isNotEmpty property="peroidNum"> AND PEROID_NUM = #periodNum#</isNotEmpty>";
+    Map arg = new HashMap();
+    arg.put("companyCode", "DS");
+     /*
+         转换后的SQL：
+
+         SELECT ...
+         FROM   TSMSR01
+         WHERE  COMPANY_CODE = 'DS'
+      */
+    Tsmsr01 aModel = Tsmsr01.where(where, arg).first();   // 取符合条件的第一条记录
+
+_&lt;isNotEmpty>标签目前仅支持一个property属性。将来的新版本，会支持更多ibatis的标签和属性_。
+
+#### <a name="getFullTableName">- String getFullTableName()</a>
+
+返回Model实例映射的数据表全名。
+
+    Tsmsr01 aModel = Tsmsr01.newInstance();
+    System.out.println(aModel.getFullTableName());  // 输出 XSSM.TSMSR01
+
+#### <a name="delete">- void delete()</a>
+
+从数据库中删除对应的记录。
+
+    Long id = 1L;
+    Tsmsr01 aModel = Tsmsr01.find(id);
+    if (aModel != null) {
+        aModel.delete();
+        aModel = null;   // 此语句是一种安全写法，可省略。
+                         // 原因：虽然在数据库中，记录已经被删除。但是此时，aModel变量引用的对象未作为垃圾被回收。
+                         //      为了防止aModel被误用，此处将其置为null。作为副作用，该对象因为失去了所有引用，也会成为垃圾将被回收。
+    }
+
 #### [- int getVersion()](#getVersion)
 
-得到Model实例的版本号。
+返回Model实例的版本号。
 
     Tsmsr01 aModel = Tsmsr01.newInstance();
     System.out.println(aModel.getVersion());
