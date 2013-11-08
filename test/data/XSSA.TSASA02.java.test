@@ -1,0 +1,579 @@
+package com.baosight.bssim.sa.sa.domain.model;
+
+import com.baosight.bssim.common.model.ModelEPBase;
+import com.baosight.iplat4j.core.ei.EiColumn;
+import java.util.Map;
+import com.baosight.iplat4j.util.StringUtils;
+import com.baosight.iplat4j.util.NumberUtils;
+import java.util.HashMap;
+import java.util.List;
+import com.baosight.bssim.common.exception.ModelException;
+import net.sf.json.JSONObject;
+import com.baosight.bssim.sa.sa.domain.model.Tsasa01;
+import com.baosight.bssim.sa.sc.domain.model.Tsascc2;
+
+/**
+ * Tsasa02
+ * Table Comment : 货款信息附加属性表
+ * Generate Date : 2013-11-08 08:38:13
+ */
+@SuppressWarnings({"serial", "rawtypes", "unchecked"})
+public class Tsasa02 extends ModelEPBase {
+    private String recCreator = " ";    /*记录创建者*/
+    private String recCreateTime = " ";    /*记录创建时间*/
+    private String recRevisor = " ";    /*记录修改人员*/
+    private String recReviseTime = " ";    /*记录修改时间*/
+    private String archiveFlag = " ";    /*归档标记*/
+    private Long id = new Long(0);    /*ID*/
+    private Long tsasa01Id = new Long(0);    /*货款信息表ID*/
+    private Long tsascc2Id = new Long(0);    /*货款信息配置子表ID*/
+    private String fieldCValue = " ";    /*字符属性值*/
+
+    /**
+     * 按驼峰命名规则的字段名称
+     */
+    public static class fields {
+        /**
+         * 记录创建者
+         */
+        public static final String recCreator = "recCreator";
+        /**
+         * 记录创建时间
+         */
+        public static final String recCreateTime = "recCreateTime";
+        /**
+         * 记录修改人员
+         */
+        public static final String recRevisor = "recRevisor";
+        /**
+         * 记录修改时间
+         */
+        public static final String recReviseTime = "recReviseTime";
+        /**
+         * 归档标记
+         */
+        public static final String archiveFlag = "archiveFlag";
+        /**
+         * ID
+         */
+        public static final String id = "id";
+        /**
+         * 货款信息表ID
+         */
+        public static final String tsasa01Id = "tsasa01Id";
+        /**
+         * 货款信息配置子表ID
+         */
+        public static final String tsascc2Id = "tsascc2Id";
+        /**
+         * 字符属性值
+         */
+        public static final String fieldCValue = "fieldCValue";
+    }
+
+    /**
+     * 按下划线命名规则的字段名称
+     */
+    public static class columns {
+        /**
+         * 记录创建者
+         */
+        public static final String REC_CREATOR = "REC_CREATOR";
+        /**
+         * 记录创建时间
+         */
+        public static final String REC_CREATE_TIME = "REC_CREATE_TIME";
+        /**
+         * 记录修改人员
+         */
+        public static final String REC_REVISOR = "REC_REVISOR";
+        /**
+         * 记录修改时间
+         */
+        public static final String REC_REVISE_TIME = "REC_REVISE_TIME";
+        /**
+         * 归档标记
+         */
+        public static final String ARCHIVE_FLAG = "ARCHIVE_FLAG";
+        /**
+         * ID
+         */
+        public static final String ID = "ID";
+        /**
+         * 货款信息表ID
+         */
+        public static final String TSASA01_ID = "TSASA01_ID";
+        /**
+         * 货款信息配置子表ID
+         */
+        public static final String TSASCC2_ID = "TSASCC2_ID";
+        /**
+         * 字符属性值
+         */
+        public static final String FIELD_C_VALUE = "FIELD_C_VALUE";
+    }
+
+    /**
+     * the constructor
+     */
+    public Tsasa02() {
+        initMetaData();
+    }
+
+    /**
+     * get the recCreator - 记录创建者
+     * @return the recCreator
+     */
+    public String getRecCreator() {
+        return this.recCreator;
+    }
+
+    /**
+     * set the recCreator - 记录创建者
+     */
+    public void setRecCreator(String recCreator) {
+        if(this.isInDB && !taintedAttrs.containsKey("recCreator"))taintedAttrs.put("recCreator", this.recCreator);
+        this.recCreator = recCreator;
+    }
+
+    /**
+     * get the recCreateTime - 记录创建时间
+     * @return the recCreateTime
+     */
+    public String getRecCreateTime() {
+        return this.recCreateTime;
+    }
+
+    /**
+     * set the recCreateTime - 记录创建时间
+     */
+    public void setRecCreateTime(String recCreateTime) {
+        if(this.isInDB && !taintedAttrs.containsKey("recCreateTime"))taintedAttrs.put("recCreateTime", this.recCreateTime);
+        this.recCreateTime = recCreateTime;
+    }
+
+    /**
+     * get the recRevisor - 记录修改人员
+     * @return the recRevisor
+     */
+    public String getRecRevisor() {
+        return this.recRevisor;
+    }
+
+    /**
+     * set the recRevisor - 记录修改人员
+     */
+    public void setRecRevisor(String recRevisor) {
+        if(this.isInDB && !taintedAttrs.containsKey("recRevisor"))taintedAttrs.put("recRevisor", this.recRevisor);
+        this.recRevisor = recRevisor;
+    }
+
+    /**
+     * get the recReviseTime - 记录修改时间
+     * @return the recReviseTime
+     */
+    public String getRecReviseTime() {
+        return this.recReviseTime;
+    }
+
+    /**
+     * set the recReviseTime - 记录修改时间
+     */
+    public void setRecReviseTime(String recReviseTime) {
+        if(this.isInDB && !taintedAttrs.containsKey("recReviseTime"))taintedAttrs.put("recReviseTime", this.recReviseTime);
+        this.recReviseTime = recReviseTime;
+    }
+
+    /**
+     * get the archiveFlag - 归档标记
+     * @return the archiveFlag
+     */
+    public String getArchiveFlag() {
+        return this.archiveFlag;
+    }
+
+    /**
+     * set the archiveFlag - 归档标记
+     */
+    public void setArchiveFlag(String archiveFlag) {
+        if(this.isInDB && !taintedAttrs.containsKey("archiveFlag"))taintedAttrs.put("archiveFlag", this.archiveFlag);
+        this.archiveFlag = archiveFlag;
+    }
+
+    /**
+     * get the id - ID
+     * @return the id
+     */
+    public Long getId() {
+        return this.id;
+    }
+
+    /**
+     * set the id - ID
+     */
+    public void setId(Long id) {
+        if(this.isInDB && !taintedAttrs.containsKey("id"))taintedAttrs.put("id", this.id);
+        this.id = id;
+    }
+
+    /**
+     * get the tsasa01Id - 货款信息表ID
+     * @return the tsasa01Id
+     */
+    public Long getTsasa01Id() {
+        return this.tsasa01Id;
+    }
+
+    /**
+     * set the tsasa01Id - 货款信息表ID
+     */
+    public void setTsasa01Id(Long tsasa01Id) {
+        if(this.isInDB && !taintedAttrs.containsKey("tsasa01Id"))taintedAttrs.put("tsasa01Id", this.tsasa01Id);
+        this.tsasa01Id = tsasa01Id;
+    }
+
+    /**
+     * get the tsascc2Id - 货款信息配置子表ID
+     * @return the tsascc2Id
+     */
+    public Long getTsascc2Id() {
+        return this.tsascc2Id;
+    }
+
+    /**
+     * set the tsascc2Id - 货款信息配置子表ID
+     */
+    public void setTsascc2Id(Long tsascc2Id) {
+        if(this.isInDB && !taintedAttrs.containsKey("tsascc2Id"))taintedAttrs.put("tsascc2Id", this.tsascc2Id);
+        this.tsascc2Id = tsascc2Id;
+    }
+
+    /**
+     * get the fieldCValue - 字符属性值
+     * @return the fieldCValue
+     */
+    public String getFieldCValue() {
+        return this.fieldCValue;
+    }
+
+    /**
+     * set the fieldCValue - 字符属性值
+     */
+    public void setFieldCValue(String fieldCValue) {
+        if(this.isInDB && !taintedAttrs.containsKey("fieldCValue"))taintedAttrs.put("fieldCValue", this.fieldCValue);
+        this.fieldCValue = fieldCValue;
+    }
+
+    /**
+     * initialize the metadata
+     */
+    public void initMetaData() {
+        EiColumn eiColumn;
+
+        eiColumn = new EiColumn("recCreator");
+        eiColumn.setDescName("记录创建者");
+        eiColumn.setFieldLength(8);
+        eiMetadata.addMeta(eiColumn);
+
+        eiColumn = new EiColumn("recCreateTime");
+        eiColumn.setDescName("记录创建时间");
+        eiColumn.setFieldLength(14);
+        eiMetadata.addMeta(eiColumn);
+
+        eiColumn = new EiColumn("recRevisor");
+        eiColumn.setDescName("记录修改人员");
+        eiColumn.setFieldLength(8);
+        eiMetadata.addMeta(eiColumn);
+
+        eiColumn = new EiColumn("recReviseTime");
+        eiColumn.setDescName("记录修改时间");
+        eiColumn.setFieldLength(14);
+        eiMetadata.addMeta(eiColumn);
+
+        eiColumn = new EiColumn("archiveFlag");
+        eiColumn.setDescName("归档标记");
+        eiColumn.setFieldLength(1);
+        eiMetadata.addMeta(eiColumn);
+
+        eiColumn = new EiColumn("id");
+        eiColumn.setDescName("ID");
+        eiColumn.setFieldLength(18);
+        eiColumn.setType("N");
+        eiColumn.setScaleLength(0);
+        eiMetadata.addMeta(eiColumn);
+
+        eiColumn = new EiColumn("tsasa01Id");
+        eiColumn.setDescName("货款信息表ID");
+        eiColumn.setFieldLength(18);
+        eiColumn.setType("N");
+        eiColumn.setScaleLength(0);
+        eiMetadata.addMeta(eiColumn);
+
+        eiColumn = new EiColumn("tsascc2Id");
+        eiColumn.setDescName("货款信息配置子表ID");
+        eiColumn.setFieldLength(18);
+        eiColumn.setType("N");
+        eiColumn.setScaleLength(0);
+        eiMetadata.addMeta(eiColumn);
+
+        eiColumn = new EiColumn("fieldCValue");
+        eiColumn.setDescName("字符属性值");
+        eiColumn.setFieldLength(255);
+        eiMetadata.addMeta(eiColumn);
+    }
+
+    /**
+     * get the value from Map
+     */
+    public void fromMap(Map map) {
+        setRecCreator(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("recCreator")), recCreator));
+        setRecCreateTime(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("recCreateTime")), recCreateTime));
+        setRecRevisor(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("recRevisor")), recRevisor));
+        setRecReviseTime(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("recReviseTime")), recReviseTime));
+        setArchiveFlag(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("archiveFlag")), archiveFlag));
+        setId(NumberUtils.toLong(StringUtils.toString(map.get("id")), id));
+        setTsasa01Id(NumberUtils.toLong(StringUtils.toString(map.get("tsasa01Id")), tsasa01Id));
+        setTsascc2Id(NumberUtils.toLong(StringUtils.toString(map.get("tsascc2Id")), tsascc2Id));
+        setFieldCValue(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("fieldCValue")), fieldCValue));
+    }
+
+    /**
+     * set the value to Map
+     */
+    public Map toMap() {
+        Map map = new HashMap();
+        map.put("recCreator", StringUtils.toString(recCreator, eiMetadata.getMeta("recCreator")));
+        map.put("recCreateTime", StringUtils.toString(recCreateTime, eiMetadata.getMeta("recCreateTime")));
+        map.put("recRevisor", StringUtils.toString(recRevisor, eiMetadata.getMeta("recRevisor")));
+        map.put("recReviseTime", StringUtils.toString(recReviseTime, eiMetadata.getMeta("recReviseTime")));
+        map.put("archiveFlag", StringUtils.toString(archiveFlag, eiMetadata.getMeta("archiveFlag")));
+        map.put("id", StringUtils.toString(id, eiMetadata.getMeta("id")));
+        map.put("tsasa01Id", StringUtils.toString(tsasa01Id, eiMetadata.getMeta("tsasa01Id")));
+        map.put("tsascc2Id", StringUtils.toString(tsascc2Id, eiMetadata.getMeta("tsascc2Id")));
+        map.put("fieldCValue", StringUtils.toString(fieldCValue, eiMetadata.getMeta("fieldCValue")));
+        return map;
+    }
+
+    /**
+     * 生成代码的版本号
+     */
+    public int getVersion() {
+        return 1;
+    }
+
+    /**
+     * 类似fromMap方法，但参数包含的数据类型必须是严格的
+     */
+    public void fromAttrs(Map attrs) {
+        if(attrs.get("recCreator") != null)setRecCreator((String)attrs.get("recCreator"));
+        if(attrs.get("recCreateTime") != null)setRecCreateTime((String)attrs.get("recCreateTime"));
+        if(attrs.get("recRevisor") != null)setRecRevisor((String)attrs.get("recRevisor"));
+        if(attrs.get("recReviseTime") != null)setRecReviseTime((String)attrs.get("recReviseTime"));
+        if(attrs.get("archiveFlag") != null)setArchiveFlag((String)attrs.get("archiveFlag"));
+        if(attrs.get("id") != null)setId((Long)attrs.get("id"));
+        if(attrs.get("tsasa01Id") != null)setTsasa01Id((Long)attrs.get("tsasa01Id"));
+        if(attrs.get("tsascc2Id") != null)setTsascc2Id((Long)attrs.get("tsascc2Id"));
+        if(attrs.get("fieldCValue") != null)setFieldCValue((String)attrs.get("fieldCValue"));
+    }
+
+    /**
+     * 类似toMap方法，但返回结果的数据类型是严格的
+     */
+    public Map toAttrs() {
+        Map result = new HashMap();
+        result.put("recCreator", this.recCreator);
+        result.put("recCreateTime", this.recCreateTime);
+        result.put("recRevisor", this.recRevisor);
+        result.put("recReviseTime", this.recReviseTime);
+        result.put("archiveFlag", this.archiveFlag);
+        result.put("id", this.id);
+        result.put("tsasa01Id", this.tsasa01Id);
+        result.put("tsascc2Id", this.tsascc2Id);
+        result.put("fieldCValue", this.fieldCValue);
+        return result;
+    }
+
+    /**
+     * 复制当前对象(id不被复制)
+     */
+    public Tsasa02 noIdDuplicate() {
+        Tsasa02 dup = new Tsasa02();
+
+        Map attrs = this.toAttrs();
+        attrs.put("id", new Long(0));
+        dup.fromAttrs(attrs);
+
+        dup.isInDB = false;
+        dup.isExtended = true;
+
+        return dup;
+    }
+
+    /**
+     * 转换为Json字符串
+     */
+    public String toJson() {
+        return JSONObject.fromObject(toAttrs()).toString(4);
+    }
+
+    /**
+     * toJson的反向操作
+     */
+    public void fromJson(String jsonstr) {
+        fromAttrs(JSONObject.fromObject(jsonstr));
+    }
+
+    /**
+     * 关联 货款信息表
+     */
+    public Tsasa01 tsasa01() {
+        return Tsasa01.find(this.tsasa01Id);
+    }
+
+    /**
+     * 关联 货款信息配置子表
+     */
+    public Tsascc2 tsascc2() {
+        return Tsascc2.find(this.tsascc2Id);
+    }
+
+    /**
+     * 创建新的实例
+     */
+    public static Tsasa02 newInstance() {
+        Tsasa02 result = new Tsasa02();
+        result.isExtended = true;
+        return result;
+    }
+
+    /**
+     * 创建新的实例(属性初始化为传入的参数)
+     */
+    public static Tsasa02 newInstance(Map attr) {
+        Tsasa02 result = newInstance();
+        result.fromMap(attr);
+        return result;
+    }
+
+    /**
+     * 按id查找
+     */
+    public static Tsasa02 find(Long id) {
+        return find(id, false);
+    }
+
+    /**
+     * 按id查找(上锁)
+     */
+    public static Tsasa02 findWithLock(Long id) {
+        return find(id, true);
+    }
+
+    /**
+     * 按id查找(可选择是否上锁)
+     */
+    private static Tsasa02 find(Long id, boolean isLocked) {
+        Map arg = new HashMap();
+        arg.put("id", id);
+        if(isLocked)arg.put("forUpdate", "FOR UPDATE");
+        List<Tsasa02> result = getDao().query("SASA02E.select_by_id", arg);
+
+        if(result.size() > 0){
+            Tsasa02 a = result.get(0);
+            a.isExtended = true;
+            a.isInDB = true;
+            return a;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 按id查找，参数为String类型
+     */
+    public static Tsasa02 find(String id) {
+        return find(Long.parseLong(id), false);
+    }
+
+    /**
+     * 按id查找，参数为String类型(上锁)
+     */
+    public static Tsasa02 findWithLock(String id) {
+        return find(Long.parseLong(id), true);
+    }
+
+    /**
+     * 按id数组查找
+     * 如果结果集包含的项数少于id数组的项数，则抛出异常
+     */
+    public static Tsasa02[] find(Long[] ids) {
+        return find(ids, false);
+    }
+
+    /**
+     * 按id数组查找(上锁)
+     * 如果结果集包含的项数少于id数组的项数，则抛出异常
+     */
+    public static Tsasa02[] findWithLock(Long[] ids) {
+        return find(ids, true);
+    }
+
+    /**
+     * 按id数组查找(可选择是否上锁)
+     * 如果结果集包含的项数少于id数组的项数，则抛出异常
+     */
+    private static Tsasa02[] find(Long[] ids, boolean isLocked) {
+        if(ids == null || ids.length == 0) throw new ModelException("id数组不能为null或者空");
+
+        Map arg = new HashMap();
+        arg.put("ids", ids);
+        if(isLocked)arg.put("forUpdate", "FOR UPDATE");
+        List<Tsasa02> result = getDao().query("SASA02E.select_by_ids", arg);
+
+        if(result.size() != ids.length) {
+            throw new ModelException("结果集包含的项数少于id数组的项数");
+        } else {
+            return result.toArray(new Tsasa02[0]);
+        }
+    }
+
+    /**
+     * 自定义查询
+     */
+    public static CustomQuerier q(String sqlmap, Map arg) {
+        return new CustomQuerier(sqlmap, arg);
+    }
+
+    /**
+     * 简单Where查询
+     * 传入的参数最终会转换为 'key1 = value1 and key2 = value2 and ...' 这样形式的字符串
+     */
+    public static ModelQuerier where(Map arg) {
+        return new ModelQuerier("XSSA.TSASA02").where(arg);
+    }
+
+    /**
+     * Where查询
+     * Map中的key和value做替换
+     *    { type: "a", name: "b" }
+     *    "type = #type# or name like #name# || '%'"
+     * => "type = 'a' or name like 'b' || ‘%’"
+     */
+    public static ModelQuerier where(String where, Map arg) {
+        return new ModelQuerier("XSSA.TSASA02").where(where, arg);
+    }
+
+    /**
+     * 得到对应数据表的全称
+     */
+    public String getFullTableName() {
+        return "XSSA.TSASA02";
+    }
+
+    /**
+     * 删除
+     */
+    public void delete() {
+        super.delete("XSSA.TSASA02");
+    }
+}
