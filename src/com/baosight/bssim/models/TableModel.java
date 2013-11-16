@@ -1,8 +1,8 @@
 package com.baosight.bssim.models;
 
 import com.baosight.bssim.exceptions.ModelException;
-import com.baosight.bssim.helpers.DatabaseHelperFactory;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
+import com.baosight.bssim.models.factory.TCModelFactory;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -15,6 +15,12 @@ public class TableModel {
     private String tableName;
     private String comment;
     private ColumnModel[] columns;
+
+    public void setFactory(TCModelFactory factory) {
+        this.factory = factory;
+    }
+
+    private TCModelFactory factory;
 
     private DatabaseHelper helper;
     private JavaModel javaModel;
@@ -63,9 +69,9 @@ public class TableModel {
         this.schemaName = schemaName.trim().toUpperCase();
         this.tableName = tableName.trim().toUpperCase();
 
-        this.helper = DatabaseHelperFactory.newInstance();
+        //this.helper = DatabaseHelperFactory.newInstance();
 
-        this.queryTableComment();
+        //this.queryTableComment();
 
         this.tableConfig = new ConfigModel(getFullTableName());
         this.javaModel = new JavaModel(this);
@@ -83,7 +89,8 @@ public class TableModel {
      * 构造字段对象
      */
     private void createColumns() {
-        this.columns = this.helper.createColumns(this.schemaName, this.tableName);
+        //this.columns = this.helper.createColumns(this.schemaName, this.tableName);
+        this.columns = factory.createColumnModels();
     }
 
     /**
@@ -158,6 +165,13 @@ public class TableModel {
      */
     public String getComment() {
         return this.comment;
+    }
+
+    /**
+     * 设置表的注释名称
+     */
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     /**

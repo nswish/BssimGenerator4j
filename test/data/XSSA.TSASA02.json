@@ -1,0 +1,55 @@
+{
+    "schema" : "XSSA",
+    "table" : "TSASA02",
+    "comment" : "货款信息附加属性表",
+    "columns" : [
+        {
+            "name" : "REC_CREATOR",
+            "comment" : "记录创建者",
+            "length" : 8
+        },
+        {
+            "name" : "REC_CREATE_TIME",
+            "comment" : "记录创建时间",
+            "length" : 14
+        },
+        {
+            "name" : "REC_REVISOR",
+            "comment" : "记录修改人员",
+            "length" : 8
+        },
+        {
+            "name" : "REC_REVISE_TIME",
+            "comment" : "记录修改时间",
+            "length" : 14
+        },
+        {
+            "name" : "ARCHIVE_FLAG",
+            "comment" : "归档标记",
+            "length" : 1
+        },
+        {
+            "name" : "ID",
+            "comment" : "ID",
+            "type"  :"N",
+            "length" : 18
+        },
+        {
+            "name" : "TSASA01_ID",
+            "comment" : "货款信息表ID",
+            "type"  :"N",
+            "length" : 18
+        },
+        {
+            "name" : "TSASCC2_ID",
+            "comment" : "货款信息配置子表ID",
+            "type"  :"N",
+            "length" : 18
+        },
+        {
+            "name" : "FIELD_C_VALUE",
+            "comment" : "字符属性值",
+            "length" : 255
+        }
+    ]
+}

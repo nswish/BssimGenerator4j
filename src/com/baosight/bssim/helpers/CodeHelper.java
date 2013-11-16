@@ -20,7 +20,8 @@ public class CodeHelper {
     public static String indent(String code, int distance) {
         String[] lines = code.split("\n");
         for (int i=0; i<lines.length; i++) {
-            lines[i] = StringUtils.repeat(" ", distance) + lines[i];
+            if(lines[i].length() != 0)
+                lines[i] = StringUtils.repeat(" ", distance) + lines[i];
         }
 
         return StringUtils.join(lines, "\n");
