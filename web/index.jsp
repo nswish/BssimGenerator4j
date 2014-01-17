@@ -23,11 +23,9 @@
             $routeProvider.when("/", {
                 templateUrl: "views/tables.html",
                 controller: "TablesController",
-                resolve: {
-
-                }
             }).when("/config", {
-                templateUrl: "views/config.html"
+                templateUrl: "views/config.html",
+                controller: "ConfigController"
             });
         });
 
@@ -35,6 +33,13 @@
             return {
                 "all" : function(){
                     return $http({"method":"GET", url:"tables"});
+                }
+            }
+        });
+        bssim.factory("Config", function($http){
+            return {
+                "get" : function(){
+                    return $http({"method":"GET", url:"config"});
                 }
             }
         });
@@ -70,6 +75,12 @@
             $scope.tableClicked = function(){
                 document.location.href = "config"
             };
+        });
+
+        bssim.controller("ConfigController", function($scope, Config){
+            Config.get().success(function(result){
+                $scope.config = result.data;
+            });
         });
     </script>
 </head>

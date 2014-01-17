@@ -29,15 +29,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Config</servlet-name>
-        <servlet-class>com.baosight.bssim.controllers.ConfigController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Config</servlet-name>
-        <url-pattern>/config/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>Doc</servlet-name>
         <servlet-class>com.baosight.bssim.controllers.DocController</servlet-class>
     </servlet>

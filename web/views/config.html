@@ -1,1 +1,53 @@
-<h1>config</h1>
+<form class="form-horizontal" role="form">
+    <fieldset><legend>数据库</legend>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">类型</label>
+            <div class="col-sm-4">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm">Oracle</button>
+                    <input type="hidden" ng-model="config.database" value="oracle" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">地址</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="10.25.76.190" ng-model="config.database_ip"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">端口</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="1521" ng-model="config.database_port" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">实例名</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="erpdvlp" ng-model="config.database_service" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="simdvlp"  ng-model="config.database_username" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">密码</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="simdvlp" ng-model="config.database_password" />
+            </div>
+        </div>
+    </fieldset>
+    <fieldset><legend>数据表<a style="text-decoration: none; cursor: pointer; font-size: 14px; margin-top: 8px;" class="pull-right"><i class="glyphicon glyphicon-plus"></i> 新增</a></legend>
+        <div class="row" ng-repeat="group in config.user_tables">
+            <div class="col-sm-2">{{group.user}}</div>
+            <div class="col-sm-10 row">
+                <div class="col-sm-2" ng-repeat="table in group.tables">
+                    {{table}}<a>x</a>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

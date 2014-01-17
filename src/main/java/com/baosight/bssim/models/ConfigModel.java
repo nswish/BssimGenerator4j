@@ -2,10 +2,12 @@ package com.baosight.bssim.models;
 
 import com.baosight.bssim.controllers.ApplicationController;
 import com.baosight.bssim.exceptions.ModelException;
+import com.google.gson.Gson;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.HashMap;
 
 /**
  * 配置信息以JSON格式存放
@@ -63,6 +65,10 @@ public class ConfigModel {
         }
 
         return this.json;
+    }
+
+    public HashMap getGson() {
+        return new Gson().fromJson(this.fileContent, HashMap.class);
     }
 
     public String getFileContent() {
