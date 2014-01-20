@@ -10,7 +10,8 @@ import java.sql.SQLException;
 public class OracleDataSourceFactory {
     public static DataSource createDataSource() throws SQLException {
         JSONObject configJson = new ConfigModel("GlobalConfig").getJson();
-        String URL = "jdbc:oracle:thin:@//"+configJson.get("database_ip")+":"+configJson.get("database_port")+"/"+configJson.get("database_service");
+        String URL = "jdbc:oracle:thin:@//"+configJson.get("database_ip")+":"+configJson.getInt("database_port")
+                +"/"+configJson.get("database_service");
 
         OracleDataSource ods = new OracleDataSource();
         ods.setURL(URL);

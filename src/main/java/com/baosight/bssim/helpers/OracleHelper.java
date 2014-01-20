@@ -39,13 +39,10 @@ public class OracleHelper implements DatabaseHelper {
 
     @Override
     public List<Map<String, Object>> queryTableList(String schemaName, String tableNames) {
-        String sql = "SELECT v1.OWNER, v2.TABLE_NAME, v2.COMMENTS,\n" +
-                "               (SELECT count(1) FROM ALL_TAB_COLS WHERE TABLE_NAME = v1.TABLE_NAME AND OWNER = v1.OWNER) as COLUMN_COUNT,\n" +
-                "               (SELECT count(1) FROM ALL_INDEXES WHERE TABLE_NAME = v1.TABLE_NAME AND OWNER = v1.OWNER) as INDEX_COUNT\n" +
-                "          FROM ALL_TABLES v1, ALL_TAB_COMMENTS v2\n" +
-                "         WHERE v1.TABLE_NAME = v2.TABLE_NAME\n" +
-                "           AND v1.OWNER = v2.OWNER\n" +
-                "           AND v1.OWNER = UPPER(?)\n" +
+        String sql = "SELECT v1.OWNER, v1.TABLE_NAME,\n" +
+                "           (SELECT v2.COMMENTS FROM ALL_TAB_COMMENTS v2 WHERE v2.OWNER=v1.OWNER AND v2.TABLE_NAME=v1.TABLE_NAME) AS COMMENTS\n" +
+                "          FROM ALL_TABLES v1\n" +
+                "         WHERE v1.OWNER = UPPER(?)\n" +
                 "           AND V1.TABLE_NAME IN (" + tableNames +")\n" +
                 "         ORDER BY\n" +
                 "               v1.TABLE_NAME\n";

@@ -36,7 +36,7 @@ public class ConfigController extends ApplicationController {
             redirect_to("/config");
         } catch (Exception ex) {
             setMessage(ex);
-            render("/views/config/index.jsp");
+            render("/views/config/index.html");
         }
 
 

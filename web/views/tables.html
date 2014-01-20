@@ -1,5 +1,11 @@
-<div><input type="text" ng-model="searchWord" class="form-control" placeholder="筛选"></div>
+<div>
+    <input type="text" ng-model="searchWord" class="form-control" placeholder="筛选" />
+</div>
 <br />
+<div ng-show="loading" style="text-align: center;">
+    {{loadingText}}
+</div>
+
 <div class="panel panel-default" ng-repeat="(schema, tables) in groups">
     <div class="panel-heading">
         <h3 class="panel-title">{{schema}}</h3>
