@@ -25,6 +25,9 @@
             }).when("/config", {
                 templateUrl: "views/config.html",
                 controller: "ConfigController"
+            }).when("/tables/:fullTable", {
+                templateUrl: "views/table.html",
+                controller: "TableController"
             });
         });
 
@@ -38,20 +41,18 @@
         bssim.factory("Config", function($http){
             return {
                 "get" : function(){
-                    return $http({"method":"GET", url:"config.json"});
+                    return $http({"method":"GET", url:"config"});
                 },
                 "save" : function(data) {
                     console.log(data);
-                    return $http({"method":"POST", url:'config.json', "data":data});
+                    return $http({"method":"POST", url:'config', "data":data});
                 }
             }
         });
-
-
     </script>
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="NavbarController">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -64,8 +65,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/"><i class="glyphicon glyphicon-home"></i> 首页</a></li>
-                    <li><a href="#/config"><i class="glyphicon glyphicon-cog"></i> 设置</a></li>
+                    <li class="{{selected_tabname=='首页'?'active':''}}"><a href="#/"><i class="glyphicon glyphicon-home"></i> 首页</a></li>
+                    <li class="{{selected_tabname=='设置'?'active':''}}"><a href="#/config"><i class="glyphicon glyphicon-cog"></i> 设置</a></li>
                 </ul>
             </div>
         </div>
@@ -79,5 +80,14 @@
     <script src="app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="app/controllers/TablesController.js"></script>
     <script src="app/controllers/ConfigController.js"></script>
+    <script src="app/controllers/NavbarController.js"></script>
+    <script src="app/controllers/TableController.js"></script>
+
+    <link rel="stylesheet" href="app/bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="app/bower_components/codemirror/theme/eclipse.css">
+    <script src="app/bower_components/codemirror/lib/codemirror.js"></script>
+    <script src="app/bower_components/codemirror/mode/javascript/javascript.js"></script>
+    <script src="app/bower_components/codemirror/mode/clike/clike.js"></script>
+    <script src="app/bower_components/codemirror/mode/xml/xml.js"></script>
 </body>
 </html>

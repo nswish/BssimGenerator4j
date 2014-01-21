@@ -5,6 +5,9 @@ import static spark.Spark.*;
 import com.baosight.bssim.helpers.DatabaseHelperFactory;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import com.baosight.bssim.models.ConfigModel;
+import com.baosight.bssim.models.TableModel;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import spark.*;
@@ -45,6 +48,37 @@ public class TablesRoute {
                 } catch (Exception e) {
                     return new HandleResult(false, e.getMessage(), null);
                 }
+            }
+        });
+
+        get(new JSONResponseRoute("/tables/:fullTable") {
+            @Override
+            public Object handle(Request request, Response response) {
+                Map result = new HashMap();
+
+                String schemaTable = request.params(":fullTable");
+
+                ConfigModel config = new ConfigModel(schemaTable);
+                result.put("script_content", config.getFileContent());
+
+                TableModel table = new TableModel(schemaTable);
+                result.put("javaCode", table.genJavaCode());
+                result.put("xmlCode", table.genXmlCode());
+
+                return new HandleResult(true, null, result);
+            }
+        });
+
+        post(new JSONResponseRoute("/tables/:schemaTable/config") {
+            @Override
+            public Object handle(Request request, Response response) {
+                String schemaTable = request.params(":schemaTable");
+                Map configGson = new GsonBuilder().setPrettyPrinting().create().fromJson(request.body(), HashMap.class);
+
+                ConfigModel config = new ConfigModel(schemaTable);
+                config.save(configGson.get("script_content")+"");
+
+                return new HandleResult(true, null, null);
             }
         });
     }

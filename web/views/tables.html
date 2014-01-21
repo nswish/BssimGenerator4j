@@ -1,5 +1,5 @@
 <div>
-    <input type="text" ng-model="searchWord" class="form-control" placeholder="筛选" />
+    <input type="text" ng-model="searchWord" class="form-control" style="text-transform:uppercase;" placeholder="筛选" />
 </div>
 <br />
 <div ng-show="loading" style="text-align: center;">
@@ -13,7 +13,7 @@
     <div class="panel-body" style="padding-bottom: 0px;">
         <div class="row">
             <div ng-repeat="table in tables" class="col-sm-4">
-                <div class="panel panel-default hover-blue-border active-blue-background" ng-click="tableClicked()" style="cursor: pointer;">
+                <div class="panel panel-default hover-blue-border active-blue-background" ng-click="tableClicked(schema+'.'+table.TABLE_NAME)" style="cursor: pointer;">
                     <div class="panel-body">
                         <div>{{table.TABLE_NAME}}</div>
                         <div>{{table.COMMENTS}}</div>

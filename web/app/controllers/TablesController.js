@@ -1,4 +1,4 @@
-bssim.controller("TablesController", function($scope, Tables){
+bssim.controller("TablesController", function($scope, Tables, $location){
     $scope.searchWord = "";
     $scope.loading = true;
     $scope.loadingText = "Loading...";
@@ -15,7 +15,6 @@ bssim.controller("TablesController", function($scope, Tables){
     });
 
     $scope.$watch("searchWord", function(newValue){
-        console.log(newValue);
         if(newValue == "") {
             $scope.groups = $scope.originGroups;
         } else {
@@ -34,6 +33,8 @@ bssim.controller("TablesController", function($scope, Tables){
         }
     });
 
-    $scope.tableClicked = function(){
+    $scope.tableClicked = function(fullTable){
+        console.log(fullTable);
+        $location.path("/tables/"+fullTable);
     };
 });

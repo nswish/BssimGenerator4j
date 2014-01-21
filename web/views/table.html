@@ -1,0 +1,37 @@
+<div style="border-bottom: grey dashed 1px;">
+    <a href="javascript: void(0);" ng-click="edit()">{{schemaTable}}</a>
+    <a class="pull-right" href='javascript: $("#gen_code_form").submit();'>提交</a>
+    <a class="pull-right" style="margin-right: 10px;" href="javascript: void(0);" ng-click="edit()">编辑</a>
+</div>
+
+<div id="script_div" style="padding-top: 4px; display: none;">
+    <div id="script_content_div" style="border: 1px #f3f3f3 solid;"></div>
+    <a href='javascript: void(0)' class="pull-right" ng-click="save()">保存</a>
+    <a href='javascript: void(0);' class="pull-right" style="padding-right: 8px;" ng-click="cancelEdit()">取消</a>
+    <div style="clear: both;"></div>
+</div>
+
+<div id="toggle_div" style="padding: 8px 0px 5px 0px;margin-top: 5px; text-align: center;">
+    <a href="javascript: void(0)" ng-click="showJava()">Java</a> |
+    <a href="javascript: void(0)" ng-click="showXml()">Xml</a>
+</div>
+
+<div id="code_div">
+    <div id="java_div" style="border: 1px grey dashed; overflow: hidden;">
+        <div style="position:relative; margin:-20px 7px 0px 0px; top:22px; float:right;z-index: 11111111;">
+            <a href='javascript: $("#download_java_file_form").submit();'>下载</a>
+        </div>
+    </div>
+
+    <div id="xml_div" style="border: 1px grey dashed; overflow: hidden; display:none;">
+        <div style="position:relative; margin:-20px 7px 0px 0px; top:22px; float:right;z-index: 11111111;">
+            <a href='javascript: $("#download_xml_file_form").submit();'>下载</a>
+        </div>
+    </div>
+</div>
+
+<form id="gen_code_form" method="POST" action="/gen/<%=id%>/commit"></form>
+<form id="download_java_file_form" method="POST" action="{{'/gen/'+schemaTable+'/downloadJava'}}"></form>
+<form id="download_xml_file_form"  method="POST" action="{{'/gen/'+schemaTable+'/downloadXml'}}"></form>
+
+<br />

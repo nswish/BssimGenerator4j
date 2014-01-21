@@ -1,59 +1,118 @@
 <form class="form-horizontal" role="form" name="configForm">
-    <fieldset><legend>数据库</legend>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">类型</label>
-            <div class="col-sm-4">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary btn-sm">Oracle</button>
-                    <input type="hidden" ng-model="config.database" value="oracle" />
+    <div class="panel panel-default">
+        <div class="panel-heading"><span style="font-size: 16px;">数据库 / 连接</span></div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">类型</label>
+                <div class="col-sm-4">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm">Oracle</button>
+                        <input type="hidden" ng-model="config.database" value="oracle" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">地址</label>
+                <div class="col-sm-3">
+                    <input name="database_ip" type="text" class="form-control" placeholder="例如: 10.25.76.190" ng-model="config.database_ip"
+                           required ng-pattern="/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/"/>
+                    <span ng-show="configForm.database_ip.$error.required">请输入IP地址</span>
+                    <span ng-show="configForm.database_ip.$error.pattern">请输入正确的IP地址</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">端口</label>
+                <div class="col-sm-2">
+                    <input name="database_port" type="text" class="form-control" placeholder="例如: 1521" ng-model="config.database_port"
+                           required ng-pattern="/^\d+$/"/>
+                    <span ng-show="configForm.database_port.$error.required">请输入端口号</span>
+                    <span ng-show="configForm.database_port.$error.pattern">请输入正确的端口号</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">实例名</label>
+                <div class="col-sm-3">
+                    <input name="database_service" type="text" class="form-control" placeholder="例如: erpdvlp" ng-model="config.database_service" required/>
+                    <span ng-show="configForm.database_service.$error.required">请输入实例名</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-3">
+                    <input name="database_username" type="text" class="form-control" placeholder="例如: simdvlp"  ng-model="config.database_username" required/>
+                    <span ng-show="configForm.database_username.$error.required">请输入用户名</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-3">
+                    <input name="database_password" type="text" class="form-control" placeholder="例如: simdvlp" ng-model="config.database_password" required/>
+                    <span ng-show="configForm.database_password.$error.required">请输入密码</span>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">地址</label>
-            <div class="col-sm-3">
-                <input name="database_ip" type="text" class="form-control" placeholder="例如: 10.25.76.190" ng-model="config.database_ip"
-                       required ng-pattern="/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/"/>
-                <span ng-show="configForm.database_ip.$error.required">请输入IP地址</span>
-                <span ng-show="configForm.database_ip.$error.pattern">请输入正确的IP地址</span>
-            </div>
+        <div class="panel-footer" style="padding:5px 15px;">
+            <button type="submit" class="btn btn-default btn-sm pull-right" ng-disabled="!configForm.$valid"
+                    required
+                    ng-click="save()">保存</button>
+            <div style="clear:both;"></div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">端口</label>
-            <div class="col-sm-2">
-                <input name="database_port" type="text" class="form-control" placeholder="例如: 1521" ng-model="config.database_port"
-                       required ng-pattern="/^\d+$/"/>
-                <span ng-show="configForm.database_port.$error.required">请输入端口号</span>
-                <span ng-show="configForm.database_port.$error.pattern">请输入正确的端口号</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">实例名</label>
-            <div class="col-sm-3">
-                <input name="database_service" type="text" class="form-control" placeholder="例如: erpdvlp" ng-model="config.database_service" required/>
-                <span ng-show="configForm.database_service.$error.required">请输入实例名</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">用户名</label>
-            <div class="col-sm-3">
-                <input name="database_username" type="text" class="form-control" placeholder="例如: simdvlp"  ng-model="config.database_username" required/>
-                <span ng-show="configForm.database_username.$error.required">请输入用户名</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">密码</label>
-            <div class="col-sm-3">
-                <input name="database_password" type="text" class="form-control" placeholder="例如: simdvlp" ng-model="config.database_password" required/>
-                <span ng-show="configForm.database_password.$error.required">请输入密码</span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default" ng-disabled="!configForm.$valid"
-                        required
-                        ng-click="save()">保存</button>
-            </div>
-        </div>
-    </fieldset>
+    </div>
 </form>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><span style="font-size: 16px;">数据库 / 数据表</span></div>
+    <div class="panel-body">
+        <div class="row" ng-repeat="group in config.user_tables">
+            <div class="col-sm-2" style="text-align: center;padding: 0 0 10px 0;">
+                <span style="font-size: 18px;font-weight: bold;">{{group.user}}</span>
+            </div>
+            <div class="col-sm-10 row">
+                <div class="col-sm-3" ng-repeat="table in group.tables">
+                    <div class="panel panel-default hover-blue-border" style="cursor: pointer;" ng-click="delete(group.user+'.'+table)">
+                        <div class="panel-body">
+                            {{table}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer" style="padding:5px 15px;">
+        <button type="submit" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModal">新增</button>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form class="form-horizontal" role="form" name="TableForm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">添加数据表</h4>
+                </div>
+                <div class="modal-body" style="padding-bottom: 5px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-4">
+                            <input name="user" type="text" class="form-control" style="text-transform:uppercase;" placeholder="例如: BSSIM" required ng-model="tableAdding.user"/>
+                            <span ng-show="TableForm.user.$error.required">请输入用户名</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">表名</label>
+                        <div class="col-sm-4">
+                            <input name="table" type="text" class="form-control" style="text-transform:uppercase;" placeholder="例如: TSMSR01" required ng-model="tableAdding.table"/>
+                            <span ng-show="TableForm.table.$error.required">请输入表名</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="!TableForm.$valid" ng-click="add()">保存</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
