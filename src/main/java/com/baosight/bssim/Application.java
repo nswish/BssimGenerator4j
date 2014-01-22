@@ -1,6 +1,7 @@
 package com.baosight.bssim;
 
 import com.baosight.bssim.routes.ConfigRoute;
+import com.baosight.bssim.routes.DocRoute;
 import com.baosight.bssim.routes.TablesRoute;
 
 /**
@@ -12,5 +13,6 @@ public class Application implements spark.servlet.SparkApplication {
     public void init() {
         TablesRoute.all();
         ConfigRoute.all();
+        DocRoute.all();
     }
 }

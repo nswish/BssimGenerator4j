@@ -36,7 +36,7 @@ public class ConfigRoute {
                 configGson.putAll(input);
                 config.save(gson.toJson(configGson));
 
-                return new HandleResult(true, null, config.getGson());
+                return new HandleResult(true, "保存完成", config.getGson());
             }
         });
 

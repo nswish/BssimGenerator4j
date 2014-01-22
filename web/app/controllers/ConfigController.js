@@ -1,4 +1,5 @@
-bssim.controller("ConfigController", function($scope, Config, $http){
+bssim.controller("ConfigController", function($scope, Config, $http, Noty, $location){
+    var path = $location.path();
     $scope.tableAdding = {"user":"", "table":""};
 
     var query = function(){
@@ -10,7 +11,9 @@ bssim.controller("ConfigController", function($scope, Config, $http){
     query();
 
     $scope.save = function() {
-        Config.save($scope.config).success(function(){
+        Config.save($scope.config).success(function(result){
+            console.log(result);
+            Noty.success(result.message, path);
             query();
         });
     };

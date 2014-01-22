@@ -8,6 +8,7 @@ import com.baosight.bssim.models.ConfigModel;
 import com.baosight.bssim.models.TableModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import spark.*;
@@ -44,7 +45,7 @@ public class TablesRoute {
                         result.put(user, row);
                     }
 
-                    return new HandleResult(true, null, result);
+                    return new HandleResult(true, "读取完成", result);
                 } catch (Exception e) {
                     return new HandleResult(false, e.getMessage(), null);
                 }
@@ -56,16 +57,20 @@ public class TablesRoute {
             public Object handle(Request request, Response response) {
                 Map result = new HashMap();
 
-                String schemaTable = request.params(":fullTable");
+                try {
+                    String schemaTable = request.params(":fullTable");
 
-                ConfigModel config = new ConfigModel(schemaTable);
-                result.put("script_content", config.getFileContent());
+                    ConfigModel config = new ConfigModel(schemaTable);
+                    result.put("script_content", config.getFileContent());
 
-                TableModel table = new TableModel(schemaTable);
-                result.put("javaCode", table.genJavaCode());
-                result.put("xmlCode", table.genXmlCode());
+                    TableModel table = new TableModel(schemaTable);
+                    result.put("javaCode", table.genJavaCode());
+                    result.put("xmlCode", table.genXmlCode());
 
-                return new HandleResult(true, null, result);
+                    return new HandleResult(true, "代码已生成", result);
+                } catch (Exception e) {
+                    return new HandleResult(false, e.getMessage(), result);
+                }
             }
         });
 
@@ -73,12 +78,16 @@ public class TablesRoute {
             @Override
             public Object handle(Request request, Response response) {
                 String schemaTable = request.params(":schemaTable");
-                Map configGson = new GsonBuilder().setPrettyPrinting().create().fromJson(request.body(), HashMap.class);
+                try {
+                    Map configGson = new GsonBuilder().setPrettyPrinting().create().fromJson(request.body(), HashMap.class);
 
-                ConfigModel config = new ConfigModel(schemaTable);
-                config.save(configGson.get("script_content")+"");
+                    ConfigModel config = new ConfigModel(schemaTable);
+                    config.save(configGson.get("script_content")+"");
 
-                return new HandleResult(true, null, null);
+                    return new HandleResult(true, "保存完成", null);
+                } catch (Exception e) {
+                    return new HandleResult(false, e.getMessage(), null);
+                }
             }
         });
     }
