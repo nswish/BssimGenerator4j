@@ -13,28 +13,35 @@ import java.util.HashMap;
  * 配置信息以JSON格式存放
  *
  * 全局配置样例：
- * {
- *      database          : 'oracle'
- *      database_ip       : '10.25.76.190'
- *      database_port     : 1521
- *      database_service  : 'erpdvlp'
- *      database_username : 'simdvlp'
- *      database_password : 'simdvlp'
- *
- *      svn_repo_path     : 'path_to_svn_repo'
- *      svn_debug         : false
- *
- *      user_tables : [{
- *          user   ：'XSSA',
- *          tables : ['TSA01', 'TSASA01', 'TSASA02', 'TSASS02', 'TSASS03']
- *      }]
- * }
- *
- * 数据表配置样例：
- * {
- *     "belongs_to" : ["XSSD.TSDSCC1"],
- *     "has_many"   : ["XSSD.TSDSCC1", "XSSD.TSDSCC2"]
- * }
+ {
+     "database"          : 'oracle',                   # 数据库类型,缺省为oracle
+     "database_ip"       : "10.25.76.190",             # 数据库地址
+     "database_port"     : 1521,                       # 数据库端口
+     "database_service"  : "erpdvlp",                  # 数据库服务名
+     "database_username" : "simdvlp",                  # 数据库用户名
+     "database_password" : "simdvlp",                  # 数据库用户密码
+
+     "svn_repo_path"     : "/home/ns/dev/bssim",       # svn版本库的本地路径
+     "svn_debug"         : false,                      # 是否打开svn的调试信息
+
+    # 在此注册数据表，按schema分组
+     "user_tables"       : [{
+             "user"          : "XSSO",                      # schema名称
+             "tables"        : ["TSOSOA1", "TSOSOA4"]       # 数据表
+         },{
+             "user"          : "XSSD",
+             "tables"        : ["TSDSCC1","TSDSCC2","TSDWF01","TSDSD01","TSDSD02"]
+         },{
+             "user"          : "XSSM",
+             "tables"        : ["TSMSR01", "TSMSR02"]
+         },{
+             "user"          : "XSTB",
+             "tables"        : ["TTBWF01"]
+         },{
+             "user"          : "XSSA",
+             "tables"        : ["TSA01","TSASA01", "TSASA02", "TSASA03", "TSASS01", "TSASS02", "TSASS03"]
+         }]
+     }
  */
 public class ConfigModel {
     private final File configFile;

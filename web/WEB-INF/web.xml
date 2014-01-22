@@ -28,15 +28,6 @@
         <url-pattern>/gen/*</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>Doc</servlet-name>
-        <servlet-class>com.baosight.bssim.controllers.DocController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Doc</servlet-name>
-        <url-pattern>/doc/*</url-pattern>
-    </servlet-mapping>
-
     <listener>
         <listener-class>
             com.baosight.bssim.listeners.AppServletContextListener
