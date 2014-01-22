@@ -1,4 +1,5 @@
-bssim.controller("TableController", function($scope, $http, $routeParams){
+bssim.controller("TableController", function($scope, $http, $routeParams, Noty, $location){
+    var path = $location.path();
     var schemaTable = $scope.schemaTable = $routeParams['fullTable'];
 
     var javaCodeCm = CodeMirror(document.getElementById("java_div"), {
@@ -43,16 +44,34 @@ bssim.controller("TableController", function($scope, $http, $routeParams){
 
     $scope.save = function(){
         $http.post('tables/'+schemaTable+'/config', {"script_content":scriptContentCm.getValue()}).success(function(result){
-            $scope.cancelEdit();
-            $scope.generate();
+            if(result.status) {
+                Noty.success(result.message, path);
+                $scope.cancelEdit();
+                $scope.generate();
+            } else {
+                Noty.error(result.message, path);
+            }
+        }).error(function(){
+            Noty.error('网络异常...', path);
         });
     }
 
     $scope.generate = function(){
+        Noty.loading('Loading...', path);
         $http.get('tables/'+schemaTable).success(function(result){
-            scriptContentCm.setValue(result['data']['script_content']);
-            javaCodeCm.setValue(result['data']['javaCode']);
-            xmlCodeCm.setValue(result['data']['xmlCode']);
+            if(result.status){
+                Noty.closeAll();
+                scriptContentCm.setValue(result['data']['script_content']);
+                javaCodeCm.setValue(result['data']['javaCode']);
+                xmlCodeCm.setValue(result['data']['xmlCode']);
+            } else {
+                Noty.error(result.message, path);
+                scriptContentCm.setValue('error');
+                javaCodeCm.setValue('error');
+                xmlCodeCm.setValue('error');
+            }
+        }).error(function(){
+            Noty.error('网络异常...', path);
         });
     };
 

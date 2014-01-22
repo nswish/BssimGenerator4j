@@ -1,17 +1,18 @@
-bssim.controller("TablesController", function($scope, Tables, $location){
+bssim.controller("TablesController", function($scope, Tables, $location, Noty){
     $scope.searchWord = "";
-    $scope.loading = true;
-    $scope.loadingText = "Loading...";
+    var path = $location.path();
+
+    Noty.loading('Loading...', path);
 
     Tables.all().success(function(result){
         if(!result.status){
-            $scope.loadingText = result.message;
+            Noty.error(result.message, path);
         } else{
+            Noty.closeAll();
             $scope.groups = $scope.originGroups = result.data;
-            $scope.loading = false;
         }
     }).error(function(){
-        $scope.loadingText = "网络异常...";
+        Noty.error("网络异常...", path);
     });
 
     $scope.$watch("searchWord", function(newValue){
@@ -34,7 +35,6 @@ bssim.controller("TablesController", function($scope, Tables, $location){
     });
 
     $scope.tableClicked = function(fullTable){
-        console.log(fullTable);
         $location.path("/tables/"+fullTable);
     };
 });

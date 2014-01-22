@@ -1,10 +1,5 @@
-<style>
-    a[name] { padding-top: 40px; margin-top: -40px; }
-</style>
-
-<div style="text-align:center;">
-<h2>API说明</h2>
-</div>
+## API说明
+<br />
 
 #### 创建
 
@@ -202,4 +197,4 @@ _&lt;isNotEmpty>标签目前仅支持一个property属性。将来的新版本�
 
 <br />
 
-[帮助文档首页](/doc/main)
+[帮助文档首页](#/docs/main)
