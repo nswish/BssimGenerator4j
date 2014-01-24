@@ -99,7 +99,7 @@ public class OracleHelper implements DatabaseHelper {
                     item.put("length", Integer.parseInt(row.get("DATA_LENGTH")+""));
                     item.put("scale", 0);
                 } else if("NUMBER".equals(row.get("DATA_TYPE"))) {
-                    item.put("type", "C");
+                    item.put("type", "N");
                     item.put("length", Integer.parseInt(row.get("DATA_PRECISION")+""));
                     item.put("scale", Integer.parseInt(row.get("DATA_SCALE")+""));
                 } else {

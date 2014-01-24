@@ -3,6 +3,7 @@ package com.baosight.bssim.models;
 import com.baosight.bssim.helpers.CodeHelper;
 import org.apache.commons.lang3.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -106,11 +107,11 @@ public class ColumnModel {
     }
 
     public int getLength() {
-        return Integer.parseInt(meta.get("length")+"");
+        return new BigDecimal(meta.get("length") + "").intValue();
     }
 
     public int getScale() {
-        return Integer.parseInt(meta.get("scale")+"");
+        return new BigDecimal(meta.get("scale")+"").intValue();
     }
 
 

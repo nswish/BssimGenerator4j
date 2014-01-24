@@ -3,6 +3,7 @@ package com.baosight.bssim.models;
 import com.baosight.bssim.exceptions.ModelException;
 import com.baosight.bssim.helpers.DatabaseHelperFactory;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
+import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -25,6 +26,22 @@ public class TableModel {
     private JavaModel javaModel;
     private XmlModel xmlModel;
     private ConfigModel tableConfig;
+
+    /**
+     * 从JSON中创建Model
+     */
+    public static TableModel newInstance(String json) {
+        TableModel model = new TableModel();
+        model.meta = new Gson().fromJson(json, HashMap.class);
+        model.tableConfig = new ConfigModel(model.getFullTableName());
+        model.javaModel = new JavaModel(model);
+        model.xmlModel = new XmlModel(model);
+        return model;
+    }
+
+    private TableModel() {
+
+    }
 
     /**
      * 全名 = 模式名 + '.' + 表名
@@ -103,9 +120,11 @@ public class TableModel {
      */
     public ColumnModel[] getColumns() {
         if(meta.get("columns") == null){
-            List<Map> columns = this.helper.queryTableColumns(getSchemaName(), getTableName());
-            meta.put("columns", columns);
+            meta.put("columns", this.helper.queryTableColumns(getSchemaName(), getTableName()));
+        }
 
+        if (this.columns == null) {
+            List<Map> columns = (List)meta.get("columns");
             this.columns = new ColumnModel[columns.size()];
             for (int i=0; i<columns.size(); i++) {
                 this.columns[i] = new ColumnModel(columns.get(i));

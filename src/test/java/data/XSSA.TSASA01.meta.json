@@ -1,0 +1,243 @@
+{
+    "schema": "XSSA",
+    "lastModifiedTime": "2014-01-24 09:58:06",
+    "name": "TSASA01",
+    "columns": [
+        {
+            "scale": 0,
+            "name": "REC_CREATOR",
+            "length": 8,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "记录创建者",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "REC_CREATE_TIME",
+            "length": 14,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "记录创建时间",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "REC_REVISOR",
+            "length": 8,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "记录修改人员",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "REC_REVISE_TIME",
+            "length": 14,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "记录修改时间",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "ARCHIVE_FLAG",
+            "length": 1,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "归档标记",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "ID",
+            "length": 18,
+            "nullable": false,
+            "dbType": "NUMBER",
+            "comment": "ID",
+            "type": "N"
+        },
+        {
+            "scale": 0,
+            "name": "RECEIPT_CODE",
+            "length": 15,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "收款收条号",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "COMPANY_CODE",
+            "length": 16,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "公司别",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "SETTLE_USER_NUM",
+            "length": 20,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "结算用户代码",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "AGREEMT_NUM_CSY",
+            "length": 30,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "协议号(厂商银)",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "RECEIPT_USAGE",
+            "length": 4,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "收款用途",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "RECEIPT_MODE",
+            "length": 4,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "收款方式",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "RECEIPT_STATUS",
+            "length": 2,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "收款状态",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "PAPER_NO",
+            "length": 20,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "票据号",
+            "type": "C"
+        },
+        {
+            "scale": 2,
+            "name": "PAPER_AMT",
+            "length": 20,
+            "nullable": false,
+            "dbType": "NUMBER",
+            "comment": "票面金额",
+            "type": "N"
+        },
+        {
+            "scale": 2,
+            "name": "RMB_AMT",
+            "length": 20,
+            "nullable": false,
+            "dbType": "NUMBER",
+            "comment": "人民币金额",
+            "type": "N"
+        },
+        {
+            "scale": 0,
+            "name": "CURRENCY",
+            "length": 3,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "币种",
+            "type": "C"
+        },
+        {
+            "scale": 6,
+            "name": "EXCHANGE_RATE",
+            "length": 12,
+            "nullable": false,
+            "dbType": "NUMBER",
+            "comment": "汇率",
+            "type": "N"
+        },
+        {
+            "scale": 0,
+            "name": "BUILT_DATE",
+            "length": 8,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "出票日期",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "END_DATE",
+            "length": 8,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "到期日期",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "RECEIVE_DATE",
+            "length": 8,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "收票日期",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "AUDIT_PERSON",
+            "length": 8,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "审核人",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "AUDIT_TIME",
+            "length": 14,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "审核时间",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "REMARK",
+            "length": 200,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "备注",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "BACK_REMARK",
+            "length": 200,
+            "nullable": false,
+            "dbType": "VARCHAR2",
+            "comment": "退回原因",
+            "type": "C"
+        },
+        {
+            "scale": 0,
+            "name": "TSASCC1_ID",
+            "length": 18,
+            "nullable": false,
+            "dbType": "NUMBER",
+            "comment": "货款信息配置主表ID",
+            "type": "N"
+        }
+    ],
+    "fullName": "XSSA.TSASA01",
+    "comment": "货款信息表"
+}
