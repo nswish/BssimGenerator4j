@@ -3,7 +3,6 @@ bssim.controller("DocController", function($scope, $http, Noty, $location, $rout
 
     $http.get('docs/'+$routeParams.docName).success(function(result){
         if(result.status){
-            console.log(result.data);
             $scope.docContent = result.data;
         } else {
             Noty.error(result.message, path);

@@ -58,7 +58,7 @@ public class ConfigModel {
             if(this.configFile.exists()) {
                 this.fileContent = FileUtils.readFileToString(this.configFile, "UTF-8");
             } else {
-                this.fileContent = "{\n}";
+                this.fileContent = "{'database': 'oracle', 'database_ip':'10.25.76.190', 'database_port': 1521, 'database_username':'simdvlp', 'database_password':'simdvlp', 'database_service':'erpdvlp'}";
                 FileUtils.writeStringToFile(this.configFile, this.fileContent, "UTF-8");
             }
         } catch (Exception ex) {

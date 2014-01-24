@@ -41,22 +41,25 @@ bssim.factory("Noty", function($rootScope, $location){
     });
 
     return {
-        "info": function(message, path){
+        "info": function(message, path, timeout){
             path = path || '/';
+            timeout = timeout || 2000;
             if(path == $location.path()) {
-                noty({"text":message, "timeout":1500});
+                noty({"text":message, "timeout":timeout});
             }
         },
-        "success": function(message, path){
+        "success": function(message, path, timeout){
             path = path || '/';
+            timeout = timeout || 2000;
             if(path == $location.path()) {
-                noty({"text":message, "type":"success", "timeout":1500});
+                noty({"text":message, "type":"success", "timeout":timeout});
             }
         },
         "error": function(message, path){
             path = path || '/';
+            timeout = timeout || 6000;
             if(path == $location.path()) {
-                noty({"text":message, "type":"error", "timeout":6000});
+                noty({"text":message, "type":"error", "timeout":timeout});
             }
         },
         "loading": function(message, path){

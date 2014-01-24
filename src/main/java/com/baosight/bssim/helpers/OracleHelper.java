@@ -7,9 +7,9 @@ import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import com.baosight.bssim.models.ColumnModel;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.json.JSONObject;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -56,40 +56,57 @@ public class OracleHelper implements DatabaseHelper {
     }
 
     @Override
-    public ColumnModel[] createColumns(String schemaName, String tableName) {
-        String sql = "SELECT T1.COLUMN_NAME, T1.DATA_TYPE, T1.DATA_LENGTH, T1.DATA_PRECISION, T1.DATA_SCALE, T1.NULLABLE, T2.COMMENTS\n" +
-                     "FROM ALL_TAB_COLS T1, ALL_COL_COMMENTS T2 \n" +
-                     "WHERE T1.OWNER = ? AND T1.TABLE_NAME = ? AND T1.OWNER = T2.OWNER AND T1.TABLE_NAME = T2.TABLE_NAME AND T1.COLUMN_NAME = T2.COLUMN_NAME\n" +
-                     "ORDER BY T1.COLUMN_ID";
+    public Date queryTableLastModifiedTime(String schemaName, String tableName) {
+        String sql = "SELECT t.LAST_DDL_TIME FROM ALL_OBJECTS t WHERE t.OWNER = ? AND t.OBJECT_NAME = ?";
 
         try {
             QueryRunner run = new QueryRunner(OracleDataSourceFactory.createDataSource());
             List<Map<String, Object>> result = run.query(sql, new MapListHandler(), schemaName, tableName);
 
-            ColumnModel[] columns = new ColumnModel[result.size()];
+            if (result.size() == 0) {
+                throw new HelperException("数据表的修改信息不存在！");
+            }
 
-            for(int i=0; i<columns.length; i++){
-                Map row = result.get(i);
+            return (Date)result.get(0).get("LAST_DDL_TIME");
+        } catch (Exception e) {
+            throw new HelperException(e.getMessage());
+        }
+    }
 
-                columns[i] = new ColumnModel();
-                columns[i].setName(row.get("COLUMN_NAME")+"");
-                columns[i].setDbType(row.get("DATA_TYPE") + "");
-                columns[i].setComment(row.get("COMMENTS") + "");
+    @Override
+    public List queryTableColumns(String schemaName, String tableName) {
+        String sql = "SELECT T1.COLUMN_NAME, T1.DATA_TYPE, T1.DATA_LENGTH, T1.DATA_PRECISION, T1.DATA_SCALE, T1.NULLABLE, T2.COMMENTS\n" +
+                "FROM ALL_TAB_COLS T1, ALL_COL_COMMENTS T2 \n" +
+                "WHERE T1.OWNER = ? AND T1.TABLE_NAME = ? AND T1.OWNER = T2.OWNER AND T1.TABLE_NAME = T2.TABLE_NAME AND T1.COLUMN_NAME = T2.COLUMN_NAME\n" +
+                "ORDER BY T1.COLUMN_ID";
 
-                if("N".equals(row.get("NULLABLE"))){
-                    columns[i].setNullable(false);
-                } else {
-                    columns[i].setNullable(true);
-                }
+        try {
+            QueryRunner run = new QueryRunner(OracleDataSourceFactory.createDataSource());
+            List<Map<String, Object>> result = run.query(sql, new MapListHandler(), schemaName, tableName);
 
-                if ((row.get("DATA_TYPE")+"").startsWith("VARCHAR")){
-                    columns[i].setType("C");
-                    columns[i].setLength(Integer.parseInt(row.get("DATA_LENGTH")+""));
+            List columns = new ArrayList(result.size());
+
+            for(Map row : result){
+                Map item = new HashMap();
+
+                item.put("name", row.get("COLUMN_NAME")+"");
+                item.put("dbType", row.get("DATA_TYPE")+"");
+                item.put("comment", row.get("COMMENTS")+"");
+                item.put("nullable", !"N".equals(row.get("NULLABLE")));
+
+                if ((row.get("DATA_TYPE")+"").startsWith("VARCHAR") || (row.get("DATA_TYPE")+"").startsWith("CHAR")){
+                    item.put("type", "C");
+                    item.put("length", Integer.parseInt(row.get("DATA_LENGTH")+""));
+                    item.put("scale", 0);
                 } else if("NUMBER".equals(row.get("DATA_TYPE"))) {
-                    columns[i].setType("N");
-                    columns[i].setLength(Integer.parseInt(row.get("DATA_PRECISION")+""));
-                    columns[i].setScale(Integer.parseInt(row.get("DATA_SCALE")+""));
+                    item.put("type", "C");
+                    item.put("length", Integer.parseInt(row.get("DATA_PRECISION")+""));
+                    item.put("scale", Integer.parseInt(row.get("DATA_SCALE")+""));
+                } else {
+                    throw new HelperException("数据表中有不受支持的字段类型 | "+row.get("DATA_TYPE"));
                 }
+
+                columns.add(item);
             }
 
             return columns;

@@ -3,46 +3,34 @@ package com.baosight.bssim.models;
 import com.baosight.bssim.helpers.CodeHelper;
 import org.apache.commons.lang3.StringUtils;
 
-public class ColumnModel {
-    private String  name;
-    private String  comment;
-    private String  type;
-    private int     length;
-    private int     scale;
+import java.util.HashMap;
+import java.util.Map;
 
-    public String getDbType() {
-        return dbType;
+public class ColumnModel {
+    private Map meta = new HashMap();
+
+    public ColumnModel(Map meta) {
+        this.meta = meta;
     }
 
-    public void setDbType(String dbType) {
-        this.dbType = dbType;
+    public String getDbType() {
+        return meta.get("dbType")+"";
     }
 
     public boolean isNullable() {
-        return nullable;
+        return Boolean.parseBoolean(meta.get("nullable")+"");
     }
-
-    public void setNullable(boolean nullable) {
-        this.nullable = nullable;
-    }
-
-    private String  dbType;
-    private boolean nullable;
 
     public String getName() {
-        return name;
+        return meta.get("name")+"";
     }
 
     public String getQuoteName() {
         return "\"" + getName() + "\"";
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getCamelName() {
-        return CodeHelper.toCamel(this.name);
+        return CodeHelper.toCamel(getName());
     }
 
     public String getUnderscoreCamelName() {
@@ -70,34 +58,26 @@ public class ColumnModel {
     }
 
     public String getComment() {
-        return comment;
+        return meta.get("comment")+"";
     }
 
     public String getQuoteComment() {
         return new StringBuilder().append("\"").append(this.getComment()).append("\"").toString();
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+        return meta.get("type")+"";
     }
 
     public String getJavaType(){
-        if (this.type.equals("C")){
+        if (getType().equals("C")){
             return "String";
-        } else if(this.type.equals("N")){
-            if(this.scale == 0 && this.length <= 9){
+        } else if(getType().equals("N")){
+            if(getScale() == 0 && getLength() <= 9){
                 return "Integer";
             }
 
-            if(this.scale == 0 && this.length <= 18){
+            if(getScale() == 0 && getLength() <= 18){
                 return "Long";
             }
 
@@ -108,14 +88,14 @@ public class ColumnModel {
     }
 
     public String getDefaultValue() {
-        if (this.type.equals("C")) {
+        if (getType().equals("C")) {
             return "\" \"";
-        } else if(this.type.equals("N")) {
-            if(this.scale == 0 && this.length <= 9){
+        } else if(getType().equals("N")) {
+            if(getScale() == 0 && getLength() <= 9){
                 return "new Integer(0)";
             }
 
-            if(this.scale == 0 && this.length <= 18){
+            if(getScale() == 0 && getLength() <= 18){
                 return "new Long(0)";
             }
 
@@ -126,20 +106,13 @@ public class ColumnModel {
     }
 
     public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
+        return Integer.parseInt(meta.get("length")+"");
     }
 
     public int getScale() {
-        return scale;
+        return Integer.parseInt(meta.get("scale")+"");
     }
 
-    public void setScale(int scale) {
-        this.scale = scale;
-    }
 
 /////////////////////////////////////////////// For Java Code Generation ///////////////////////////////////////////////
     public String fragmentForAttr() {

@@ -4,7 +4,17 @@ bssim.controller("ConfigController", function($scope, Config, $http, Noty, $loca
 
     var query = function(){
         Config.get().success(function(result){
-            $scope.config = result.data;
+            if(result.status) {
+                $scope.config = result.data;
+                $scope.svnConfig = {
+                    "svn_repo_path": result.data.svn_repo_path,
+                    "svn_debug": result.data.svn_debug
+                };
+            } else {
+                Noty.error(result.message, path);
+            }
+        }).error(function(message){
+            Noty.error(message, path);
         });
     };
 
@@ -12,9 +22,27 @@ bssim.controller("ConfigController", function($scope, Config, $http, Noty, $loca
 
     $scope.save = function() {
         Config.save($scope.config).success(function(result){
-            console.log(result);
-            Noty.success(result.message, path);
-            query();
+            if(result.status){
+                Noty.success(result.message, path);
+                query();
+            } else {
+                Noty.error(result.message, path);
+            }
+        }).error(function(message){
+            Noty.error(message, path);
+        });
+    };
+
+    $scope.saveSvn = function() {
+        Config.save($scope.svnConfig).success(function(result){
+            if(result.status){
+                Noty.success(result.message, path);
+                query();
+            } else {
+                Noty.error(result.message, path);
+            }
+        }).error(function(message){
+            Noty.error(message, path);
         });
     };
 

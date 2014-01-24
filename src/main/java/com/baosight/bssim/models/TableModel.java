@@ -4,19 +4,24 @@ import com.baosight.bssim.exceptions.ModelException;
 import com.baosight.bssim.helpers.DatabaseHelperFactory;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 映射数据表
  */
 public class TableModel {
-    private String schemaName;
-    private String tableName;
-    private String comment;
     private ColumnModel[] columns;
-
-    private DatabaseHelper helper;
+    private Map<String, Object> meta = new HashMap<String, Object>();
+    private DatabaseHelper helper = DatabaseHelperFactory.newInstance();
     private JavaModel javaModel;
     private XmlModel xmlModel;
     private ConfigModel tableConfig;
@@ -32,6 +37,7 @@ public class TableModel {
         }
 
         String[] tokens = fullName.split("\\.");
+
         if (tokens.length < 2) {
             throw new ModelException("错误的全名: "+fullName);
         }
@@ -60,12 +66,9 @@ public class TableModel {
             throw new ModelException("表名不可以为空！");
         }
 
-        this.schemaName = schemaName.trim().toUpperCase();
-        this.tableName = tableName.trim().toUpperCase();
-
-        this.helper = DatabaseHelperFactory.newInstance();
-
-        this.queryTableComment();
+        meta.put("schema", schemaName.trim().toUpperCase());
+        meta.put("name", tableName.trim().toUpperCase());
+        meta.put("fullName", meta.get("schema")+"."+meta.get("name"));
 
         this.tableConfig = new ConfigModel(getFullTableName());
         this.javaModel = new JavaModel(this);
@@ -73,24 +76,50 @@ public class TableModel {
     }
 
     /**
-     * 获取表的注释名称
+     * 表的注释名称
      */
-    private void queryTableComment() {
-        this.comment = this.helper.queryTableComment(this.schemaName, this.tableName);
+    public String getComment() {
+        if (meta.get("comment") == null){
+            meta.put("comment", this.helper.queryTableComment(getSchemaName(), getTableName()));
+        }
+
+        return meta.get("comment")+"";
     }
 
     /**
-     * 构造字段对象
+     * 获取表的最后修改时间(yyyy-MM-dd HH:mm:ss)
      */
-    private void createColumns() {
-        this.columns = this.helper.createColumns(this.schemaName, this.tableName);
+    public String getLastModifiedTime() {
+        if (meta.get("lastModifiedTime") == null) {
+            Date lastModifiedTime = this.helper.queryTableLastModifiedTime(getSchemaName(), getTableName());
+            this.meta.put("lastModifiedTime", DateFormatUtils.format(lastModifiedTime, "yyyy-MM-dd HH:mm:ss"));
+        }
+
+        return meta.get("lastModifiedTime")+"";
+    }
+
+    /**
+     * 字段
+     */
+    public ColumnModel[] getColumns() {
+        if(meta.get("columns") == null){
+            List<Map> columns = this.helper.queryTableColumns(getSchemaName(), getTableName());
+            meta.put("columns", columns);
+
+            this.columns = new ColumnModel[columns.size()];
+            for (int i=0; i<columns.size(); i++) {
+                this.columns[i] = new ColumnModel(columns.get(i));
+            }
+        }
+
+        return this.columns;
     }
 
     /**
      * 表的全名，大写
      */
     public String getFullTableName() {
-        return this.schemaName + "." + this.tableName;
+        return meta.get("fullName")+"";
     }
 
     /**
@@ -104,14 +133,14 @@ public class TableModel {
      * 表的模式名，大写
      */
     public String getSchemaName() {
-        return this.schemaName;
+        return meta.get("schema")+"";
     }
 
     /**
      * 表的名称，大写
      */
     public String getTableName() {
-        return this.tableName;
+        return meta.get("name")+"";
     }
 
     /**
@@ -129,7 +158,7 @@ public class TableModel {
      * 取表名的第二、第三位
      */
     public String getFirstModuleName() {
-        return this.tableName.substring(1, 3);
+        return getTableName().substring(1, 3);
     }
 
     /**
@@ -139,8 +168,8 @@ public class TableModel {
      * 如果第四位不是字母开头，则视为没有二级模块，返回空字符串
      */
     public String getSecondModuleName() {
-        if(StringUtils.isAlpha(this.tableName.substring(3, 4))){
-            return this.tableName.substring(3, 5);
+        if(StringUtils.isAlpha(getTableName().substring(3, 4))){
+            return this.getTableName().substring(3, 5);
         } else {
             return "";
         }
@@ -150,23 +179,7 @@ public class TableModel {
      * 类名
      */
     public String getClassName() {
-        return StringUtils.capitalize(this.tableName.toLowerCase());
-    }
-
-    /**
-     * 表的注释名称
-     */
-    public String getComment() {
-        return this.comment;
-    }
-
-    /**
-     * 字段
-     */
-    public ColumnModel[] getColumns() {
-        if (this.columns == null)
-            this.createColumns();
-        return this.columns;
+        return StringUtils.capitalize(getTableName().toLowerCase());
     }
 
     /**
@@ -174,7 +187,7 @@ public class TableModel {
      */
     public ColumnModel[] getColumnsWithoutId() {
         if (this.columns == null)
-            this.createColumns();
+            getColumns();
 
         ColumnModel[] result = new ColumnModel[this.columns.length - 1];
         for (int i=0, j=0; i<this.columns.length; i++) {
@@ -212,21 +225,6 @@ public class TableModel {
         return this.xmlModel.toCode();
     }
 
-    private void checkRequirement() {
-        boolean idFlag = false;
-        for (int i=0; i<getColumns().length; i++) {
-            ColumnModel column = getColumns()[i];
-            if ("ID".equals(column.getName())){
-                idFlag = true;
-                break;
-            }
-        }
-
-        if (!idFlag) {
-            throw new ModelException("因为数据表[" + this.getFullTableName() + "]没有ID字段，所以无法正确生成代码！");
-        }
-    }
-
     /**
      * Java 文件的存放路径
      */
@@ -245,5 +243,81 @@ public class TableModel {
                 + getFirstModuleName().toLowerCase()
                 + (StringUtils.isBlank(getSecondModuleName()) ? "" : File.separator + getSecondModuleName().toLowerCase())
                 + File.separator + "sql" + File.separator + getTableName().substring(1) + "E.xml";
+    }
+
+    /**
+     * 得到表结构的Json对象
+     *
+     * 表结构的Json表示:
+     *
+     * {
+     *      name: [string, upcase],
+     *      schema: [string, upcase],
+     *      fullName: [=shema.name, string, upcase],
+     *      comment: [string],
+     *      lastModifiedTime: [string],
+     *      columns: [
+     *          {
+     *              name: [string, upcase],
+     *              comment: [string],
+     *              dbType: [string],
+     *              length: [number],
+     *              scale: [number]
+     *          }
+     *      ]
+     * }
+     */
+    public Map getMeta() {
+        /*
+        JSONObject table = new JSONObject();
+
+        table.put("name", this.getTableName());
+        table.put("schema", this.getSchemaName());
+        table.put("fullName", this.getFullTableName());
+        table.put("comment", this.getComment());
+        table.put("lastModifiedTime", this.getLastModifiedTime());
+
+        JSONArray columns = new JSONArray();
+
+        ColumnModel[] columnModels = this.getColumns();
+        for(ColumnModel columnModel: columnModels) {
+            JSONObject column = new JSONObject();
+
+            column.put("name", columnModel.getName());
+            column.put("comment", columnModel.getComment());
+            column.put("dbType", columnModel.getDbType());
+            column.put("length", columnModel.getLength());
+            column.put("scale", columnModel.getScale());
+
+            columns.put(column);
+        }
+
+        table.put("columns", columns);
+
+        return table;
+        */
+
+        getComment();
+        getLastModifiedTime();
+        getColumns();
+        return this.meta;
+    }
+
+    /**
+     * 检查是否具备代码生成的条件
+     */
+    private void checkRequirement() {
+        boolean idFlag = false;
+        for (int i=0; i<getColumns().length; i++) {
+            ColumnModel column = getColumns()[i];
+            if ("ID".equals(column.getName())){
+                idFlag = true;
+                break;
+            }
+        }
+
+        if (!idFlag) {
+            throw new ModelException("因为数据表[" + this.getFullTableName() + "]没有ID字段，所以无法正确生成代码！");
+        }
     }
 }

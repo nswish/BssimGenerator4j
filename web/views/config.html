@@ -1,3 +1,4 @@
+<!-- 数据库连接 -->
 <form class="form-horizontal" role="form" name="configForm">
     <div class="panel panel-default">
         <div class="panel-heading"><span style="font-size: 16px;">数据库 / 连接</span></div>
@@ -60,6 +61,7 @@
     </div>
 </form>
 
+<!-- 数据表 -->
 <div class="panel panel-default">
     <div class="panel-heading"><span style="font-size: 16px;">数据库 / 数据表</span></div>
     <div class="panel-body">
@@ -84,6 +86,39 @@
     </div>
 </div>
 
+<!-- SVN -->
+<form class="form-horizontal" role="form" name="svnConfigForm">
+<div class="panel panel-default">
+    <div class="panel-heading"><span style="font-size: 16px;">版本控制 / SVN</span></div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">本地地址</label>
+            <div class="col-sm-4">
+                <input name="svn_repo_path" type="text" class="form-control" placeholder="例如: svn://10.25.76.37/bssim/src/trunk" ng-model="svnConfig.svn_repo_path"
+                       required />
+                <span ng-show="svnConfigForm.svn_repo_path.$error.required">请输入地址</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="svnConfig.svn_debug" ng-disabled="!svnConfigForm.svn_repo_path.$valid"> 显示svn的调试信息
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer" style="padding:5px 15px;">
+        <button type="submit" class="btn btn-default btn-sm pull-right" ng-disabled="!svnConfigForm.$valid"
+                required
+                ng-click="saveSvn()">保存</button>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</form>
+
+<!-- 模式框 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <form class="form-horizontal" role="form" name="TableForm">
         <div class="modal-dialog">

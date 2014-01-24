@@ -42,6 +42,17 @@ bssim.controller("TableController", function($scope, $http, $routeParams, Noty, 
         $('#script_div').hide();
     }
 
+    $scope.commit = function() {
+        Noty.loading('正在提交...', path);
+        $http.post('tables/'+schemaTable+'/commit').success(function(result){
+            if(result.status){
+                Noty.success(result.message, path, 4000);
+            } else {
+                Noty.error(result.message, path);
+            }
+        });
+    }
+
     $scope.save = function(){
         $http.post('tables/'+schemaTable+'/config', {"script_content":scriptContentCm.getValue()}).success(function(result){
             if(result.status) {

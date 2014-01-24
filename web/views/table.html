@@ -1,6 +1,6 @@
 <div style="border-bottom: grey dashed 1px;">
     <a href="javascript: void(0);" ng-click="edit()">{{schemaTable}}</a>
-    <a class="pull-right" href='javascript: $("#gen_code_form").submit();'>提交</a>
+    <a class="pull-right" href='javascript: void(0)' ng-click="commit()">提交</a>
     <a class="pull-right" style="margin-right: 10px;" href="javascript: void(0);" ng-click="edit()">编辑</a>
 </div>
 
@@ -30,7 +30,6 @@
     </div>
 </div>
 
-<form id="gen_code_form" method="POST" action="/gen/<%=id%>/commit"></form>
 <form id="download_java_file_form" method="POST" action="{{'/gen/'+schemaTable+'/downloadJava'}}"></form>
 <form id="download_xml_file_form"  method="POST" action="{{'/gen/'+schemaTable+'/downloadXml'}}"></form>
 
