@@ -1,32 +1,26 @@
 package com.baosight.bssim.routes;
 
-import static spark.Spark.*;
-
 import com.baosight.bssim.exceptions.ControllerException;
 import com.baosight.bssim.helpers.DatabaseHelperFactory;
 import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import com.baosight.bssim.models.ConfigModel;
 import com.baosight.bssim.models.TableModel;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.tmatesoft.svn.core.SVNDepth;
-import org.tmatesoft.svn.core.SVNException;
-import org.tmatesoft.svn.core.SVNURL;
-import org.tmatesoft.svn.core.wc.SVNClientManager;
-import org.tmatesoft.svn.core.wc.SVNRevision;
-import spark.*;
+import spark.Request;
+import spark.Response;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class TablesRoute {
     public static void all() {

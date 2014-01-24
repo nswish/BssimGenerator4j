@@ -1,12 +1,17 @@
 package com.baosight.bssim.models;
 
+import com.baosight.bssim.controllers.ApplicationController;
 import com.baosight.bssim.exceptions.ModelException;
 import com.baosight.bssim.helpers.CodeHelper;
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.*;
 import java.util.*;
 
 public class JavaModel {
@@ -169,7 +174,7 @@ public class JavaModel {
                 .append("    Map arg = new HashMap();\n")
                 .append("    arg.put(\"id\", id);\n")
                 .append("    if(isLocked)arg.put(\"forUpdate\", \"FOR UPDATE\");\n")
-                .append("    List<" + table.getClassName() + "> result = getDao().query(\"" + table.getTableName().substring(1) + "E.select_by_id\", arg);\n")
+                .append("    List<" + table.getClassName() + "> result = getDao().query(\"" + table.getName().substring(1) + "E.select_by_id\", arg);\n")
                 .append("\n")
                 .append("    if(result.size() > 0){\n")
                 .append("        " + table.getClassName() + " a = result.get(0);\n")
@@ -225,7 +230,7 @@ public class JavaModel {
                 .append("    Map arg = new HashMap();\n")
                 .append("    arg.put(\"ids\", ids);\n")
                 .append("    if(isLocked)arg.put(\"forUpdate\", \"FOR UPDATE\");\n")
-                .append("    List<" + table.getClassName() + "> result = getDao().query(\"" + table.getTableName().substring(1) + "E.select_by_ids\", arg);\n")
+                .append("    List<" + table.getClassName() + "> result = getDao().query(\"" + table.getName().substring(1) + "E.select_by_ids\", arg);\n")
                 .append("\n")
                 .append("    if(result.size() != ids.length) {\n")
                 .append("        throw new ModelException(\"结果集包含的项数少于id数组的项数\");\n")
@@ -360,7 +365,7 @@ public class JavaModel {
 
                 String fullName = json.getString("table"); // 关系表全名，例如：XSSD.TSDSD02
                 String suffix = json.optString("suffix", "");
-                String columnName = table.getTableName() + "_ID" + ("".equals(suffix) ? suffix : ("_" + suffix.toUpperCase()));
+                String columnName = table.getName() + "_ID" + ("".equals(suffix) ? suffix : ("_" + suffix.toUpperCase()));
                 
                 TableModel anotherOne = new TableModel(fullName);
                 
@@ -384,9 +389,9 @@ public class JavaModel {
                 TableModel anotherOne = new TableModel(json.getString("table"));
 
                 content = new StringBuilder()
-                        .append("public " + anotherOne.getClassName() + " " + anotherOne.getTableName().toLowerCase() + "() {\n")
+                        .append("public " + anotherOne.getClassName() + " " + anotherOne.getName().toLowerCase() + "() {\n")
                         .append("    Map arg = new HashMap();\n")
-                        .append("    arg.put(\"" + table.getTableName().toLowerCase() + "Id\", this.id);\n")
+                        .append("    arg.put(\"" + table.getName().toLowerCase() + "Id\", this.id);\n")
                         .append("    return " + anotherOne.getClassName() + ".where(arg).first();\n")
                         .append("}");
 
@@ -431,6 +436,28 @@ public class JavaModel {
                 .append("}");
 
         return result.toString();
+    }
+
+    public String fmToCode() {
+        Configuration cfg = new Configuration();
+        try {
+            cfg.setDirectoryForTemplateLoading(new File(ApplicationController.BASE_PATH+"/ftls"));
+            cfg.setDefaultEncoding("utf-8");
+            cfg.setObjectWrapper(new DefaultObjectWrapper());
+
+            Map root = new HashMap();
+            root.put("table", this.table);
+
+            Template tmpl = cfg.getTemplate("java.ftl");
+
+            StringWriter out = new StringWriter();
+            tmpl.process(root, out);
+            out.flush();
+
+            return out.toString();
+        } catch (Exception e) {
+            throw new ModelException(e.getMessage());
+        }
     }
 
     public void addImport(String imp) {

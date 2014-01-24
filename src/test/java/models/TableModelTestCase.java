@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class TableModelTestCase {
     @Test
     public void testCreateFromJson() throws IOException {
-        ApplicationController.BASE_PATH = "/Users/ns/dev/BssimGenerator4j/out/artifacts/BssimGenerator4j_war_exploded";
+        ApplicationController.BASE_PATH = "src/test/java/data";
 
         File file = new File("src/test/java/data/XSSA.TSASA01.meta.json");
         String json = FileUtils.readFileToString(file, "utf-8");
@@ -34,6 +34,23 @@ public class TableModelTestCase {
         String table = "XSSA.TSASA01";
         TableModel model = new TableModel(table);
         System.out.println(new JSONObject(model.getMeta()).toString(4));
+    }
+
+    @Test
+    public void testFtl() throws IOException {
+        ApplicationController.BASE_PATH = "src/test/java/data";
+
+        File file = new File("src/test/java/data/XSSA.TSASA01.meta.json");
+        String json = FileUtils.readFileToString(file, "utf-8");
+
+        file = new File("src/test/java/data/XSSA.TSASA01.java.test");
+        String expectJavaCode = FileUtils.readFileToString(file, "utf-8");
+
+        TableModel table = TableModel.newInstance(json);
+        String actualJavaCode = table.genFtlJavaCode();
+        System.out.println(actualJavaCode);
+
+        assertEquals(removeGenenrateDateStr(expectJavaCode), removeGenenrateDateStr(actualJavaCode));
     }
 
     private String removeGenenrateDateStr(String str) {

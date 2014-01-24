@@ -6,9 +6,6 @@ import com.baosight.bssim.helpers.interfaces.DatabaseHelper;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.Date;
@@ -32,7 +29,7 @@ public class TableModel {
     public static TableModel newInstance(String json) {
         TableModel model = new TableModel();
         model.meta = new Gson().fromJson(json, HashMap.class);
-        model.tableConfig = new ConfigModel(model.getFullTableName());
+        model.tableConfig = new ConfigModel(model.getFullName());
         return model;
     }
 
@@ -84,7 +81,7 @@ public class TableModel {
         meta.put("name", tableName.trim().toUpperCase());
         meta.put("fullName", meta.get("schema")+"."+meta.get("name"));
 
-        this.tableConfig = new ConfigModel(getFullTableName());
+        this.tableConfig = new ConfigModel(getFullName());
     }
 
     /**
@@ -92,7 +89,7 @@ public class TableModel {
      */
     public String getComment() {
         if (meta.get("comment") == null){
-            meta.put("comment", this.helper.queryTableComment(getSchemaName(), getTableName()));
+            meta.put("comment", this.helper.queryTableComment(getSchemaName(), getName()));
         }
 
         return meta.get("comment")+"";
@@ -103,7 +100,7 @@ public class TableModel {
      */
     public String getLastModifiedTime() {
         if (meta.get("lastModifiedTime") == null) {
-            Date lastModifiedTime = this.helper.queryTableLastModifiedTime(getSchemaName(), getTableName());
+            Date lastModifiedTime = this.helper.queryTableLastModifiedTime(getSchemaName(), getName());
             this.meta.put("lastModifiedTime", DateFormatUtils.format(lastModifiedTime, "yyyy-MM-dd HH:mm:ss"));
         }
 
@@ -115,7 +112,7 @@ public class TableModel {
      */
     public ColumnModel[] getColumns() {
         if(meta.get("columns") == null){
-            meta.put("columns", this.helper.queryTableColumns(getSchemaName(), getTableName()));
+            meta.put("columns", this.helper.queryTableColumns(getSchemaName(), getName()));
             this.columns = null;  // 重置
         }
 
@@ -135,7 +132,7 @@ public class TableModel {
     /**
      * 表的全名，大写
      */
-    public String getFullTableName() {
+    public String getFullName() {
         return meta.get("fullName")+"";
     }
 
@@ -143,7 +140,7 @@ public class TableModel {
      * 带引号的表的全名，大写
      */
     public String getQuoteFullTableName() {
-        return "\"" + getFullTableName() + "\"";
+        return "\"" + getFullName() + "\"";
     }
 
     /**
@@ -156,7 +153,7 @@ public class TableModel {
     /**
      * 表的名称，大写
      */
-    public String getTableName() {
+    public String getName() {
         return meta.get("name")+"";
     }
 
@@ -175,7 +172,7 @@ public class TableModel {
      * 取表名的第二、第三位
      */
     public String getFirstModuleName() {
-        return getTableName().substring(1, 3);
+        return getName().substring(1, 3);
     }
 
     /**
@@ -185,8 +182,8 @@ public class TableModel {
      * 如果第四位不是字母开头，则视为没有二级模块，返回空字符串
      */
     public String getSecondModuleName() {
-        if(StringUtils.isAlpha(getTableName().substring(3, 4))){
-            return this.getTableName().substring(3, 5);
+        if(StringUtils.isAlpha(getName().substring(3, 4))){
+            return this.getName().substring(3, 5);
         } else {
             return "";
         }
@@ -196,7 +193,7 @@ public class TableModel {
      * 类名
      */
     public String getClassName() {
-        return StringUtils.capitalize(getTableName().toLowerCase());
+        return StringUtils.capitalize(getName().toLowerCase());
     }
 
     /**
@@ -233,6 +230,11 @@ public class TableModel {
         return new JavaModel(this).toCode();
     }
 
+    public String genFtlJavaCode() {
+        checkRequirement();;
+        return new JavaModel(this).fmToCode();
+    }
+
     /**
      * 生成 Xml 代码
      */
@@ -258,7 +260,7 @@ public class TableModel {
         return "com" + File.separator + "baosight" + File.separator + "bssim" + File.separator
                 + getFirstModuleName().toLowerCase()
                 + (StringUtils.isBlank(getSecondModuleName()) ? "" : File.separator + getSecondModuleName().toLowerCase())
-                + File.separator + "sql" + File.separator + getTableName().substring(1) + "E.xml";
+                + File.separator + "sql" + File.separator + getName().substring(1) + "E.xml";
     }
 
     /**
@@ -307,7 +309,7 @@ public class TableModel {
         }
 
         if (!idFlag) {
-            throw new ModelException("因为数据表[" + this.getFullTableName() + "]没有ID字段，所以无法正确生成代码！");
+            throw new ModelException("因为数据表[" + this.getFullName() + "]没有ID字段，所以无法正确生成代码！");
         }
     }
 }

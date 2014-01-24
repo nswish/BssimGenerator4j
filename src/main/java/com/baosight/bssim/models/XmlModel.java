@@ -28,7 +28,7 @@ public class XmlModel {
         content = new StringBuilder()
                 .append("SELECT\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
-                .append("FROM " + table.getFullTableName() + "\n")
+                .append("FROM " + table.getFullName() + "\n")
                 .append("WHERE ID = #id#\n\n")
                 .append("<isNotEmpty property=\"forUpdate\">\n")
                 .append("    $forUpdate$\n")
@@ -40,7 +40,7 @@ public class XmlModel {
         content = new StringBuilder()
                 .append("SELECT\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
-                .append("FROM " + table.getFullTableName() + "\n")
+                .append("FROM " + table.getFullName() + "\n")
                 .append("WHERE ID IN\n")
                 .append("<iterate property=\"ids\" conjunction=\",\" open=\"(\" close=\")\">\n")
                 .append("    #ids[]#\n")
@@ -56,7 +56,7 @@ public class XmlModel {
         content = new StringBuilder()
                 .append("SELECT\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SelectWithColumns", ",\n"))).append("\n")
-                .append("FROM " + table.getFullTableName() + "\n")
+                .append("FROM " + table.getFullName() + "\n")
                 .append("WHERE 1=1\n")
                 .append("<isNotEmpty prepend=\" AND \" property=\"fixWhere\">\n")
                 .append("    $fixWhere$\n")
@@ -82,7 +82,7 @@ public class XmlModel {
         StringBuilder content;
 
         content = new StringBuilder()
-                .append("INSERT INTO " + table.getFullTableName() + " (\n")
+                .append("INSERT INTO " + table.getFullName() + " (\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "InsertWithColumns", ",\n"))).append("\n")
                 .append(") VALUES (").append(CodeHelper.concatFragments(table.getColumns(), "InsertWithValues", ", ")).append(")");
 
@@ -93,7 +93,7 @@ public class XmlModel {
         StringBuilder content;
 
         content = new StringBuilder()
-                .append("UPDATE " + table.getFullTableName() + "\n")
+                .append("UPDATE " + table.getFullName() + "\n")
                 .append("SET ID = ID\n")
                 .append(CodeHelper.concatFragments(table.getColumnsWithoutId(), "UpdateWithSet", "\n")).append("\n\n")
                 .append("WHERE ID = #id#\n\n")
@@ -107,13 +107,13 @@ public class XmlModel {
 
         // delete_by_id
         content = new StringBuilder()
-                .append("DELETE FROM " + table.getFullTableName() + " WHERE ID = #id#");
+                .append("DELETE FROM " + table.getFullName() + " WHERE ID = #id#");
 
         this.addDelete("delete_by_id", content.toString());
 
         // delete_by_ids
         content = new StringBuilder()
-                .append("DELETE FROM " + table.getFullTableName()).append("\n")
+                .append("DELETE FROM " + table.getFullName()).append("\n")
                 .append("WHERE ID IN\n")
                 .append("<iterate property=\"ids\" conjunction=\",\" open=\"(\" close=\")\">\n")
                 .append("    #ids[]#\n")
@@ -140,12 +140,12 @@ public class XmlModel {
 
                 // doc comment
                 .append("    Generate Time: " + DateFormatUtils.format(new Date(), "y-MM-dd HH:mm:ss")).append("\n")
-                .append("    Table Name: " + table.getTableName() + " " + table.getComment()).append("\n\n")
+                .append("    Table Name: " + table.getName() + " " + table.getComment()).append("\n\n")
                 .append(CodeHelper.indent(CodeHelper.concatFragments(table.getColumns(), "SqlMapComment", "\n"))).append("\n")
                 .append("-->\n\n")
 
                 // sqlmap
-                .append("<sqlMap namespace=\"" + table.getTableName().substring(1)  + "E\">\n")
+                .append("<sqlMap namespace=\"" + table.getName().substring(1)  + "E\">\n")
 
                 // sqlmap statements
                 .append(CodeHelper.indent(StringUtils.join(new String[]{
