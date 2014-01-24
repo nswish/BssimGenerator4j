@@ -1,0 +1,1173 @@
+package com.baosight.bssim.sa.sa.domain.model;
+
+import com.baosight.bssim.common.model.ModelEPBase;
+import java.math.BigDecimal;
+import com.baosight.iplat4j.core.ei.EiColumn;
+import java.util.Map;
+import com.baosight.iplat4j.util.StringUtils;
+import com.baosight.iplat4j.util.NumberUtils;
+import java.util.HashMap;
+import java.util.List;
+import com.baosight.bssim.common.exception.ModelException;
+import net.sf.json.JSONObject;
+import com.baosight.bssim.sa.sc.domain.model.Tsascc1;
+import com.baosight.bssim.sa.sa.domain.model.Tsasa02;
+
+/**
+ * Tsasa01
+ * Table Comment : 货款信息表
+ * Generate Date : 2014-01-24 15:22:27
+ */
+@SuppressWarnings({"serial", "rawtypes", "unchecked"})
+public class Tsasa01 extends ModelEPBase {
+    private String recCreator = " ";    /*记录创建者*/
+    private String recCreateTime = " ";    /*记录创建时间*/
+    private String recRevisor = " ";    /*记录修改人员*/
+    private String recReviseTime = " ";    /*记录修改时间*/
+    private String archiveFlag = " ";    /*归档标记*/
+    private Long id = new Long(0);    /*ID*/
+    private String receiptCode = " ";    /*收款收条号*/
+    private String companyCode = " ";    /*公司别*/
+    private String settleUserNum = " ";    /*结算用户代码*/
+    private String agreemtNumCsy = " ";    /*协议号(厂商银)*/
+    private String receiptUsage = " ";    /*收款用途*/
+    private String receiptMode = " ";    /*收款方式*/
+    private String receiptStatus = " ";    /*收款状态*/
+    private String paperNo = " ";    /*票据号*/
+    private BigDecimal paperAmt = new BigDecimal(0);    /*票面金额*/
+    private BigDecimal rmbAmt = new BigDecimal(0);    /*人民币金额*/
+    private String currency = " ";    /*币种*/
+    private BigDecimal exchangeRate = new BigDecimal(0);    /*汇率*/
+    private String builtDate = " ";    /*出票日期*/
+    private String endDate = " ";    /*到期日期*/
+    private String receiveDate = " ";    /*收票日期*/
+    private String auditPerson = " ";    /*审核人*/
+    private String auditTime = " ";    /*审核时间*/
+    private String remark = " ";    /*备注*/
+    private String backRemark = " ";    /*退回原因*/
+    private Long tsascc1Id = new Long(0);    /*货款信息配置主表ID*/
+    
+    /**
+     * 按驼峰命名规则的字段名称
+     */
+    public static class fields {
+        /**
+         * 记录创建者
+         */
+        public static final String recCreator = "recCreator";
+        /**
+         * 记录创建时间
+         */
+        public static final String recCreateTime = "recCreateTime";
+        /**
+         * 记录修改人员
+         */
+        public static final String recRevisor = "recRevisor";
+        /**
+         * 记录修改时间
+         */
+        public static final String recReviseTime = "recReviseTime";
+        /**
+         * 归档标记
+         */
+        public static final String archiveFlag = "archiveFlag";
+        /**
+         * ID
+         */
+        public static final String id = "id";
+        /**
+         * 收款收条号
+         */
+        public static final String receiptCode = "receiptCode";
+        /**
+         * 公司别
+         */
+        public static final String companyCode = "companyCode";
+        /**
+         * 结算用户代码
+         */
+        public static final String settleUserNum = "settleUserNum";
+        /**
+         * 协议号(厂商银)
+         */
+        public static final String agreemtNumCsy = "agreemtNumCsy";
+        /**
+         * 收款用途
+         */
+        public static final String receiptUsage = "receiptUsage";
+        /**
+         * 收款方式
+         */
+        public static final String receiptMode = "receiptMode";
+        /**
+         * 收款状态
+         */
+        public static final String receiptStatus = "receiptStatus";
+        /**
+         * 票据号
+         */
+        public static final String paperNo = "paperNo";
+        /**
+         * 票面金额
+         */
+        public static final String paperAmt = "paperAmt";
+        /**
+         * 人民币金额
+         */
+        public static final String rmbAmt = "rmbAmt";
+        /**
+         * 币种
+         */
+        public static final String currency = "currency";
+        /**
+         * 汇率
+         */
+        public static final String exchangeRate = "exchangeRate";
+        /**
+         * 出票日期
+         */
+        public static final String builtDate = "builtDate";
+        /**
+         * 到期日期
+         */
+        public static final String endDate = "endDate";
+        /**
+         * 收票日期
+         */
+        public static final String receiveDate = "receiveDate";
+        /**
+         * 审核人
+         */
+        public static final String auditPerson = "auditPerson";
+        /**
+         * 审核时间
+         */
+        public static final String auditTime = "auditTime";
+        /**
+         * 备注
+         */
+        public static final String remark = "remark";
+        /**
+         * 退回原因
+         */
+        public static final String backRemark = "backRemark";
+        /**
+         * 货款信息配置主表ID
+         */
+        public static final String tsascc1Id = "tsascc1Id";
+    }
+    
+    /**
+     * 按下划线命名规则的字段名称
+     */
+    public static class columns {
+        /**
+         * 记录创建者
+         */
+        public static final String REC_CREATOR = "REC_CREATOR";
+        /**
+         * 记录创建时间
+         */
+        public static final String REC_CREATE_TIME = "REC_CREATE_TIME";
+        /**
+         * 记录修改人员
+         */
+        public static final String REC_REVISOR = "REC_REVISOR";
+        /**
+         * 记录修改时间
+         */
+        public static final String REC_REVISE_TIME = "REC_REVISE_TIME";
+        /**
+         * 归档标记
+         */
+        public static final String ARCHIVE_FLAG = "ARCHIVE_FLAG";
+        /**
+         * ID
+         */
+        public static final String ID = "ID";
+        /**
+         * 收款收条号
+         */
+        public static final String RECEIPT_CODE = "RECEIPT_CODE";
+        /**
+         * 公司别
+         */
+        public static final String COMPANY_CODE = "COMPANY_CODE";
+        /**
+         * 结算用户代码
+         */
+        public static final String SETTLE_USER_NUM = "SETTLE_USER_NUM";
+        /**
+         * 协议号(厂商银)
+         */
+        public static final String AGREEMT_NUM_CSY = "AGREEMT_NUM_CSY";
+        /**
+         * 收款用途
+         */
+        public static final String RECEIPT_USAGE = "RECEIPT_USAGE";
+        /**
+         * 收款方式
+         */
+        public static final String RECEIPT_MODE = "RECEIPT_MODE";
+        /**
+         * 收款状态
+         */
+        public static final String RECEIPT_STATUS = "RECEIPT_STATUS";
+        /**
+         * 票据号
+         */
+        public static final String PAPER_NO = "PAPER_NO";
+        /**
+         * 票面金额
+         */
+        public static final String PAPER_AMT = "PAPER_AMT";
+        /**
+         * 人民币金额
+         */
+        public static final String RMB_AMT = "RMB_AMT";
+        /**
+         * 币种
+         */
+        public static final String CURRENCY = "CURRENCY";
+        /**
+         * 汇率
+         */
+        public static final String EXCHANGE_RATE = "EXCHANGE_RATE";
+        /**
+         * 出票日期
+         */
+        public static final String BUILT_DATE = "BUILT_DATE";
+        /**
+         * 到期日期
+         */
+        public static final String END_DATE = "END_DATE";
+        /**
+         * 收票日期
+         */
+        public static final String RECEIVE_DATE = "RECEIVE_DATE";
+        /**
+         * 审核人
+         */
+        public static final String AUDIT_PERSON = "AUDIT_PERSON";
+        /**
+         * 审核时间
+         */
+        public static final String AUDIT_TIME = "AUDIT_TIME";
+        /**
+         * 备注
+         */
+        public static final String REMARK = "REMARK";
+        /**
+         * 退回原因
+         */
+        public static final String BACK_REMARK = "BACK_REMARK";
+        /**
+         * 货款信息配置主表ID
+         */
+        public static final String TSASCC1_ID = "TSASCC1_ID";
+    }
+    
+    /**
+     * the constructor
+     */
+    public Tsasa01() {
+        initMetaData();
+    }
+    
+    /**
+     * get the recCreator - 记录创建者
+     * @return the recCreator
+     */
+    public String getRecCreator() {
+        return this.recCreator;
+    }
+    
+    /**
+     * set the recCreator - 记录创建者
+     */
+    public void setRecCreator(String recCreator) {
+        if(this.isInDB && !taintedAttrs.containsKey("recCreator"))taintedAttrs.put("recCreator", this.recCreator);
+        this.recCreator = recCreator;
+    }
+    
+    /**
+     * get the recCreateTime - 记录创建时间
+     * @return the recCreateTime
+     */
+    public String getRecCreateTime() {
+        return this.recCreateTime;
+    }
+    
+    /**
+     * set the recCreateTime - 记录创建时间
+     */
+    public void setRecCreateTime(String recCreateTime) {
+        if(this.isInDB && !taintedAttrs.containsKey("recCreateTime"))taintedAttrs.put("recCreateTime", this.recCreateTime);
+        this.recCreateTime = recCreateTime;
+    }
+    
+    /**
+     * get the recRevisor - 记录修改人员
+     * @return the recRevisor
+     */
+    public String getRecRevisor() {
+        return this.recRevisor;
+    }
+    
+    /**
+     * set the recRevisor - 记录修改人员
+     */
+    public void setRecRevisor(String recRevisor) {
+        if(this.isInDB && !taintedAttrs.containsKey("recRevisor"))taintedAttrs.put("recRevisor", this.recRevisor);
+        this.recRevisor = recRevisor;
+    }
+    
+    /**
+     * get the recReviseTime - 记录修改时间
+     * @return the recReviseTime
+     */
+    public String getRecReviseTime() {
+        return this.recReviseTime;
+    }
+    
+    /**
+     * set the recReviseTime - 记录修改时间
+     */
+    public void setRecReviseTime(String recReviseTime) {
+        if(this.isInDB && !taintedAttrs.containsKey("recReviseTime"))taintedAttrs.put("recReviseTime", this.recReviseTime);
+        this.recReviseTime = recReviseTime;
+    }
+    
+    /**
+     * get the archiveFlag - 归档标记
+     * @return the archiveFlag
+     */
+    public String getArchiveFlag() {
+        return this.archiveFlag;
+    }
+    
+    /**
+     * set the archiveFlag - 归档标记
+     */
+    public void setArchiveFlag(String archiveFlag) {
+        if(this.isInDB && !taintedAttrs.containsKey("archiveFlag"))taintedAttrs.put("archiveFlag", this.archiveFlag);
+        this.archiveFlag = archiveFlag;
+    }
+    
+    /**
+     * get the id - ID
+     * @return the id
+     */
+    public Long getId() {
+        return this.id;
+    }
+    
+    /**
+     * set the id - ID
+     */
+    public void setId(Long id) {
+        if(this.isInDB && !taintedAttrs.containsKey("id"))taintedAttrs.put("id", this.id);
+        this.id = id;
+    }
+    
+    /**
+     * get the receiptCode - 收款收条号
+     * @return the receiptCode
+     */
+    public String getReceiptCode() {
+        return this.receiptCode;
+    }
+    
+    /**
+     * set the receiptCode - 收款收条号
+     */
+    public void setReceiptCode(String receiptCode) {
+        if(this.isInDB && !taintedAttrs.containsKey("receiptCode"))taintedAttrs.put("receiptCode", this.receiptCode);
+        this.receiptCode = receiptCode;
+    }
+    
+    /**
+     * get the companyCode - 公司别
+     * @return the companyCode
+     */
+    public String getCompanyCode() {
+        return this.companyCode;
+    }
+    
+    /**
+     * set the companyCode - 公司别
+     */
+    public void setCompanyCode(String companyCode) {
+        if(this.isInDB && !taintedAttrs.containsKey("companyCode"))taintedAttrs.put("companyCode", this.companyCode);
+        this.companyCode = companyCode;
+    }
+    
+    /**
+     * get the settleUserNum - 结算用户代码
+     * @return the settleUserNum
+     */
+    public String getSettleUserNum() {
+        return this.settleUserNum;
+    }
+    
+    /**
+     * set the settleUserNum - 结算用户代码
+     */
+    public void setSettleUserNum(String settleUserNum) {
+        if(this.isInDB && !taintedAttrs.containsKey("settleUserNum"))taintedAttrs.put("settleUserNum", this.settleUserNum);
+        this.settleUserNum = settleUserNum;
+    }
+    
+    /**
+     * get the agreemtNumCsy - 协议号(厂商银)
+     * @return the agreemtNumCsy
+     */
+    public String getAgreemtNumCsy() {
+        return this.agreemtNumCsy;
+    }
+    
+    /**
+     * set the agreemtNumCsy - 协议号(厂商银)
+     */
+    public void setAgreemtNumCsy(String agreemtNumCsy) {
+        if(this.isInDB && !taintedAttrs.containsKey("agreemtNumCsy"))taintedAttrs.put("agreemtNumCsy", this.agreemtNumCsy);
+        this.agreemtNumCsy = agreemtNumCsy;
+    }
+    
+    /**
+     * get the receiptUsage - 收款用途
+     * @return the receiptUsage
+     */
+    public String getReceiptUsage() {
+        return this.receiptUsage;
+    }
+    
+    /**
+     * set the receiptUsage - 收款用途
+     */
+    public void setReceiptUsage(String receiptUsage) {
+        if(this.isInDB && !taintedAttrs.containsKey("receiptUsage"))taintedAttrs.put("receiptUsage", this.receiptUsage);
+        this.receiptUsage = receiptUsage;
+    }
+    
+    /**
+     * get the receiptMode - 收款方式
+     * @return the receiptMode
+     */
+    public String getReceiptMode() {
+        return this.receiptMode;
+    }
+    
+    /**
+     * set the receiptMode - 收款方式
+     */
+    public void setReceiptMode(String receiptMode) {
+        if(this.isInDB && !taintedAttrs.containsKey("receiptMode"))taintedAttrs.put("receiptMode", this.receiptMode);
+        this.receiptMode = receiptMode;
+    }
+    
+    /**
+     * get the receiptStatus - 收款状态
+     * @return the receiptStatus
+     */
+    public String getReceiptStatus() {
+        return this.receiptStatus;
+    }
+    
+    /**
+     * set the receiptStatus - 收款状态
+     */
+    public void setReceiptStatus(String receiptStatus) {
+        if(this.isInDB && !taintedAttrs.containsKey("receiptStatus"))taintedAttrs.put("receiptStatus", this.receiptStatus);
+        this.receiptStatus = receiptStatus;
+    }
+    
+    /**
+     * get the paperNo - 票据号
+     * @return the paperNo
+     */
+    public String getPaperNo() {
+        return this.paperNo;
+    }
+    
+    /**
+     * set the paperNo - 票据号
+     */
+    public void setPaperNo(String paperNo) {
+        if(this.isInDB && !taintedAttrs.containsKey("paperNo"))taintedAttrs.put("paperNo", this.paperNo);
+        this.paperNo = paperNo;
+    }
+    
+    /**
+     * get the paperAmt - 票面金额
+     * @return the paperAmt
+     */
+    public BigDecimal getPaperAmt() {
+        return this.paperAmt;
+    }
+    
+    /**
+     * set the paperAmt - 票面金额
+     */
+    public void setPaperAmt(BigDecimal paperAmt) {
+        if(this.isInDB && !taintedAttrs.containsKey("paperAmt"))taintedAttrs.put("paperAmt", this.paperAmt);
+        this.paperAmt = paperAmt;
+    }
+    
+    /**
+     * get the rmbAmt - 人民币金额
+     * @return the rmbAmt
+     */
+    public BigDecimal getRmbAmt() {
+        return this.rmbAmt;
+    }
+    
+    /**
+     * set the rmbAmt - 人民币金额
+     */
+    public void setRmbAmt(BigDecimal rmbAmt) {
+        if(this.isInDB && !taintedAttrs.containsKey("rmbAmt"))taintedAttrs.put("rmbAmt", this.rmbAmt);
+        this.rmbAmt = rmbAmt;
+    }
+    
+    /**
+     * get the currency - 币种
+     * @return the currency
+     */
+    public String getCurrency() {
+        return this.currency;
+    }
+    
+    /**
+     * set the currency - 币种
+     */
+    public void setCurrency(String currency) {
+        if(this.isInDB && !taintedAttrs.containsKey("currency"))taintedAttrs.put("currency", this.currency);
+        this.currency = currency;
+    }
+    
+    /**
+     * get the exchangeRate - 汇率
+     * @return the exchangeRate
+     */
+    public BigDecimal getExchangeRate() {
+        return this.exchangeRate;
+    }
+    
+    /**
+     * set the exchangeRate - 汇率
+     */
+    public void setExchangeRate(BigDecimal exchangeRate) {
+        if(this.isInDB && !taintedAttrs.containsKey("exchangeRate"))taintedAttrs.put("exchangeRate", this.exchangeRate);
+        this.exchangeRate = exchangeRate;
+    }
+    
+    /**
+     * get the builtDate - 出票日期
+     * @return the builtDate
+     */
+    public String getBuiltDate() {
+        return this.builtDate;
+    }
+    
+    /**
+     * set the builtDate - 出票日期
+     */
+    public void setBuiltDate(String builtDate) {
+        if(this.isInDB && !taintedAttrs.containsKey("builtDate"))taintedAttrs.put("builtDate", this.builtDate);
+        this.builtDate = builtDate;
+    }
+    
+    /**
+     * get the endDate - 到期日期
+     * @return the endDate
+     */
+    public String getEndDate() {
+        return this.endDate;
+    }
+    
+    /**
+     * set the endDate - 到期日期
+     */
+    public void setEndDate(String endDate) {
+        if(this.isInDB && !taintedAttrs.containsKey("endDate"))taintedAttrs.put("endDate", this.endDate);
+        this.endDate = endDate;
+    }
+    
+    /**
+     * get the receiveDate - 收票日期
+     * @return the receiveDate
+     */
+    public String getReceiveDate() {
+        return this.receiveDate;
+    }
+    
+    /**
+     * set the receiveDate - 收票日期
+     */
+    public void setReceiveDate(String receiveDate) {
+        if(this.isInDB && !taintedAttrs.containsKey("receiveDate"))taintedAttrs.put("receiveDate", this.receiveDate);
+        this.receiveDate = receiveDate;
+    }
+    
+    /**
+     * get the auditPerson - 审核人
+     * @return the auditPerson
+     */
+    public String getAuditPerson() {
+        return this.auditPerson;
+    }
+    
+    /**
+     * set the auditPerson - 审核人
+     */
+    public void setAuditPerson(String auditPerson) {
+        if(this.isInDB && !taintedAttrs.containsKey("auditPerson"))taintedAttrs.put("auditPerson", this.auditPerson);
+        this.auditPerson = auditPerson;
+    }
+    
+    /**
+     * get the auditTime - 审核时间
+     * @return the auditTime
+     */
+    public String getAuditTime() {
+        return this.auditTime;
+    }
+    
+    /**
+     * set the auditTime - 审核时间
+     */
+    public void setAuditTime(String auditTime) {
+        if(this.isInDB && !taintedAttrs.containsKey("auditTime"))taintedAttrs.put("auditTime", this.auditTime);
+        this.auditTime = auditTime;
+    }
+    
+    /**
+     * get the remark - 备注
+     * @return the remark
+     */
+    public String getRemark() {
+        return this.remark;
+    }
+    
+    /**
+     * set the remark - 备注
+     */
+    public void setRemark(String remark) {
+        if(this.isInDB && !taintedAttrs.containsKey("remark"))taintedAttrs.put("remark", this.remark);
+        this.remark = remark;
+    }
+    
+    /**
+     * get the backRemark - 退回原因
+     * @return the backRemark
+     */
+    public String getBackRemark() {
+        return this.backRemark;
+    }
+    
+    /**
+     * set the backRemark - 退回原因
+     */
+    public void setBackRemark(String backRemark) {
+        if(this.isInDB && !taintedAttrs.containsKey("backRemark"))taintedAttrs.put("backRemark", this.backRemark);
+        this.backRemark = backRemark;
+    }
+    
+    /**
+     * get the tsascc1Id - 货款信息配置主表ID
+     * @return the tsascc1Id
+     */
+    public Long getTsascc1Id() {
+        return this.tsascc1Id;
+    }
+    
+    /**
+     * set the tsascc1Id - 货款信息配置主表ID
+     */
+    public void setTsascc1Id(Long tsascc1Id) {
+        if(this.isInDB && !taintedAttrs.containsKey("tsascc1Id"))taintedAttrs.put("tsascc1Id", this.tsascc1Id);
+        this.tsascc1Id = tsascc1Id;
+    }
+    
+    /**
+     * initialize the metadata
+     */
+    public void initMetaData() {
+        EiColumn eiColumn;
+    
+        eiColumn = new EiColumn("recCreator");
+        eiColumn.setDescName("记录创建者");
+        eiColumn.setFieldLength(8);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("recCreateTime");
+        eiColumn.setDescName("记录创建时间");
+        eiColumn.setFieldLength(14);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("recRevisor");
+        eiColumn.setDescName("记录修改人员");
+        eiColumn.setFieldLength(8);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("recReviseTime");
+        eiColumn.setDescName("记录修改时间");
+        eiColumn.setFieldLength(14);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("archiveFlag");
+        eiColumn.setDescName("归档标记");
+        eiColumn.setFieldLength(1);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("id");
+        eiColumn.setDescName("ID");
+        eiColumn.setFieldLength(18);
+        eiColumn.setType("N");
+        eiColumn.setScaleLength(0);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("receiptCode");
+        eiColumn.setDescName("收款收条号");
+        eiColumn.setFieldLength(15);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("companyCode");
+        eiColumn.setDescName("公司别");
+        eiColumn.setFieldLength(16);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("settleUserNum");
+        eiColumn.setDescName("结算用户代码");
+        eiColumn.setFieldLength(20);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("agreemtNumCsy");
+        eiColumn.setDescName("协议号(厂商银)");
+        eiColumn.setFieldLength(30);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("receiptUsage");
+        eiColumn.setDescName("收款用途");
+        eiColumn.setFieldLength(4);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("receiptMode");
+        eiColumn.setDescName("收款方式");
+        eiColumn.setFieldLength(4);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("receiptStatus");
+        eiColumn.setDescName("收款状态");
+        eiColumn.setFieldLength(2);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("paperNo");
+        eiColumn.setDescName("票据号");
+        eiColumn.setFieldLength(20);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("paperAmt");
+        eiColumn.setDescName("票面金额");
+        eiColumn.setFieldLength(20);
+        eiColumn.setType("N");
+        eiColumn.setScaleLength(2);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("rmbAmt");
+        eiColumn.setDescName("人民币金额");
+        eiColumn.setFieldLength(20);
+        eiColumn.setType("N");
+        eiColumn.setScaleLength(2);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("currency");
+        eiColumn.setDescName("币种");
+        eiColumn.setFieldLength(3);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("exchangeRate");
+        eiColumn.setDescName("汇率");
+        eiColumn.setFieldLength(12);
+        eiColumn.setType("N");
+        eiColumn.setScaleLength(6);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("builtDate");
+        eiColumn.setDescName("出票日期");
+        eiColumn.setFieldLength(8);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("endDate");
+        eiColumn.setDescName("到期日期");
+        eiColumn.setFieldLength(8);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("receiveDate");
+        eiColumn.setDescName("收票日期");
+        eiColumn.setFieldLength(8);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("auditPerson");
+        eiColumn.setDescName("审核人");
+        eiColumn.setFieldLength(8);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("auditTime");
+        eiColumn.setDescName("审核时间");
+        eiColumn.setFieldLength(14);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("remark");
+        eiColumn.setDescName("备注");
+        eiColumn.setFieldLength(200);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("backRemark");
+        eiColumn.setDescName("退回原因");
+        eiColumn.setFieldLength(200);
+        eiMetadata.addMeta(eiColumn);
+        
+        eiColumn = new EiColumn("tsascc1Id");
+        eiColumn.setDescName("货款信息配置主表ID");
+        eiColumn.setFieldLength(18);
+        eiColumn.setType("N");
+        eiColumn.setScaleLength(0);
+        eiMetadata.addMeta(eiColumn);
+    }
+    
+    /**
+     * get the value from Map
+     */
+    public void fromMap(Map map) {
+        setRecCreator(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("recCreator")), recCreator));
+        setRecCreateTime(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("recCreateTime")), recCreateTime));
+        setRecRevisor(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("recRevisor")), recRevisor));
+        setRecReviseTime(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("recReviseTime")), recReviseTime));
+        setArchiveFlag(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("archiveFlag")), archiveFlag));
+        setId(NumberUtils.toLong(StringUtils.toString(map.get("id")), id));
+        setReceiptCode(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("receiptCode")), receiptCode));
+        setCompanyCode(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("companyCode")), companyCode));
+        setSettleUserNum(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("settleUserNum")), settleUserNum));
+        setAgreemtNumCsy(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("agreemtNumCsy")), agreemtNumCsy));
+        setReceiptUsage(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("receiptUsage")), receiptUsage));
+        setReceiptMode(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("receiptMode")), receiptMode));
+        setReceiptStatus(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("receiptStatus")), receiptStatus));
+        setPaperNo(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("paperNo")), paperNo));
+        setPaperAmt(NumberUtils.toBigDecimal(StringUtils.toString(map.get("paperAmt")), paperAmt));
+        setRmbAmt(NumberUtils.toBigDecimal(StringUtils.toString(map.get("rmbAmt")), rmbAmt));
+        setCurrency(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("currency")), currency));
+        setExchangeRate(NumberUtils.toBigDecimal(StringUtils.toString(map.get("exchangeRate")), exchangeRate));
+        setBuiltDate(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("builtDate")), builtDate));
+        setEndDate(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("endDate")), endDate));
+        setReceiveDate(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("receiveDate")), receiveDate));
+        setAuditPerson(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("auditPerson")), auditPerson));
+        setAuditTime(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("auditTime")), auditTime));
+        setRemark(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("remark")), remark));
+        setBackRemark(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("backRemark")), backRemark));
+        setTsascc1Id(NumberUtils.toLong(StringUtils.toString(map.get("tsascc1Id")), tsascc1Id));
+    }
+    
+    /**
+     * set the value to Map
+     */
+    public Map toMap() {
+        Map map = new HashMap();
+        map.put("recCreator", StringUtils.toString(recCreator, eiMetadata.getMeta("recCreator")));
+        map.put("recCreateTime", StringUtils.toString(recCreateTime, eiMetadata.getMeta("recCreateTime")));
+        map.put("recRevisor", StringUtils.toString(recRevisor, eiMetadata.getMeta("recRevisor")));
+        map.put("recReviseTime", StringUtils.toString(recReviseTime, eiMetadata.getMeta("recReviseTime")));
+        map.put("archiveFlag", StringUtils.toString(archiveFlag, eiMetadata.getMeta("archiveFlag")));
+        map.put("id", StringUtils.toString(id, eiMetadata.getMeta("id")));
+        map.put("receiptCode", StringUtils.toString(receiptCode, eiMetadata.getMeta("receiptCode")));
+        map.put("companyCode", StringUtils.toString(companyCode, eiMetadata.getMeta("companyCode")));
+        map.put("settleUserNum", StringUtils.toString(settleUserNum, eiMetadata.getMeta("settleUserNum")));
+        map.put("agreemtNumCsy", StringUtils.toString(agreemtNumCsy, eiMetadata.getMeta("agreemtNumCsy")));
+        map.put("receiptUsage", StringUtils.toString(receiptUsage, eiMetadata.getMeta("receiptUsage")));
+        map.put("receiptMode", StringUtils.toString(receiptMode, eiMetadata.getMeta("receiptMode")));
+        map.put("receiptStatus", StringUtils.toString(receiptStatus, eiMetadata.getMeta("receiptStatus")));
+        map.put("paperNo", StringUtils.toString(paperNo, eiMetadata.getMeta("paperNo")));
+        map.put("paperAmt", StringUtils.toString(paperAmt, eiMetadata.getMeta("paperAmt")));
+        map.put("rmbAmt", StringUtils.toString(rmbAmt, eiMetadata.getMeta("rmbAmt")));
+        map.put("currency", StringUtils.toString(currency, eiMetadata.getMeta("currency")));
+        map.put("exchangeRate", StringUtils.toString(exchangeRate, eiMetadata.getMeta("exchangeRate")));
+        map.put("builtDate", StringUtils.toString(builtDate, eiMetadata.getMeta("builtDate")));
+        map.put("endDate", StringUtils.toString(endDate, eiMetadata.getMeta("endDate")));
+        map.put("receiveDate", StringUtils.toString(receiveDate, eiMetadata.getMeta("receiveDate")));
+        map.put("auditPerson", StringUtils.toString(auditPerson, eiMetadata.getMeta("auditPerson")));
+        map.put("auditTime", StringUtils.toString(auditTime, eiMetadata.getMeta("auditTime")));
+        map.put("remark", StringUtils.toString(remark, eiMetadata.getMeta("remark")));
+        map.put("backRemark", StringUtils.toString(backRemark, eiMetadata.getMeta("backRemark")));
+        map.put("tsascc1Id", StringUtils.toString(tsascc1Id, eiMetadata.getMeta("tsascc1Id")));
+        return map;
+    }
+    
+    /**
+     * 生成代码的版本号
+     */
+    public int getVersion() {
+        return 1;
+    }
+    
+    /**
+     * 类似fromMap方法，但参数包含的数据类型必须是严格的
+     */
+    public void fromAttrs(Map attrs) {
+        if(attrs.get("recCreator") != null)setRecCreator((String)attrs.get("recCreator"));
+        if(attrs.get("recCreateTime") != null)setRecCreateTime((String)attrs.get("recCreateTime"));
+        if(attrs.get("recRevisor") != null)setRecRevisor((String)attrs.get("recRevisor"));
+        if(attrs.get("recReviseTime") != null)setRecReviseTime((String)attrs.get("recReviseTime"));
+        if(attrs.get("archiveFlag") != null)setArchiveFlag((String)attrs.get("archiveFlag"));
+        if(attrs.get("id") != null)setId((Long)attrs.get("id"));
+        if(attrs.get("receiptCode") != null)setReceiptCode((String)attrs.get("receiptCode"));
+        if(attrs.get("companyCode") != null)setCompanyCode((String)attrs.get("companyCode"));
+        if(attrs.get("settleUserNum") != null)setSettleUserNum((String)attrs.get("settleUserNum"));
+        if(attrs.get("agreemtNumCsy") != null)setAgreemtNumCsy((String)attrs.get("agreemtNumCsy"));
+        if(attrs.get("receiptUsage") != null)setReceiptUsage((String)attrs.get("receiptUsage"));
+        if(attrs.get("receiptMode") != null)setReceiptMode((String)attrs.get("receiptMode"));
+        if(attrs.get("receiptStatus") != null)setReceiptStatus((String)attrs.get("receiptStatus"));
+        if(attrs.get("paperNo") != null)setPaperNo((String)attrs.get("paperNo"));
+        if(attrs.get("paperAmt") != null)setPaperAmt((BigDecimal)attrs.get("paperAmt"));
+        if(attrs.get("rmbAmt") != null)setRmbAmt((BigDecimal)attrs.get("rmbAmt"));
+        if(attrs.get("currency") != null)setCurrency((String)attrs.get("currency"));
+        if(attrs.get("exchangeRate") != null)setExchangeRate((BigDecimal)attrs.get("exchangeRate"));
+        if(attrs.get("builtDate") != null)setBuiltDate((String)attrs.get("builtDate"));
+        if(attrs.get("endDate") != null)setEndDate((String)attrs.get("endDate"));
+        if(attrs.get("receiveDate") != null)setReceiveDate((String)attrs.get("receiveDate"));
+        if(attrs.get("auditPerson") != null)setAuditPerson((String)attrs.get("auditPerson"));
+        if(attrs.get("auditTime") != null)setAuditTime((String)attrs.get("auditTime"));
+        if(attrs.get("remark") != null)setRemark((String)attrs.get("remark"));
+        if(attrs.get("backRemark") != null)setBackRemark((String)attrs.get("backRemark"));
+        if(attrs.get("tsascc1Id") != null)setTsascc1Id((Long)attrs.get("tsascc1Id"));
+    }
+    
+    /**
+     * 类似toMap方法，但返回结果的数据类型是严格的
+     */
+    public Map toAttrs() {
+        Map result = new HashMap();
+        result.put("recCreator", this.recCreator);
+        result.put("recCreateTime", this.recCreateTime);
+        result.put("recRevisor", this.recRevisor);
+        result.put("recReviseTime", this.recReviseTime);
+        result.put("archiveFlag", this.archiveFlag);
+        result.put("id", this.id);
+        result.put("receiptCode", this.receiptCode);
+        result.put("companyCode", this.companyCode);
+        result.put("settleUserNum", this.settleUserNum);
+        result.put("agreemtNumCsy", this.agreemtNumCsy);
+        result.put("receiptUsage", this.receiptUsage);
+        result.put("receiptMode", this.receiptMode);
+        result.put("receiptStatus", this.receiptStatus);
+        result.put("paperNo", this.paperNo);
+        result.put("paperAmt", this.paperAmt);
+        result.put("rmbAmt", this.rmbAmt);
+        result.put("currency", this.currency);
+        result.put("exchangeRate", this.exchangeRate);
+        result.put("builtDate", this.builtDate);
+        result.put("endDate", this.endDate);
+        result.put("receiveDate", this.receiveDate);
+        result.put("auditPerson", this.auditPerson);
+        result.put("auditTime", this.auditTime);
+        result.put("remark", this.remark);
+        result.put("backRemark", this.backRemark);
+        result.put("tsascc1Id", this.tsascc1Id);
+        return result;
+    }
+    
+    /**
+     * 复制当前对象(id不被复制)
+     */
+    public Tsasa01 noIdDuplicate() {
+        Tsasa01 dup = new Tsasa01();
+    
+        Map attrs = this.toAttrs();
+        attrs.put("id", new Long(0));
+        dup.fromAttrs(attrs);
+    
+        dup.isInDB = false;
+        dup.isExtended = true;
+    
+        return dup;
+    }
+    
+    /**
+     * 转换为Json字符串
+     */
+    public String toJson() {
+        return JSONObject.fromObject(toAttrs()).toString(4);
+    }
+    
+    /**
+     * toJson的反向操作
+     */
+    public void fromJson(String jsonstr) {
+        fromAttrs(JSONObject.fromObject(jsonstr));
+    }
+    
+    /**
+     * 关联 货款信息配置主表
+     */
+    public Tsascc1 tsascc1() {
+        return Tsascc1.find(this.tsascc1Id);
+    }
+    
+    /**
+     * 关联 货款信息附加属性表
+     */
+    public ModelQuerier tsasa02s() {
+        Map arg = new HashMap();
+        arg.put("tsasa01Id", this.id);
+        return new ModelQuerier("XSSA.TSASA02", "TSASA01_ID = #tsasa01Id#", arg);
+    }
+    
+    /**
+     * 关联 货款信息附加属性表
+     */
+    public Tsasa02 tsasa02() {
+        Map arg = new HashMap();
+        arg.put("tsasa01Id", this.id);
+        return Tsasa02.where(arg).first();
+    }
+    
+    /**
+     * 创建新的实例
+     */
+    public static Tsasa01 newInstance() {
+        Tsasa01 result = new Tsasa01();
+        result.isExtended = true;
+        return result;
+    }
+    
+    /**
+     * 创建新的实例(属性初始化为传入的参数)
+     */
+    public static Tsasa01 newInstance(Map attr) {
+        Tsasa01 result = newInstance();
+        result.fromMap(attr);
+        return result;
+    }
+    
+    /**
+     * 按id查找
+     */
+    public static Tsasa01 find(Long id) {
+        return find(id, false);
+    }
+    
+    /**
+     * 按id查找(上锁)
+     */
+    public static Tsasa01 findWithLock(Long id) {
+        return find(id, true);
+    }
+    
+    /**
+     * 按id查找(可选择是否上锁)
+     */
+    private static Tsasa01 find(Long id, boolean isLocked) {
+        Map arg = new HashMap();
+        arg.put("id", id);
+        if(isLocked)arg.put("forUpdate", "FOR UPDATE");
+        List<Tsasa01> result = getDao().query("SASA01E.select_by_id", arg);
+    
+        if(result.size() > 0){
+            Tsasa01 a = result.get(0);
+            a.isExtended = true;
+            a.isInDB = true;
+            return a;
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * 按id查找，参数为String类型
+     */
+    public static Tsasa01 find(String id) {
+        return find(Long.parseLong(id), false);
+    }
+    
+    /**
+     * 按id查找，参数为String类型(上锁)
+     */
+    public static Tsasa01 findWithLock(String id) {
+        return find(Long.parseLong(id), true);
+    }
+    
+    /**
+     * 按id数组查找
+     * 如果结果集包含的项数少于id数组的项数，则抛出异常
+     */
+    public static Tsasa01[] find(Long[] ids) {
+        return find(ids, false);
+    }
+    
+    /**
+     * 按id数组查找(上锁)
+     * 如果结果集包含的项数少于id数组的项数，则抛出异常
+     */
+    public static Tsasa01[] findWithLock(Long[] ids) {
+        return find(ids, true);
+    }
+    
+    /**
+     * 按id数组查找(可选择是否上锁)
+     * 如果结果集包含的项数少于id数组的项数，则抛出异常
+     */
+    private static Tsasa01[] find(Long[] ids, boolean isLocked) {
+        if(ids == null || ids.length == 0) throw new ModelException("id数组不能为null或者空");
+    
+        Map arg = new HashMap();
+        arg.put("ids", ids);
+        if(isLocked)arg.put("forUpdate", "FOR UPDATE");
+        List<Tsasa01> result = getDao().query("SASA01E.select_by_ids", arg);
+    
+        if(result.size() != ids.length) {
+            throw new ModelException("结果集包含的项数少于id数组的项数");
+        } else {
+            return result.toArray(new Tsasa01[0]);
+        }
+    }
+    
+    /**
+     * 自定义查询
+     */
+    public static CustomQuerier q(String sqlmap, Map arg) {
+        return new CustomQuerier(sqlmap, arg);
+    }
+    
+    /**
+     * 简单Where查询
+     * 传入的参数最终会转换为 'key1 = value1 and key2 = value2 and ...' 这样形式的字符串
+     */
+    public static ModelQuerier where(Map arg) {
+        return new ModelQuerier("XSSA.TSASA01").where(arg);
+    }
+    
+    /**
+     * Where查询
+     * Map中的key和value做替换
+     *    { type: "a", name: "b" }
+     *    "type = #type# or name like #name# || '%'"
+     * => "type = 'a' or name like 'b' || ‘%’"
+     */
+    public static ModelQuerier where(String where, Map arg) {
+        return new ModelQuerier("XSSA.TSASA01").where(where, arg);
+    }
+    
+    /**
+     * 得到对应数据表的全称
+     */
+    public String getFullTableName() {
+        return "XSSA.TSASA01";
+    }
+    
+    /**
+     * 删除
+     */
+    public void delete() {
+        super.delete("XSSA.TSASA01");
+    }
+}

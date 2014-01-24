@@ -22,9 +22,8 @@ import java.util.Map;
 public class TableModel {
     private ColumnModel[] columns;
     private Map<String, Object> meta = new HashMap<String, Object>();
+
     private DatabaseHelper helper = DatabaseHelperFactory.newInstance();
-    private JavaModel javaModel;
-    private XmlModel xmlModel;
     private ConfigModel tableConfig;
 
     /**
@@ -34,8 +33,6 @@ public class TableModel {
         TableModel model = new TableModel();
         model.meta = new Gson().fromJson(json, HashMap.class);
         model.tableConfig = new ConfigModel(model.getFullTableName());
-        model.javaModel = new JavaModel(model);
-        model.xmlModel = new XmlModel(model);
         return model;
     }
 
@@ -88,8 +85,6 @@ public class TableModel {
         meta.put("fullName", meta.get("schema")+"."+meta.get("name"));
 
         this.tableConfig = new ConfigModel(getFullTableName());
-        this.javaModel = new JavaModel(this);
-        this.xmlModel = new XmlModel(this);
     }
 
     /**
@@ -121,11 +116,14 @@ public class TableModel {
     public ColumnModel[] getColumns() {
         if(meta.get("columns") == null){
             meta.put("columns", this.helper.queryTableColumns(getSchemaName(), getTableName()));
+            this.columns = null;  // 重置
         }
 
         if (this.columns == null) {
-            List<Map> columns = (List)meta.get("columns");
+            List<Map> columns = (List<Map>)meta.get("columns");
+
             this.columns = new ColumnModel[columns.size()];
+
             for (int i=0; i<columns.size(); i++) {
                 this.columns[i] = new ColumnModel(columns.get(i));
             }
@@ -205,13 +203,12 @@ public class TableModel {
      * 字段(不包含ID)
      */
     public ColumnModel[] getColumnsWithoutId() {
-        if (this.columns == null)
-            getColumns();
+        ColumnModel[] columns = getColumns();
 
-        ColumnModel[] result = new ColumnModel[this.columns.length - 1];
-        for (int i=0, j=0; i<this.columns.length; i++) {
-            if (!"ID".equals(this.columns[i].getName())){
-                result[j++] = this.columns[i];
+        ColumnModel[] result = new ColumnModel[columns.length - 1];
+        for (int i=0, j=0; i<columns.length; i++) {
+            if (!"ID".equals(columns[i].getName())){
+                result[j++] = columns[i];
             }
         }
         return result;
@@ -233,7 +230,7 @@ public class TableModel {
      */
     public String genJavaCode() {
         checkRequirement();
-        return this.javaModel.toCode();
+        return new JavaModel(this).toCode();
     }
 
     /**
@@ -241,7 +238,7 @@ public class TableModel {
      */
     public String genXmlCode() {
         checkRequirement();
-        return this.xmlModel.toCode();
+        return new XmlModel(this).toCode();
     }
 
     /**
@@ -280,45 +277,19 @@ public class TableModel {
      *              name: [string, upcase],
      *              comment: [string],
      *              dbType: [string],
+     *              type:   [string, upcase],
      *              length: [number],
-     *              scale: [number]
+     *              scale: [number],
+     *              nullable: [boolean]
      *          }
      *      ]
      * }
      */
     public Map getMeta() {
-        /*
-        JSONObject table = new JSONObject();
-
-        table.put("name", this.getTableName());
-        table.put("schema", this.getSchemaName());
-        table.put("fullName", this.getFullTableName());
-        table.put("comment", this.getComment());
-        table.put("lastModifiedTime", this.getLastModifiedTime());
-
-        JSONArray columns = new JSONArray();
-
-        ColumnModel[] columnModels = this.getColumns();
-        for(ColumnModel columnModel: columnModels) {
-            JSONObject column = new JSONObject();
-
-            column.put("name", columnModel.getName());
-            column.put("comment", columnModel.getComment());
-            column.put("dbType", columnModel.getDbType());
-            column.put("length", columnModel.getLength());
-            column.put("scale", columnModel.getScale());
-
-            columns.put(column);
-        }
-
-        table.put("columns", columns);
-
-        return table;
-        */
-
         getComment();
         getLastModifiedTime();
         getColumns();
+
         return this.meta;
     }
 

@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!-- Table Information
+    Generate Time: 2014-01-24 14:49:14
+    Table Name: TSASA01 货款信息表
+
+    记录创建者 "REC_CREATOR" VARCHAR2(8) NOT NULL
+    记录创建时间 "REC_CREATE_TIME" VARCHAR2(14) NOT NULL
+    记录修改人员 "REC_REVISOR" VARCHAR2(8) NOT NULL
+    记录修改时间 "REC_REVISE_TIME" VARCHAR2(14) NOT NULL
+    归档标记 "ARCHIVE_FLAG" VARCHAR2(1) NOT NULL
+    ID "ID" NUMBER(18) NOT NULL
+    收款收条号 "RECEIPT_CODE" VARCHAR2(15) NOT NULL
+    公司别 "COMPANY_CODE" VARCHAR2(16) NOT NULL
+    结算用户代码 "SETTLE_USER_NUM" VARCHAR2(20) NOT NULL
+    协议号(厂商银) "AGREEMT_NUM_CSY" VARCHAR2(30) NOT NULL
+    收款用途 "RECEIPT_USAGE" VARCHAR2(4) NOT NULL
+    收款方式 "RECEIPT_MODE" VARCHAR2(4) NOT NULL
+    收款状态 "RECEIPT_STATUS" VARCHAR2(2) NOT NULL
+    票据号 "PAPER_NO" VARCHAR2(20) NOT NULL
+    票面金额 "PAPER_AMT" NUMBER(20,2) NOT NULL
+    人民币金额 "RMB_AMT" NUMBER(20,2) NOT NULL
+    币种 "CURRENCY" VARCHAR2(3) NOT NULL
+    汇率 "EXCHANGE_RATE" NUMBER(12,6) NOT NULL
+    出票日期 "BUILT_DATE" VARCHAR2(8) NOT NULL
+    到期日期 "END_DATE" VARCHAR2(8) NOT NULL
+    收票日期 "RECEIVE_DATE" VARCHAR2(8) NOT NULL
+    审核人 "AUDIT_PERSON" VARCHAR2(8) NOT NULL
+    审核时间 "AUDIT_TIME" VARCHAR2(14) NOT NULL
+    备注 "REMARK" VARCHAR2(200) NOT NULL
+    退回原因 "BACK_REMARK" VARCHAR2(200) NOT NULL
+    货款信息配置主表ID "TSASCC1_ID" NUMBER(18) NOT NULL
+-->
+
+<sqlMap namespace="SASA01E">
+    <select id="select_by_id" parameterClass="java.util.HashMap" resultClass="com.baosight.bssim.sa.sa.domain.model.Tsasa01">
+        SELECT
+            REC_CREATOR as "recCreator"   <!-- 记录创建者 -->,
+            REC_CREATE_TIME as "recCreateTime"   <!-- 记录创建时间 -->,
+            REC_REVISOR as "recRevisor"   <!-- 记录修改人员 -->,
+            REC_REVISE_TIME as "recReviseTime"   <!-- 记录修改时间 -->,
+            ARCHIVE_FLAG as "archiveFlag"   <!-- 归档标记 -->,
+            ID as "id"   <!-- ID -->,
+            RECEIPT_CODE as "receiptCode"   <!-- 收款收条号 -->,
+            COMPANY_CODE as "companyCode"   <!-- 公司别 -->,
+            SETTLE_USER_NUM as "settleUserNum"   <!-- 结算用户代码 -->,
+            AGREEMT_NUM_CSY as "agreemtNumCsy"   <!-- 协议号(厂商银) -->,
+            RECEIPT_USAGE as "receiptUsage"   <!-- 收款用途 -->,
+            RECEIPT_MODE as "receiptMode"   <!-- 收款方式 -->,
+            RECEIPT_STATUS as "receiptStatus"   <!-- 收款状态 -->,
+            PAPER_NO as "paperNo"   <!-- 票据号 -->,
+            PAPER_AMT as "paperAmt"   <!-- 票面金额 -->,
+            RMB_AMT as "rmbAmt"   <!-- 人民币金额 -->,
+            CURRENCY as "currency"   <!-- 币种 -->,
+            EXCHANGE_RATE as "exchangeRate"   <!-- 汇率 -->,
+            BUILT_DATE as "builtDate"   <!-- 出票日期 -->,
+            END_DATE as "endDate"   <!-- 到期日期 -->,
+            RECEIVE_DATE as "receiveDate"   <!-- 收票日期 -->,
+            AUDIT_PERSON as "auditPerson"   <!-- 审核人 -->,
+            AUDIT_TIME as "auditTime"   <!-- 审核时间 -->,
+            REMARK as "remark"   <!-- 备注 -->,
+            BACK_REMARK as "backRemark"   <!-- 退回原因 -->,
+            TSASCC1_ID as "tsascc1Id"   <!-- 货款信息配置主表ID -->
+        FROM XSSA.TSASA01
+        WHERE ID = #id#
+        
+        <isNotEmpty property="forUpdate">
+            $forUpdate$
+        </isNotEmpty>
+    </select>
+    
+    <select id="select_by_ids" parameterClass="java.util.HashMap" resultClass="com.baosight.bssim.sa.sa.domain.model.Tsasa01">
+        SELECT
+            REC_CREATOR as "recCreator"   <!-- 记录创建者 -->,
+            REC_CREATE_TIME as "recCreateTime"   <!-- 记录创建时间 -->,
+            REC_REVISOR as "recRevisor"   <!-- 记录修改人员 -->,
+            REC_REVISE_TIME as "recReviseTime"   <!-- 记录修改时间 -->,
+            ARCHIVE_FLAG as "archiveFlag"   <!-- 归档标记 -->,
+            ID as "id"   <!-- ID -->,
+            RECEIPT_CODE as "receiptCode"   <!-- 收款收条号 -->,
+            COMPANY_CODE as "companyCode"   <!-- 公司别 -->,
+            SETTLE_USER_NUM as "settleUserNum"   <!-- 结算用户代码 -->,
+            AGREEMT_NUM_CSY as "agreemtNumCsy"   <!-- 协议号(厂商银) -->,
+            RECEIPT_USAGE as "receiptUsage"   <!-- 收款用途 -->,
+            RECEIPT_MODE as "receiptMode"   <!-- 收款方式 -->,
+            RECEIPT_STATUS as "receiptStatus"   <!-- 收款状态 -->,
+            PAPER_NO as "paperNo"   <!-- 票据号 -->,
+            PAPER_AMT as "paperAmt"   <!-- 票面金额 -->,
+            RMB_AMT as "rmbAmt"   <!-- 人民币金额 -->,
+            CURRENCY as "currency"   <!-- 币种 -->,
+            EXCHANGE_RATE as "exchangeRate"   <!-- 汇率 -->,
+            BUILT_DATE as "builtDate"   <!-- 出票日期 -->,
+            END_DATE as "endDate"   <!-- 到期日期 -->,
+            RECEIVE_DATE as "receiveDate"   <!-- 收票日期 -->,
+            AUDIT_PERSON as "auditPerson"   <!-- 审核人 -->,
+            AUDIT_TIME as "auditTime"   <!-- 审核时间 -->,
+            REMARK as "remark"   <!-- 备注 -->,
+            BACK_REMARK as "backRemark"   <!-- 退回原因 -->,
+            TSASCC1_ID as "tsascc1Id"   <!-- 货款信息配置主表ID -->
+        FROM XSSA.TSASA01
+        WHERE ID IN
+        <iterate property="ids" conjunction="," open="(" close=")">
+            #ids[]#
+        </iterate>
+        ORDER BY ID
+        
+        <isNotEmpty property="forUpdate">
+            $forUpdate$
+        </isNotEmpty>
+    </select>
+    
+    <select id="select_ex" parameterClass="java.util.HashMap" resultClass="com.baosight.bssim.sa.sa.domain.model.Tsasa01">
+        SELECT
+            REC_CREATOR as "recCreator"   <!-- 记录创建者 -->,
+            REC_CREATE_TIME as "recCreateTime"   <!-- 记录创建时间 -->,
+            REC_REVISOR as "recRevisor"   <!-- 记录修改人员 -->,
+            REC_REVISE_TIME as "recReviseTime"   <!-- 记录修改时间 -->,
+            ARCHIVE_FLAG as "archiveFlag"   <!-- 归档标记 -->,
+            ID as "id"   <!-- ID -->,
+            RECEIPT_CODE as "receiptCode"   <!-- 收款收条号 -->,
+            COMPANY_CODE as "companyCode"   <!-- 公司别 -->,
+            SETTLE_USER_NUM as "settleUserNum"   <!-- 结算用户代码 -->,
+            AGREEMT_NUM_CSY as "agreemtNumCsy"   <!-- 协议号(厂商银) -->,
+            RECEIPT_USAGE as "receiptUsage"   <!-- 收款用途 -->,
+            RECEIPT_MODE as "receiptMode"   <!-- 收款方式 -->,
+            RECEIPT_STATUS as "receiptStatus"   <!-- 收款状态 -->,
+            PAPER_NO as "paperNo"   <!-- 票据号 -->,
+            PAPER_AMT as "paperAmt"   <!-- 票面金额 -->,
+            RMB_AMT as "rmbAmt"   <!-- 人民币金额 -->,
+            CURRENCY as "currency"   <!-- 币种 -->,
+            EXCHANGE_RATE as "exchangeRate"   <!-- 汇率 -->,
+            BUILT_DATE as "builtDate"   <!-- 出票日期 -->,
+            END_DATE as "endDate"   <!-- 到期日期 -->,
+            RECEIVE_DATE as "receiveDate"   <!-- 收票日期 -->,
+            AUDIT_PERSON as "auditPerson"   <!-- 审核人 -->,
+            AUDIT_TIME as "auditTime"   <!-- 审核时间 -->,
+            REMARK as "remark"   <!-- 备注 -->,
+            BACK_REMARK as "backRemark"   <!-- 退回原因 -->,
+            TSASCC1_ID as "tsascc1Id"   <!-- 货款信息配置主表ID -->
+        FROM XSSA.TSASA01
+        WHERE 1=1
+        <isNotEmpty prepend=" AND " property="fixWhere">
+            $fixWhere$
+        </isNotEmpty>
+        
+        <isNotEmpty prepend=" AND " property="where">
+            $where$
+        </isNotEmpty>
+        
+        <isNotEmpty prepend=" AND " property="recCreator">
+            REC_CREATOR = #recCreator#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="recCreateTime">
+            REC_CREATE_TIME = #recCreateTime#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="recRevisor">
+            REC_REVISOR = #recRevisor#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="recReviseTime">
+            REC_REVISE_TIME = #recReviseTime#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="archiveFlag">
+            ARCHIVE_FLAG = #archiveFlag#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="id">
+            ID = #id#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="receiptCode">
+            RECEIPT_CODE = #receiptCode#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="companyCode">
+            COMPANY_CODE = #companyCode#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="settleUserNum">
+            SETTLE_USER_NUM = #settleUserNum#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="agreemtNumCsy">
+            AGREEMT_NUM_CSY = #agreemtNumCsy#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="receiptUsage">
+            RECEIPT_USAGE = #receiptUsage#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="receiptMode">
+            RECEIPT_MODE = #receiptMode#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="receiptStatus">
+            RECEIPT_STATUS = #receiptStatus#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="paperNo">
+            PAPER_NO = #paperNo#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="paperAmt">
+            PAPER_AMT = #paperAmt#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="rmbAmt">
+            RMB_AMT = #rmbAmt#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="currency">
+            CURRENCY = #currency#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="exchangeRate">
+            EXCHANGE_RATE = #exchangeRate#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="builtDate">
+            BUILT_DATE = #builtDate#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="endDate">
+            END_DATE = #endDate#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="receiveDate">
+            RECEIVE_DATE = #receiveDate#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="auditPerson">
+            AUDIT_PERSON = #auditPerson#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="auditTime">
+            AUDIT_TIME = #auditTime#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="remark">
+            REMARK = #remark#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="backRemark">
+            BACK_REMARK = #backRemark#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="tsascc1Id">
+            TSASCC1_ID = #tsascc1Id#
+        </isNotEmpty>
+        
+        <isNotEmpty prepend=" ORDER BY " property="orderBy">
+            $orderBy$
+        </isNotEmpty>
+        
+        <isNotEmpty property="forUpdate">
+            $forUpdate$
+        </isNotEmpty>
+    </select>
+    
+    <insert id="insert">
+        INSERT INTO XSSA.TSASA01 (
+            REC_CREATOR   <!-- 记录创建者 -->,
+            REC_CREATE_TIME   <!-- 记录创建时间 -->,
+            REC_REVISOR   <!-- 记录修改人员 -->,
+            REC_REVISE_TIME   <!-- 记录修改时间 -->,
+            ARCHIVE_FLAG   <!-- 归档标记 -->,
+            ID   <!-- ID -->,
+            RECEIPT_CODE   <!-- 收款收条号 -->,
+            COMPANY_CODE   <!-- 公司别 -->,
+            SETTLE_USER_NUM   <!-- 结算用户代码 -->,
+            AGREEMT_NUM_CSY   <!-- 协议号(厂商银) -->,
+            RECEIPT_USAGE   <!-- 收款用途 -->,
+            RECEIPT_MODE   <!-- 收款方式 -->,
+            RECEIPT_STATUS   <!-- 收款状态 -->,
+            PAPER_NO   <!-- 票据号 -->,
+            PAPER_AMT   <!-- 票面金额 -->,
+            RMB_AMT   <!-- 人民币金额 -->,
+            CURRENCY   <!-- 币种 -->,
+            EXCHANGE_RATE   <!-- 汇率 -->,
+            BUILT_DATE   <!-- 出票日期 -->,
+            END_DATE   <!-- 到期日期 -->,
+            RECEIVE_DATE   <!-- 收票日期 -->,
+            AUDIT_PERSON   <!-- 审核人 -->,
+            AUDIT_TIME   <!-- 审核时间 -->,
+            REMARK   <!-- 备注 -->,
+            BACK_REMARK   <!-- 退回原因 -->,
+            TSASCC1_ID   <!-- 货款信息配置主表ID -->
+        ) VALUES (#recCreator#, #recCreateTime#, #recRevisor#, #recReviseTime#, #archiveFlag#, #id#, #receiptCode#, #companyCode#, #settleUserNum#, #agreemtNumCsy#, #receiptUsage#, #receiptMode#, #receiptStatus#, #paperNo#, #paperAmt#, #rmbAmt#, #currency#, #exchangeRate#, #builtDate#, #endDate#, #receiveDate#, #auditPerson#, #auditTime#, #remark#, #backRemark#, #tsascc1Id#)
+    </insert>
+    
+    <update id="update_by_id">
+        UPDATE XSSA.TSASA01
+        SET ID = ID
+        <isNotEmpty property="recCreator">
+            ,REC_CREATOR = #recCreator#
+        </isNotEmpty>
+        <isNotEmpty property="recCreateTime">
+            ,REC_CREATE_TIME = #recCreateTime#
+        </isNotEmpty>
+        <isNotEmpty property="recRevisor">
+            ,REC_REVISOR = #recRevisor#
+        </isNotEmpty>
+        <isNotEmpty property="recReviseTime">
+            ,REC_REVISE_TIME = #recReviseTime#
+        </isNotEmpty>
+        <isNotEmpty property="archiveFlag">
+            ,ARCHIVE_FLAG = #archiveFlag#
+        </isNotEmpty>
+        <isNotEmpty property="receiptCode">
+            ,RECEIPT_CODE = #receiptCode#
+        </isNotEmpty>
+        <isNotEmpty property="companyCode">
+            ,COMPANY_CODE = #companyCode#
+        </isNotEmpty>
+        <isNotEmpty property="settleUserNum">
+            ,SETTLE_USER_NUM = #settleUserNum#
+        </isNotEmpty>
+        <isNotEmpty property="agreemtNumCsy">
+            ,AGREEMT_NUM_CSY = #agreemtNumCsy#
+        </isNotEmpty>
+        <isNotEmpty property="receiptUsage">
+            ,RECEIPT_USAGE = #receiptUsage#
+        </isNotEmpty>
+        <isNotEmpty property="receiptMode">
+            ,RECEIPT_MODE = #receiptMode#
+        </isNotEmpty>
+        <isNotEmpty property="receiptStatus">
+            ,RECEIPT_STATUS = #receiptStatus#
+        </isNotEmpty>
+        <isNotEmpty property="paperNo">
+            ,PAPER_NO = #paperNo#
+        </isNotEmpty>
+        <isNotEmpty property="paperAmt">
+            ,PAPER_AMT = #paperAmt#
+        </isNotEmpty>
+        <isNotEmpty property="rmbAmt">
+            ,RMB_AMT = #rmbAmt#
+        </isNotEmpty>
+        <isNotEmpty property="currency">
+            ,CURRENCY = #currency#
+        </isNotEmpty>
+        <isNotEmpty property="exchangeRate">
+            ,EXCHANGE_RATE = #exchangeRate#
+        </isNotEmpty>
+        <isNotEmpty property="builtDate">
+            ,BUILT_DATE = #builtDate#
+        </isNotEmpty>
+        <isNotEmpty property="endDate">
+            ,END_DATE = #endDate#
+        </isNotEmpty>
+        <isNotEmpty property="receiveDate">
+            ,RECEIVE_DATE = #receiveDate#
+        </isNotEmpty>
+        <isNotEmpty property="auditPerson">
+            ,AUDIT_PERSON = #auditPerson#
+        </isNotEmpty>
+        <isNotEmpty property="auditTime">
+            ,AUDIT_TIME = #auditTime#
+        </isNotEmpty>
+        <isNotEmpty property="remark">
+            ,REMARK = #remark#
+        </isNotEmpty>
+        <isNotEmpty property="backRemark">
+            ,BACK_REMARK = #backRemark#
+        </isNotEmpty>
+        <isNotEmpty property="tsascc1Id">
+            ,TSASCC1_ID = #tsascc1Id#
+        </isNotEmpty>
+        
+        WHERE ID = #id#
+        
+        <isNotEmpty prepend=" AND " property="_recCreator">
+            REC_CREATOR = #_recCreator#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_recCreateTime">
+            REC_CREATE_TIME = #_recCreateTime#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_recRevisor">
+            REC_REVISOR = #_recRevisor#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_recReviseTime">
+            REC_REVISE_TIME = #_recReviseTime#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_archiveFlag">
+            ARCHIVE_FLAG = #_archiveFlag#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_receiptCode">
+            RECEIPT_CODE = #_receiptCode#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_companyCode">
+            COMPANY_CODE = #_companyCode#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_settleUserNum">
+            SETTLE_USER_NUM = #_settleUserNum#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_agreemtNumCsy">
+            AGREEMT_NUM_CSY = #_agreemtNumCsy#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_receiptUsage">
+            RECEIPT_USAGE = #_receiptUsage#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_receiptMode">
+            RECEIPT_MODE = #_receiptMode#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_receiptStatus">
+            RECEIPT_STATUS = #_receiptStatus#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_paperNo">
+            PAPER_NO = #_paperNo#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_paperAmt">
+            PAPER_AMT = #_paperAmt#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_rmbAmt">
+            RMB_AMT = #_rmbAmt#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_currency">
+            CURRENCY = #_currency#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_exchangeRate">
+            EXCHANGE_RATE = #_exchangeRate#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_builtDate">
+            BUILT_DATE = #_builtDate#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_endDate">
+            END_DATE = #_endDate#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_receiveDate">
+            RECEIVE_DATE = #_receiveDate#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_auditPerson">
+            AUDIT_PERSON = #_auditPerson#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_auditTime">
+            AUDIT_TIME = #_auditTime#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_remark">
+            REMARK = #_remark#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_backRemark">
+            BACK_REMARK = #_backRemark#
+        </isNotEmpty>
+        <isNotEmpty prepend=" AND " property="_tsascc1Id">
+            TSASCC1_ID = #_tsascc1Id#
+        </isNotEmpty>
+    </update>
+    
+    <delete id="delete_by_id">
+        DELETE FROM XSSA.TSASA01 WHERE ID = #id#
+    </delete>
+    
+    <delete id="delete_by_ids">
+        DELETE FROM XSSA.TSASA01
+        WHERE ID IN
+        <iterate property="ids" conjunction="," open="(" close=")">
+            #ids[]#
+        </iterate>
+    </delete>
+</sqlMap>
