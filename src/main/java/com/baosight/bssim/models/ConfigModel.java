@@ -58,7 +58,11 @@ public class ConfigModel {
             if(this.configFile.exists()) {
                 this.fileContent = FileUtils.readFileToString(this.configFile, "UTF-8");
             } else {
-                this.fileContent = "{'database': 'oracle', 'database_ip':'10.25.76.190', 'database_port': 1521, 'database_username':'simdvlp', 'database_password':'simdvlp', 'database_service':'erpdvlp'}";
+                if (name.equals("GlobalConfig")){
+                    this.fileContent = "{'database': 'oracle', 'database_ip':'10.25.76.190', 'database_port': 1521, 'database_username':'simdvlp', 'database_password':'simdvlp', 'database_service':'erpdvlp'}";
+                } else {
+                    this.fileContent = "{}";
+                }
                 FileUtils.writeStringToFile(this.configFile, this.fileContent, "UTF-8");
             }
         } catch (Exception ex) {

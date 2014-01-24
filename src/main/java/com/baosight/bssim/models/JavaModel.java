@@ -11,7 +11,8 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.File;
+import java.io.StringWriter;
 import java.util.*;
 
 public class JavaModel {
@@ -401,6 +402,41 @@ public class JavaModel {
         }
     }
 
+    // instanceMethods -- 关联 belongs_to
+    public String[] belongsToMethods() {
+        String[] result = null;
+        StringBuilder content;
+        JSONObject configJson = this.table.getTableConfig().getJson();
+
+        JSONArray belongsTo = configJson.optJSONArray("belongs_to");
+        if (belongsTo != null) {
+            result = new String[belongsTo.length()];
+
+            for(int i=0; i<belongsTo.length(); i++) {
+                JSONObject json = convertRelationConfig(belongsTo.get(i));
+
+                String fullName = json.getString("table"); // 关系表全名，例如：XSSD.TSDSD01
+                String suffix = json.optString("suffix", "");
+
+                TableModel anotherOne = new TableModel(fullName);
+                String table_name = anotherOne.getClassName().toLowerCase();
+
+                // todo: 关联查询的问题
+                content = new StringBuilder()
+                        .append("/**\n")
+                        .append(" * 关联 货款信息配置主表\n")   // <--???
+                        .append(" */\n")
+                        .append("public " + anotherOne.getClassName() + " " + table_name + ("".equals(suffix) ? suffix : ("By" + suffix)) +"() {\n")
+                        .append("    return " + anotherOne.getClassName() + ".find(this." + table_name + "Id" + suffix + ");\n")
+                        .append("}");
+
+                result[i] = CodeHelper.indent(content.toString());
+            }
+        }
+
+        return result;
+    }
+
     public String toCode() {
 
         // generate code fragments
@@ -447,6 +483,8 @@ public class JavaModel {
 
             Map root = new HashMap();
             root.put("table", this.table);
+            root.put("generateDate", new Date());
+            root.put("belongsToArray", belongsToMethods());
 
             Template tmpl = cfg.getTemplate("java.ftl");
 

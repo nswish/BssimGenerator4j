@@ -46,7 +46,7 @@ public class Tsasa01 extends ModelEPBase {
     private String remark = " ";    /*备注*/
     private String backRemark = " ";    /*退回原因*/
     private Long tsascc1Id = new Long(0);    /*货款信息配置主表ID*/
-    
+
     /**
      * 按驼峰命名规则的字段名称
      */
@@ -156,7 +156,7 @@ public class Tsasa01 extends ModelEPBase {
          */
         public static final String tsascc1Id = "tsascc1Id";
     }
-    
+
     /**
      * 按下划线命名规则的字段名称
      */
@@ -266,14 +266,14 @@ public class Tsasa01 extends ModelEPBase {
          */
         public static final String TSASCC1_ID = "TSASCC1_ID";
     }
-    
+
     /**
      * the constructor
      */
     public Tsasa01() {
         initMetaData();
     }
-    
+
     /**
      * get the recCreator - 记录创建者
      * @return the recCreator
@@ -281,7 +281,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getRecCreator() {
         return this.recCreator;
     }
-    
+
     /**
      * set the recCreator - 记录创建者
      */
@@ -289,7 +289,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("recCreator"))taintedAttrs.put("recCreator", this.recCreator);
         this.recCreator = recCreator;
     }
-    
+
     /**
      * get the recCreateTime - 记录创建时间
      * @return the recCreateTime
@@ -297,7 +297,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getRecCreateTime() {
         return this.recCreateTime;
     }
-    
+
     /**
      * set the recCreateTime - 记录创建时间
      */
@@ -305,7 +305,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("recCreateTime"))taintedAttrs.put("recCreateTime", this.recCreateTime);
         this.recCreateTime = recCreateTime;
     }
-    
+
     /**
      * get the recRevisor - 记录修改人员
      * @return the recRevisor
@@ -313,7 +313,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getRecRevisor() {
         return this.recRevisor;
     }
-    
+
     /**
      * set the recRevisor - 记录修改人员
      */
@@ -321,7 +321,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("recRevisor"))taintedAttrs.put("recRevisor", this.recRevisor);
         this.recRevisor = recRevisor;
     }
-    
+
     /**
      * get the recReviseTime - 记录修改时间
      * @return the recReviseTime
@@ -329,7 +329,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getRecReviseTime() {
         return this.recReviseTime;
     }
-    
+
     /**
      * set the recReviseTime - 记录修改时间
      */
@@ -337,7 +337,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("recReviseTime"))taintedAttrs.put("recReviseTime", this.recReviseTime);
         this.recReviseTime = recReviseTime;
     }
-    
+
     /**
      * get the archiveFlag - 归档标记
      * @return the archiveFlag
@@ -345,7 +345,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getArchiveFlag() {
         return this.archiveFlag;
     }
-    
+
     /**
      * set the archiveFlag - 归档标记
      */
@@ -353,7 +353,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("archiveFlag"))taintedAttrs.put("archiveFlag", this.archiveFlag);
         this.archiveFlag = archiveFlag;
     }
-    
+
     /**
      * get the id - ID
      * @return the id
@@ -361,7 +361,7 @@ public class Tsasa01 extends ModelEPBase {
     public Long getId() {
         return this.id;
     }
-    
+
     /**
      * set the id - ID
      */
@@ -369,7 +369,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("id"))taintedAttrs.put("id", this.id);
         this.id = id;
     }
-    
+
     /**
      * get the receiptCode - 收款收条号
      * @return the receiptCode
@@ -377,7 +377,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getReceiptCode() {
         return this.receiptCode;
     }
-    
+
     /**
      * set the receiptCode - 收款收条号
      */
@@ -385,7 +385,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("receiptCode"))taintedAttrs.put("receiptCode", this.receiptCode);
         this.receiptCode = receiptCode;
     }
-    
+
     /**
      * get the companyCode - 公司别
      * @return the companyCode
@@ -393,7 +393,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getCompanyCode() {
         return this.companyCode;
     }
-    
+
     /**
      * set the companyCode - 公司别
      */
@@ -401,7 +401,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("companyCode"))taintedAttrs.put("companyCode", this.companyCode);
         this.companyCode = companyCode;
     }
-    
+
     /**
      * get the settleUserNum - 结算用户代码
      * @return the settleUserNum
@@ -409,7 +409,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getSettleUserNum() {
         return this.settleUserNum;
     }
-    
+
     /**
      * set the settleUserNum - 结算用户代码
      */
@@ -417,7 +417,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("settleUserNum"))taintedAttrs.put("settleUserNum", this.settleUserNum);
         this.settleUserNum = settleUserNum;
     }
-    
+
     /**
      * get the agreemtNumCsy - 协议号(厂商银)
      * @return the agreemtNumCsy
@@ -425,7 +425,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getAgreemtNumCsy() {
         return this.agreemtNumCsy;
     }
-    
+
     /**
      * set the agreemtNumCsy - 协议号(厂商银)
      */
@@ -433,7 +433,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("agreemtNumCsy"))taintedAttrs.put("agreemtNumCsy", this.agreemtNumCsy);
         this.agreemtNumCsy = agreemtNumCsy;
     }
-    
+
     /**
      * get the receiptUsage - 收款用途
      * @return the receiptUsage
@@ -441,7 +441,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getReceiptUsage() {
         return this.receiptUsage;
     }
-    
+
     /**
      * set the receiptUsage - 收款用途
      */
@@ -449,7 +449,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("receiptUsage"))taintedAttrs.put("receiptUsage", this.receiptUsage);
         this.receiptUsage = receiptUsage;
     }
-    
+
     /**
      * get the receiptMode - 收款方式
      * @return the receiptMode
@@ -457,7 +457,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getReceiptMode() {
         return this.receiptMode;
     }
-    
+
     /**
      * set the receiptMode - 收款方式
      */
@@ -465,7 +465,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("receiptMode"))taintedAttrs.put("receiptMode", this.receiptMode);
         this.receiptMode = receiptMode;
     }
-    
+
     /**
      * get the receiptStatus - 收款状态
      * @return the receiptStatus
@@ -473,7 +473,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getReceiptStatus() {
         return this.receiptStatus;
     }
-    
+
     /**
      * set the receiptStatus - 收款状态
      */
@@ -481,7 +481,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("receiptStatus"))taintedAttrs.put("receiptStatus", this.receiptStatus);
         this.receiptStatus = receiptStatus;
     }
-    
+
     /**
      * get the paperNo - 票据号
      * @return the paperNo
@@ -489,7 +489,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getPaperNo() {
         return this.paperNo;
     }
-    
+
     /**
      * set the paperNo - 票据号
      */
@@ -497,7 +497,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("paperNo"))taintedAttrs.put("paperNo", this.paperNo);
         this.paperNo = paperNo;
     }
-    
+
     /**
      * get the paperAmt - 票面金额
      * @return the paperAmt
@@ -505,7 +505,7 @@ public class Tsasa01 extends ModelEPBase {
     public BigDecimal getPaperAmt() {
         return this.paperAmt;
     }
-    
+
     /**
      * set the paperAmt - 票面金额
      */
@@ -513,7 +513,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("paperAmt"))taintedAttrs.put("paperAmt", this.paperAmt);
         this.paperAmt = paperAmt;
     }
-    
+
     /**
      * get the rmbAmt - 人民币金额
      * @return the rmbAmt
@@ -521,7 +521,7 @@ public class Tsasa01 extends ModelEPBase {
     public BigDecimal getRmbAmt() {
         return this.rmbAmt;
     }
-    
+
     /**
      * set the rmbAmt - 人民币金额
      */
@@ -529,7 +529,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("rmbAmt"))taintedAttrs.put("rmbAmt", this.rmbAmt);
         this.rmbAmt = rmbAmt;
     }
-    
+
     /**
      * get the currency - 币种
      * @return the currency
@@ -537,7 +537,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getCurrency() {
         return this.currency;
     }
-    
+
     /**
      * set the currency - 币种
      */
@@ -545,7 +545,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("currency"))taintedAttrs.put("currency", this.currency);
         this.currency = currency;
     }
-    
+
     /**
      * get the exchangeRate - 汇率
      * @return the exchangeRate
@@ -553,7 +553,7 @@ public class Tsasa01 extends ModelEPBase {
     public BigDecimal getExchangeRate() {
         return this.exchangeRate;
     }
-    
+
     /**
      * set the exchangeRate - 汇率
      */
@@ -561,7 +561,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("exchangeRate"))taintedAttrs.put("exchangeRate", this.exchangeRate);
         this.exchangeRate = exchangeRate;
     }
-    
+
     /**
      * get the builtDate - 出票日期
      * @return the builtDate
@@ -569,7 +569,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getBuiltDate() {
         return this.builtDate;
     }
-    
+
     /**
      * set the builtDate - 出票日期
      */
@@ -577,7 +577,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("builtDate"))taintedAttrs.put("builtDate", this.builtDate);
         this.builtDate = builtDate;
     }
-    
+
     /**
      * get the endDate - 到期日期
      * @return the endDate
@@ -585,7 +585,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getEndDate() {
         return this.endDate;
     }
-    
+
     /**
      * set the endDate - 到期日期
      */
@@ -593,7 +593,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("endDate"))taintedAttrs.put("endDate", this.endDate);
         this.endDate = endDate;
     }
-    
+
     /**
      * get the receiveDate - 收票日期
      * @return the receiveDate
@@ -601,7 +601,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getReceiveDate() {
         return this.receiveDate;
     }
-    
+
     /**
      * set the receiveDate - 收票日期
      */
@@ -609,7 +609,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("receiveDate"))taintedAttrs.put("receiveDate", this.receiveDate);
         this.receiveDate = receiveDate;
     }
-    
+
     /**
      * get the auditPerson - 审核人
      * @return the auditPerson
@@ -617,7 +617,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getAuditPerson() {
         return this.auditPerson;
     }
-    
+
     /**
      * set the auditPerson - 审核人
      */
@@ -625,7 +625,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("auditPerson"))taintedAttrs.put("auditPerson", this.auditPerson);
         this.auditPerson = auditPerson;
     }
-    
+
     /**
      * get the auditTime - 审核时间
      * @return the auditTime
@@ -633,7 +633,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getAuditTime() {
         return this.auditTime;
     }
-    
+
     /**
      * set the auditTime - 审核时间
      */
@@ -641,7 +641,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("auditTime"))taintedAttrs.put("auditTime", this.auditTime);
         this.auditTime = auditTime;
     }
-    
+
     /**
      * get the remark - 备注
      * @return the remark
@@ -649,7 +649,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getRemark() {
         return this.remark;
     }
-    
+
     /**
      * set the remark - 备注
      */
@@ -657,7 +657,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("remark"))taintedAttrs.put("remark", this.remark);
         this.remark = remark;
     }
-    
+
     /**
      * get the backRemark - 退回原因
      * @return the backRemark
@@ -665,7 +665,7 @@ public class Tsasa01 extends ModelEPBase {
     public String getBackRemark() {
         return this.backRemark;
     }
-    
+
     /**
      * set the backRemark - 退回原因
      */
@@ -673,7 +673,7 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("backRemark"))taintedAttrs.put("backRemark", this.backRemark);
         this.backRemark = backRemark;
     }
-    
+
     /**
      * get the tsascc1Id - 货款信息配置主表ID
      * @return the tsascc1Id
@@ -681,7 +681,7 @@ public class Tsasa01 extends ModelEPBase {
     public Long getTsascc1Id() {
         return this.tsascc1Id;
     }
-    
+
     /**
      * set the tsascc1Id - 货款信息配置主表ID
      */
@@ -689,146 +689,146 @@ public class Tsasa01 extends ModelEPBase {
         if(this.isInDB && !taintedAttrs.containsKey("tsascc1Id"))taintedAttrs.put("tsascc1Id", this.tsascc1Id);
         this.tsascc1Id = tsascc1Id;
     }
-    
+
     /**
      * initialize the metadata
      */
     public void initMetaData() {
         EiColumn eiColumn;
-    
+
         eiColumn = new EiColumn("recCreator");
         eiColumn.setDescName("记录创建者");
         eiColumn.setFieldLength(8);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("recCreateTime");
         eiColumn.setDescName("记录创建时间");
         eiColumn.setFieldLength(14);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("recRevisor");
         eiColumn.setDescName("记录修改人员");
         eiColumn.setFieldLength(8);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("recReviseTime");
         eiColumn.setDescName("记录修改时间");
         eiColumn.setFieldLength(14);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("archiveFlag");
         eiColumn.setDescName("归档标记");
         eiColumn.setFieldLength(1);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("id");
         eiColumn.setDescName("ID");
         eiColumn.setFieldLength(18);
         eiColumn.setType("N");
         eiColumn.setScaleLength(0);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("receiptCode");
         eiColumn.setDescName("收款收条号");
         eiColumn.setFieldLength(15);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("companyCode");
         eiColumn.setDescName("公司别");
         eiColumn.setFieldLength(16);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("settleUserNum");
         eiColumn.setDescName("结算用户代码");
         eiColumn.setFieldLength(20);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("agreemtNumCsy");
         eiColumn.setDescName("协议号(厂商银)");
         eiColumn.setFieldLength(30);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("receiptUsage");
         eiColumn.setDescName("收款用途");
         eiColumn.setFieldLength(4);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("receiptMode");
         eiColumn.setDescName("收款方式");
         eiColumn.setFieldLength(4);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("receiptStatus");
         eiColumn.setDescName("收款状态");
         eiColumn.setFieldLength(2);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("paperNo");
         eiColumn.setDescName("票据号");
         eiColumn.setFieldLength(20);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("paperAmt");
         eiColumn.setDescName("票面金额");
         eiColumn.setFieldLength(20);
         eiColumn.setType("N");
         eiColumn.setScaleLength(2);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("rmbAmt");
         eiColumn.setDescName("人民币金额");
         eiColumn.setFieldLength(20);
         eiColumn.setType("N");
         eiColumn.setScaleLength(2);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("currency");
         eiColumn.setDescName("币种");
         eiColumn.setFieldLength(3);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("exchangeRate");
         eiColumn.setDescName("汇率");
         eiColumn.setFieldLength(12);
         eiColumn.setType("N");
         eiColumn.setScaleLength(6);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("builtDate");
         eiColumn.setDescName("出票日期");
         eiColumn.setFieldLength(8);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("endDate");
         eiColumn.setDescName("到期日期");
         eiColumn.setFieldLength(8);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("receiveDate");
         eiColumn.setDescName("收票日期");
         eiColumn.setFieldLength(8);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("auditPerson");
         eiColumn.setDescName("审核人");
         eiColumn.setFieldLength(8);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("auditTime");
         eiColumn.setDescName("审核时间");
         eiColumn.setFieldLength(14);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("remark");
         eiColumn.setDescName("备注");
         eiColumn.setFieldLength(200);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("backRemark");
         eiColumn.setDescName("退回原因");
         eiColumn.setFieldLength(200);
         eiMetadata.addMeta(eiColumn);
-        
+
         eiColumn = new EiColumn("tsascc1Id");
         eiColumn.setDescName("货款信息配置主表ID");
         eiColumn.setFieldLength(18);
@@ -836,7 +836,7 @@ public class Tsasa01 extends ModelEPBase {
         eiColumn.setScaleLength(0);
         eiMetadata.addMeta(eiColumn);
     }
-    
+
     /**
      * get the value from Map
      */
@@ -868,7 +868,7 @@ public class Tsasa01 extends ModelEPBase {
         setBackRemark(StringUtils.defaultIfEmpty(StringUtils.toString(map.get("backRemark")), backRemark));
         setTsascc1Id(NumberUtils.toLong(StringUtils.toString(map.get("tsascc1Id")), tsascc1Id));
     }
-    
+
     /**
      * set the value to Map
      */
@@ -902,14 +902,14 @@ public class Tsasa01 extends ModelEPBase {
         map.put("tsascc1Id", StringUtils.toString(tsascc1Id, eiMetadata.getMeta("tsascc1Id")));
         return map;
     }
-    
+
     /**
      * 生成代码的版本号
      */
     public int getVersion() {
         return 1;
     }
-    
+
     /**
      * 类似fromMap方法，但参数包含的数据类型必须是严格的
      */
@@ -941,7 +941,7 @@ public class Tsasa01 extends ModelEPBase {
         if(attrs.get("backRemark") != null)setBackRemark((String)attrs.get("backRemark"));
         if(attrs.get("tsascc1Id") != null)setTsascc1Id((Long)attrs.get("tsascc1Id"));
     }
-    
+
     /**
      * 类似toMap方法，但返回结果的数据类型是严格的
      */
@@ -975,44 +975,44 @@ public class Tsasa01 extends ModelEPBase {
         result.put("tsascc1Id", this.tsascc1Id);
         return result;
     }
-    
+
     /**
      * 复制当前对象(id不被复制)
      */
     public Tsasa01 noIdDuplicate() {
         Tsasa01 dup = new Tsasa01();
-    
+
         Map attrs = this.toAttrs();
         attrs.put("id", new Long(0));
         dup.fromAttrs(attrs);
-    
+
         dup.isInDB = false;
         dup.isExtended = true;
-    
+
         return dup;
     }
-    
+
     /**
      * 转换为Json字符串
      */
     public String toJson() {
         return JSONObject.fromObject(toAttrs()).toString(4);
     }
-    
+
     /**
      * toJson的反向操作
      */
     public void fromJson(String jsonstr) {
         fromAttrs(JSONObject.fromObject(jsonstr));
     }
-    
+
     /**
      * 关联 货款信息配置主表
      */
     public Tsascc1 tsascc1() {
         return Tsascc1.find(this.tsascc1Id);
     }
-    
+
     /**
      * 关联 货款信息附加属性表
      */
@@ -1021,7 +1021,7 @@ public class Tsasa01 extends ModelEPBase {
         arg.put("tsasa01Id", this.id);
         return new ModelQuerier("XSSA.TSASA02", "TSASA01_ID = #tsasa01Id#", arg);
     }
-    
+
     /**
      * 关联 货款信息附加属性表
      */
@@ -1030,7 +1030,7 @@ public class Tsasa01 extends ModelEPBase {
         arg.put("tsasa01Id", this.id);
         return Tsasa02.where(arg).first();
     }
-    
+
     /**
      * 创建新的实例
      */
@@ -1039,7 +1039,7 @@ public class Tsasa01 extends ModelEPBase {
         result.isExtended = true;
         return result;
     }
-    
+
     /**
      * 创建新的实例(属性初始化为传入的参数)
      */
@@ -1048,21 +1048,21 @@ public class Tsasa01 extends ModelEPBase {
         result.fromMap(attr);
         return result;
     }
-    
+
     /**
      * 按id查找
      */
     public static Tsasa01 find(Long id) {
         return find(id, false);
     }
-    
+
     /**
      * 按id查找(上锁)
      */
     public static Tsasa01 findWithLock(Long id) {
         return find(id, true);
     }
-    
+
     /**
      * 按id查找(可选择是否上锁)
      */
@@ -1071,7 +1071,7 @@ public class Tsasa01 extends ModelEPBase {
         arg.put("id", id);
         if(isLocked)arg.put("forUpdate", "FOR UPDATE");
         List<Tsasa01> result = getDao().query("SASA01E.select_by_id", arg);
-    
+
         if(result.size() > 0){
             Tsasa01 a = result.get(0);
             a.isExtended = true;
@@ -1081,21 +1081,21 @@ public class Tsasa01 extends ModelEPBase {
             return null;
         }
     }
-    
+
     /**
      * 按id查找，参数为String类型
      */
     public static Tsasa01 find(String id) {
         return find(Long.parseLong(id), false);
     }
-    
+
     /**
      * 按id查找，参数为String类型(上锁)
      */
     public static Tsasa01 findWithLock(String id) {
         return find(Long.parseLong(id), true);
     }
-    
+
     /**
      * 按id数组查找
      * 如果结果集包含的项数少于id数组的项数，则抛出异常
@@ -1103,7 +1103,7 @@ public class Tsasa01 extends ModelEPBase {
     public static Tsasa01[] find(Long[] ids) {
         return find(ids, false);
     }
-    
+
     /**
      * 按id数组查找(上锁)
      * 如果结果集包含的项数少于id数组的项数，则抛出异常
@@ -1111,33 +1111,33 @@ public class Tsasa01 extends ModelEPBase {
     public static Tsasa01[] findWithLock(Long[] ids) {
         return find(ids, true);
     }
-    
+
     /**
      * 按id数组查找(可选择是否上锁)
      * 如果结果集包含的项数少于id数组的项数，则抛出异常
      */
     private static Tsasa01[] find(Long[] ids, boolean isLocked) {
         if(ids == null || ids.length == 0) throw new ModelException("id数组不能为null或者空");
-    
+
         Map arg = new HashMap();
         arg.put("ids", ids);
         if(isLocked)arg.put("forUpdate", "FOR UPDATE");
         List<Tsasa01> result = getDao().query("SASA01E.select_by_ids", arg);
-    
+
         if(result.size() != ids.length) {
             throw new ModelException("结果集包含的项数少于id数组的项数");
         } else {
             return result.toArray(new Tsasa01[0]);
         }
     }
-    
+
     /**
      * 自定义查询
      */
     public static CustomQuerier q(String sqlmap, Map arg) {
         return new CustomQuerier(sqlmap, arg);
     }
-    
+
     /**
      * 简单Where查询
      * 传入的参数最终会转换为 'key1 = value1 and key2 = value2 and ...' 这样形式的字符串
@@ -1145,7 +1145,7 @@ public class Tsasa01 extends ModelEPBase {
     public static ModelQuerier where(Map arg) {
         return new ModelQuerier("XSSA.TSASA01").where(arg);
     }
-    
+
     /**
      * Where查询
      * Map中的key和value做替换
@@ -1156,14 +1156,14 @@ public class Tsasa01 extends ModelEPBase {
     public static ModelQuerier where(String where, Map arg) {
         return new ModelQuerier("XSSA.TSASA01").where(where, arg);
     }
-    
+
     /**
      * 得到对应数据表的全称
      */
     public String getFullTableName() {
         return "XSSA.TSASA01";
     }
-    
+
     /**
      * 删除
      */
