@@ -16,10 +16,7 @@ import java.io.StringWriter;
 import java.util.*;
 
 public class JavaModel {
-    private String javaPackage;
     private Set imports = new LinkedHashSet(5);
-    private String classComment;
-    private String className;
     private List instanceMethods = new ArrayList(15);
     private List classMethods = new ArrayList(15);
 
@@ -27,19 +24,6 @@ public class JavaModel {
 
     public JavaModel(TableModel table) {
         this.table = table;
-    }
-
-    public void generateBasic() {
-        this.javaPackage = "package " + table.getPackage() + ";";
-
-        this.className = "public class " + table.getClassName() + " extends ModelEPBase";
-        this.addImport("com.baosight.bssim.common.model.ModelEPBase");
-
-        this.classComment = CodeHelper.formatComment(
-            table.getClassName() + "\n" +
-            "Table Comment : " + table.getComment() + "\n" +
-            "Generate Date : " + DateFormatUtils.format(new Date(), "y-MM-dd HH:mm:ss")
-        );
     }
 
     public void generateExtension() {
@@ -150,16 +134,12 @@ public class JavaModel {
     public String toCode() {
 
         // generate code fragments
-        generateBasic();
         generateExtension();
 
         // combine fragments to full code
-        StringBuilder result = new StringBuilder()
-                .append(this.javaPackage).append("\n\n")                                   // package
+        StringBuilder result = new StringBuilder()                                  // package
                 .append(StringUtils.join(this.imports.toArray(), "\n")).append("\n\n")     // import
-                .append(this.classComment).append("\n")                                    // class comment
                 .append("@SuppressWarnings({\"serial\", \"rawtypes\", \"unchecked\"})\n")  // @SuppressWarnings
-                .append(this.className).append(" {\n")                                     // class name and modifier
                 .append(CodeHelper.indent(StringUtils.join(new String[]{                   // class body
 
                         // instanceMethods
