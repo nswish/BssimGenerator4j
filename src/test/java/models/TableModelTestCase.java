@@ -37,7 +37,7 @@ public class TableModelTestCase {
     }
 
     @Test
-    public void testFtl() throws IOException {
+    public void testJavaFtl() throws IOException {
         ApplicationController.BASE_PATH = "src/test/java/data";
 
         File file = new File("src/test/java/data/XSSA.TSASA01.meta.json");
@@ -52,8 +52,24 @@ public class TableModelTestCase {
 
         assertEquals(removeGenenrateDateStr(expectJavaCode), removeGenenrateDateStr(actualJavaCode));
     }
+    @Test
+    public void testXmlFtl() throws IOException {
+        ApplicationController.BASE_PATH = "src/test/java/data";
+
+        File file = new File("src/test/java/data/XSSA.TSASA01.meta.json");
+        String json = FileUtils.readFileToString(file, "utf-8");
+
+        file = new File("src/test/java/data/XSSA.TSASA01.xml.test");
+        String expectXmlCode = FileUtils.readFileToString(file, "utf-8");
+
+        TableModel table = TableModel.newInstance(json);
+        String actualXmlCode = table.genXmlCode();
+        System.out.println(actualXmlCode);
+
+        assertEquals(removeGenenrateDateStr(expectXmlCode), removeGenenrateDateStr(actualXmlCode));
+    }
 
     private String removeGenenrateDateStr(String str) {
-        return str.replaceAll("Generate Date : .*\\n", "");
+        return str.replaceAll("Generate Date : .*\\n", "").replaceAll("Generate Time.*\\n", "");
     }
 }

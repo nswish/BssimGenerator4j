@@ -89,7 +89,7 @@ public class TableModel {
      */
     public String getComment() {
         if (meta.get("comment") == null){
-            meta.put("comment", this.helper.queryTableComment(getSchemaName(), getName()));
+            meta.put("comment", this.helper.queryTableComment(getSchema(), getName()));
         }
 
         return meta.get("comment")+"";
@@ -100,7 +100,7 @@ public class TableModel {
      */
     public String getLastModifiedTime() {
         if (meta.get("lastModifiedTime") == null) {
-            Date lastModifiedTime = this.helper.queryTableLastModifiedTime(getSchemaName(), getName());
+            Date lastModifiedTime = this.helper.queryTableLastModifiedTime(getSchema(), getName());
             this.meta.put("lastModifiedTime", DateFormatUtils.format(lastModifiedTime, "yyyy-MM-dd HH:mm:ss"));
         }
 
@@ -112,7 +112,7 @@ public class TableModel {
      */
     public ColumnModel[] getColumns() {
         if(meta.get("columns") == null){
-            meta.put("columns", this.helper.queryTableColumns(getSchemaName(), getName()));
+            meta.put("columns", this.helper.queryTableColumns(getSchema(), getName()));
             this.columns = null;  // 重置
         }
 
@@ -146,7 +146,7 @@ public class TableModel {
     /**
      * 表的模式名，大写
      */
-    public String getSchemaName() {
+    public String getSchema() {
         return meta.get("schema")+"";
     }
 

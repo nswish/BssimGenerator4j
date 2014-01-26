@@ -63,12 +63,12 @@
             TSASCC1_ID as "tsascc1Id"   <!-- 货款信息配置主表ID -->
         FROM XSSA.TSASA01
         WHERE ID = #id#
-        
+
         <isNotEmpty property="forUpdate">
             $forUpdate$
         </isNotEmpty>
     </select>
-    
+
     <select id="select_by_ids" parameterClass="java.util.HashMap" resultClass="com.baosight.bssim.sa.sa.domain.model.Tsasa01">
         SELECT
             REC_CREATOR as "recCreator"   <!-- 记录创建者 -->,
@@ -103,12 +103,12 @@
             #ids[]#
         </iterate>
         ORDER BY ID
-        
+
         <isNotEmpty property="forUpdate">
             $forUpdate$
         </isNotEmpty>
     </select>
-    
+
     <select id="select_ex" parameterClass="java.util.HashMap" resultClass="com.baosight.bssim.sa.sa.domain.model.Tsasa01">
         SELECT
             REC_CREATOR as "recCreator"   <!-- 记录创建者 -->,
@@ -142,11 +142,11 @@
         <isNotEmpty prepend=" AND " property="fixWhere">
             $fixWhere$
         </isNotEmpty>
-        
+
         <isNotEmpty prepend=" AND " property="where">
             $where$
         </isNotEmpty>
-        
+
         <isNotEmpty prepend=" AND " property="recCreator">
             REC_CREATOR = #recCreator#
         </isNotEmpty>
@@ -225,16 +225,16 @@
         <isNotEmpty prepend=" AND " property="tsascc1Id">
             TSASCC1_ID = #tsascc1Id#
         </isNotEmpty>
-        
+
         <isNotEmpty prepend=" ORDER BY " property="orderBy">
             $orderBy$
         </isNotEmpty>
-        
+
         <isNotEmpty property="forUpdate">
             $forUpdate$
         </isNotEmpty>
     </select>
-    
+
     <insert id="insert">
         INSERT INTO XSSA.TSASA01 (
             REC_CREATOR   <!-- 记录创建者 -->,
@@ -265,7 +265,7 @@
             TSASCC1_ID   <!-- 货款信息配置主表ID -->
         ) VALUES (#recCreator#, #recCreateTime#, #recRevisor#, #recReviseTime#, #archiveFlag#, #id#, #receiptCode#, #companyCode#, #settleUserNum#, #agreemtNumCsy#, #receiptUsage#, #receiptMode#, #receiptStatus#, #paperNo#, #paperAmt#, #rmbAmt#, #currency#, #exchangeRate#, #builtDate#, #endDate#, #receiveDate#, #auditPerson#, #auditTime#, #remark#, #backRemark#, #tsascc1Id#)
     </insert>
-    
+
     <update id="update_by_id">
         UPDATE XSSA.TSASA01
         SET ID = ID
@@ -344,9 +344,9 @@
         <isNotEmpty property="tsascc1Id">
             ,TSASCC1_ID = #tsascc1Id#
         </isNotEmpty>
-        
+
         WHERE ID = #id#
-        
+
         <isNotEmpty prepend=" AND " property="_recCreator">
             REC_CREATOR = #_recCreator#
         </isNotEmpty>
@@ -423,11 +423,11 @@
             TSASCC1_ID = #_tsascc1Id#
         </isNotEmpty>
     </update>
-    
+
     <delete id="delete_by_id">
         DELETE FROM XSSA.TSASA01 WHERE ID = #id#
     </delete>
-    
+
     <delete id="delete_by_ids">
         DELETE FROM XSSA.TSASA01
         WHERE ID IN
