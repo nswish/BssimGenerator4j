@@ -16,10 +16,10 @@ public class TableModelTestCase {
     public void testCreateFromJson() throws IOException {
         ApplicationController.BASE_PATH = "src/test/java/data";
 
-        File file = new File("src/test/java/data/XSSA.TSASA01.meta.json");
+        File file = new File(ApplicationController.BASE_PATH+"/db/XSSA.TSASA01.meta.json");
         String json = FileUtils.readFileToString(file, "utf-8");
 
-        file = new File("src/test/java/data/XSSA.TSASA01.java.test");
+        file = new File(ApplicationController.BASE_PATH+"/XSSA.TSASA01.java.test");
         String expectJavaCode = FileUtils.readFileToString(file, "utf-8");
 
         TableModel table = TableModel.newInstance(json);
@@ -40,10 +40,10 @@ public class TableModelTestCase {
     public void testJavaFtl() throws IOException {
         ApplicationController.BASE_PATH = "src/test/java/data";
 
-        File file = new File("src/test/java/data/XSSA.TSASA01.meta.json");
+        File file = new File(ApplicationController.BASE_PATH+"/db/XSSA.TSASA01.meta.json");
         String json = FileUtils.readFileToString(file, "utf-8");
 
-        file = new File("src/test/java/data/XSSA.TSASA01.java.test");
+        file = new File(ApplicationController.BASE_PATH+"/XSSA.TSASA01.java.test");
         String expectJavaCode = FileUtils.readFileToString(file, "utf-8");
 
         TableModel table = TableModel.newInstance(json);
@@ -56,10 +56,10 @@ public class TableModelTestCase {
     public void testXmlFtl() throws IOException {
         ApplicationController.BASE_PATH = "src/test/java/data";
 
-        File file = new File("src/test/java/data/XSSA.TSASA01.meta.json");
+        File file = new File(ApplicationController.BASE_PATH+"/db/XSSA.TSASA01.meta.json");
         String json = FileUtils.readFileToString(file, "utf-8");
 
-        file = new File("src/test/java/data/XSSA.TSASA01.xml.test");
+        file = new File(ApplicationController.BASE_PATH+"/XSSA.TSASA01.xml.test");
         String expectXmlCode = FileUtils.readFileToString(file, "utf-8");
 
         TableModel table = TableModel.newInstance(json);
