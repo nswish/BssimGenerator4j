@@ -47,7 +47,7 @@ public class TableModelTestCase {
         String expectJavaCode = FileUtils.readFileToString(file, "utf-8");
 
         TableModel table = TableModel.newInstance(json);
-        String actualJavaCode = table.genFtlJavaCode();
+        String actualJavaCode = table.genJavaCode();
         System.out.println(actualJavaCode);
 
         assertEquals(removeGenenrateDateStr(expectJavaCode), removeGenenrateDateStr(actualJavaCode));

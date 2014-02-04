@@ -250,5 +250,26 @@
 <#macro belongs_to>
     <#list belongsToArray![] as belong>
 ${belong}
+    <#if belong_has_next>
+
+    </#if>
+    </#list>
+</#macro>
+
+<#macro has_many>
+    <#list hasManyArray![] as hasmany>
+${hasmany}
+    <#if hasmany_has_next>
+
+    </#if>
+    </#list>
+</#macro>
+
+<#macro has_one>
+    <#list hasOneArray![] as hasone>
+${hasone}
+    <#if hasone_has_next>
+
+    </#if>
     </#list>
 </#macro>

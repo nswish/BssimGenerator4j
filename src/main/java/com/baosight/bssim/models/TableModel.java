@@ -230,11 +230,6 @@ public class TableModel {
         return new JavaModel(this).toCode();
     }
 
-    public String genFtlJavaCode() {
-        checkRequirement();;
-        return new JavaModel(this).fmToCode();
-    }
-
     /**
      * 生成 Xml 代码
      */

@@ -1,5 +1,5 @@
 {
-  has_one : ["XSSA.TSASA02"],
-  belongs_to : ["XSSA.TSASCC1"],
-  has_many : ["XSSA.TSASA02"]
+  has_one : ["XSSA.TSASA02", "XSSA.TSASA02"],
+  belongs_to : ["XSSA.TSASCC1", "XSSA.TSASCC1"],
+  has_many : ["XSSA.TSASA02", "XSSA.TSASA02"]
 }

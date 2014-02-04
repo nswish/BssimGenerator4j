@@ -1,4 +1,4 @@
-{"database_ip": "10.25.76.190", "svn_repo_path": "/Users/ns/dev/IdeaProjects/bssim", "database_username": "simdvlp", "database_service": "erpdvlp", "user_tables": [
+{"database_ip": "192.168.0.112", "svn_repo_path": "/Users/ns/dev/IdeaProjects/bssim", "database_username": "simdvlp", "database_service": "erpdvlp", "user_tables": [
     {
         "user": "XSSA",
         "tables": ["TSA01", "TSASA01", "TSASA02", "TSASA03", "TSASS01", "TSASS02", "TSASS03"]

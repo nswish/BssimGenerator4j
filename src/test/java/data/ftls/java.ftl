@@ -62,23 +62,9 @@ public class ${table.className} extends ModelEPBase {
 
 <@extension.belongs_to />
 
-    /**
-     * 关联 货款信息附加属性表
-     */
-    public ModelQuerier tsasa02s() {
-        Map arg = new HashMap();
-        arg.put("tsasa01Id", this.id);
-        return new ModelQuerier("XSSA.TSASA02", "TSASA01_ID = #tsasa01Id#", arg);
-    }
+<@extension.has_many />
 
-    /**
-     * 关联 货款信息附加属性表
-     */
-    public Tsasa02 tsasa02() {
-        Map arg = new HashMap();
-        arg.put("tsasa01Id", this.id);
-        return Tsasa02.where(arg).first();
-    }
+<@extension.has_one />
 
 <@extension.newInstance />
 
