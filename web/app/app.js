@@ -2,16 +2,16 @@ var bssim = angular.module('Bssim', ['ngRoute', 'ngSanitize']);
 
 bssim.config(function($routeProvider){
     $routeProvider.when("/", {
-        templateUrl: "views/tables.html",
+        templateUrl: "app/views/tables.html",
         controller: "TablesController"
     }).when("/config", {
-        templateUrl: "views/config.html",
+        templateUrl: "app/views/config.html",
         controller: "ConfigController"
     }).when("/tables/:fullTable", {
-        templateUrl: "views/table.html",
+        templateUrl: "app/views/table.html",
         controller: "TableController"
     }).when("/docs/:docName", {
-        templateUrl: "views/doc.html",
+        templateUrl: "app/views/doc.html",
         controller: "DocController"
     });
 });
