@@ -8,6 +8,6 @@ bssim.controller("DocController", function($scope, $http, Noty, $location, $rout
             Noty.error(result.message, path);
         }
     }).error(function(message){
-        Noty.error(result.message, path);
+        Noty.error(message, path);
     });
 });

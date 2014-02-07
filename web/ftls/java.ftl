@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import com.baosight.bssim.common.exception.ModelException;
 import net.sf.json.JSONObject;
-import com.baosight.bssim.sa.sc.domain.model.Tsascc1;
-import com.baosight.bssim.sa.sa.domain.model.Tsasa02;
 
 /**
  * ${table.className}

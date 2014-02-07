@@ -57,7 +57,7 @@ bssim.factory("Noty", function($rootScope, $location){
         },
         "error": function(message, path){
             path = path || '/';
-            timeout = timeout || 6000;
+            var timeout =  6000;
             if(path == $location.path()) {
                 noty({"text":message, "type":"error", "timeout":timeout});
             }
