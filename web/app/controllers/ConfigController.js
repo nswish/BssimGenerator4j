@@ -57,9 +57,9 @@ bssim.controller("ConfigController", function($scope, Config, $http, Noty, $loca
         });
     };
 
-    $scope.delete = function(fullTableName) {
+    $scope['delete'] = function(fullTableName) {
         if(confirm('删除 ['+fullTableName+'] 么?')) {
-            $http.delete('/config/tables/'+fullTableName).success(function(result){
+            $http['delete']('/config/tables/'+fullTableName).success(function(result){
                 $scope.config = result.data;
             });
         }

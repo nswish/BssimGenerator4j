@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import com.baosight.bssim.common.exception.ModelException;
 import net.sf.json.JSONObject;
+<#list importArray as imp>
+import ${imp};
+</#list>
 
 /**
  * ${table.className}

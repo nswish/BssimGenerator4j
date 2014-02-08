@@ -9,7 +9,6 @@
     "commit": "49d084be46f756393317200cccb11f373751ea67"
   },
   "_source": "git://github.com/needim/noty.git",
-  "_target": "~2.2.2",
-  "_originalSource": "noty",
-  "_direct": true
+  "_target": "2.2.2",
+  "_originalSource": "noty"
 }

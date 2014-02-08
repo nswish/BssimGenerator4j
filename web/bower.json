@@ -8,12 +8,13 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "bootstrap": "~3.0.3",
-    "codemirror": "~3.21.0",
+    "bootstrap": "3.0.3",
+    "codemirror": "3.21.0",
     "jquery": "1.10.2",
-    "angular": "~1.2.9",
-    "angular-route": "~1.2.9",
-    "angular-sanitize": "~1.2.6",
-    "noty": "~2.2.2"
+    "angular": "1.2.9",
+    "angular-route": "1.2.9",
+    "angular-sanitize": "1.2.6",
+    "noty": "2.2.2",
+    "respond": "1.4.2"
   }
 }

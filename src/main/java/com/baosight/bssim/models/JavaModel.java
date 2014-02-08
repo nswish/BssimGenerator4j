@@ -17,6 +17,7 @@ import java.util.*;
 
 public class JavaModel {
     private TableModel table;
+    private Set imports = new TreeSet<String>();
 
     public JavaModel(TableModel table) {
         this.table = table;
@@ -50,6 +51,8 @@ public class JavaModel {
                         .append("}");
 
                 result[i] = CodeHelper.indent(content.toString());
+
+                imports.add(anotherOne.getPackage()+"."+anotherOne.getClassName());
             }
         }
 
@@ -86,6 +89,8 @@ public class JavaModel {
                         .append("}");
 
                 result[i] = CodeHelper.indent(content.toString());
+
+                imports.add(anotherOne.getPackage()+"."+anotherOne.getClassName());
             }
         }
 
@@ -118,6 +123,8 @@ public class JavaModel {
                         .append("}");
 
                 result[i] = CodeHelper.indent(content.toString());
+
+                imports.add(anotherOne.getPackage()+"."+anotherOne.getClassName());
             }
         }
 
@@ -137,6 +144,7 @@ public class JavaModel {
             root.put("belongsToArray", belongsToMethods());
             root.put("hasManyArray", hasManyMethods());
             root.put("hasOneArray", hasOneMethods());
+            root.put("importArray", imports);
 
             Template tmpl = cfg.getTemplate("java.ftl");
 

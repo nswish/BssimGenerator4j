@@ -63,7 +63,6 @@ bssim.factory("Noty", function($rootScope, $location){
             }
         },
         "loading": function(message, path){
-            console.log(path);
             path = path || '/';
             if(path == $location.path()) {
                 noty({
