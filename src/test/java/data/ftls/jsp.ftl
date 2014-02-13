@@ -14,6 +14,7 @@
 
         <div id="ef_region_inqu" title="查询条件"><div>
             <table class="bssim-table">
+    <#if queryList?has_content>
         <#list queryList as query>
             <#if query_index % 3 == 0>
                 <tr>
@@ -36,6 +37,16 @@
                 </tr>
             </#if>
         </#list>
+    <#else>
+                <tr>
+                    <td class="col-1-r"></td>
+                    <td class="col-1"></td>
+                    <td class="col-1-r"></td>
+                    <td class="col-1"></td>
+                    <td class="col-1-r"></td>
+                    <td class="col-1"></td>
+                </tr>
+    </#if>
             </table>
         </div></div>
 

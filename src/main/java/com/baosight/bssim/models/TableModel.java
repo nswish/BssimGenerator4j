@@ -247,6 +247,14 @@ public class TableModel {
     }
 
     /**
+     * 生成 Js 代码
+     */
+    public String genJsCode(Map config) {
+        checkRequirement();
+        return new JsModel(this).toCode(config);
+    }
+
+    /**
      * 生成 Xml 代码
      */
     public String genXmlCode() {
