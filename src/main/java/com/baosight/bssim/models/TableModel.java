@@ -231,6 +231,22 @@ public class TableModel {
     }
 
     /**
+     * 生成 Service 代码
+     */
+    public String genServiceCode(Map config) {
+        checkRequirement();
+        return new ServiceModel(this).toCode(config);
+    }
+
+    /**
+     * 生成 Jsp 代码
+     */
+    public String genJspCode(Map config) {
+        checkRequirement();
+        return new JspModel(this).toCode(config);
+    }
+
+    /**
      * 生成 Xml 代码
      */
     public String genXmlCode() {

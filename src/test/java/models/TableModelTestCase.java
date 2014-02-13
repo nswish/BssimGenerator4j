@@ -52,6 +52,7 @@ public class TableModelTestCase {
 
         assertEquals(removeGenenrateDateStr(expectJavaCode), removeGenenrateDateStr(actualJavaCode));
     }
+
     @Test
     public void testXmlFtl() throws IOException {
         ApplicationController.BASE_PATH = "src/test/java/data";
