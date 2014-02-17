@@ -50,6 +50,8 @@ bssim.controller("TableController", function($scope, $http, $routeParams, Noty, 
             } else {
                 Noty.error(result.message, path);
             }
+        }).error(function(){
+            Noty.error('网络异常...', path);
         });
     }
 

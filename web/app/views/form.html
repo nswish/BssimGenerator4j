@@ -1,0 +1,38 @@
+<div style="border-bottom: grey dashed 1px;">
+    <a href="javascript: void(0);" ng-click="edit()">{{formName}}</a>
+    <a class="pull-right" href='javascript: void(0)' ng-click="commit()">提交</a>
+    <a class="pull-right" style="margin-right: 10px;" href="javascript: void(0);" ng-click="edit()">设定</a>
+</div>
+
+<div id="toggle_div" style="padding: 8px 0px 5px 0px;margin-top: 5px; text-align: center;">
+    <a href="javascript: void(0)" ng-click="showJsp()">JSP</a> |
+    <a href="javascript: void(0)" ng-click="showJs()">JS</a> |
+    <a href="javascript: void(0)" ng-click="showService()">Service</a>
+</div>
+
+<div id="code_div">
+    <div id="jsp_div" style="border: 1px grey dashed; overflow: hidden;">
+        <!--
+        <div style="position:relative; margin:-20px 7px 0px 0px; top:22px; float:right;z-index: 1;">
+            <a href='javascript: $("#download_java_file_form").submit();'>下载</a>
+        </div>
+        -->
+    </div>
+
+    <div id="js_div" style="border: 1px grey dashed; overflow: hidden; display:none;">
+        <!--
+        <div style="position:relative; margin:-20px 7px 0px 0px; top:22px; float:right;z-index: 1;">
+            <a href='javascript: $("#download_xml_file_form").submit();'>下载</a>
+        </div>
+        -->
+    </div>
+
+    <div id="service_div" style="border: 1px grey dashed; overflow: hidden; display:none;">
+
+    </div>
+</div>
+
+<form id="download_java_file_form" method="POST" action="{{'/gen/'+schemaTable+'/downloadJava'}}"></form>
+<form id="download_xml_file_form"  method="POST" action="{{'/gen/'+schemaTable+'/downloadXml'}}"></form>
+
+<br />

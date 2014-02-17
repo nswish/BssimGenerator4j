@@ -1,0 +1,56 @@
+<form class="form-horizontal" role="form" name="nameForm">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span style="font-size: 16px;">设定画面代号 (1/2)</span></div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">一级模块</label>
+                <div class="col-sm-3">
+                    <input name="firstModule" type="text" class="form-control" placeholder="例如: SL" ng-model="config.firstModule"
+                           required ng-minlength="2" maxlength="2" ng-pattern="/^[a-zA-Z]/" style="text-transform:uppercase;"/>
+                    <span ng-show="nameForm.firstModule.$error.required">请输入一级模块名</span>
+                    <span ng-show="nameForm.firstModule.$error.minlength">模块名须由两位字符组成</span>
+                    <span ng-show="nameForm.firstModule.$error.pattern">模块名的第一位须是字母</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">二级模块</label>
+                <div class="col-sm-3">
+                    <input name="secondModule" type="text" class="form-control" placeholder="选填" ng-model="config.secondModule"
+                           maxlength="2" ng-minlength="2" ng-pattern="/^[a-zA-Z]/" style="text-transform:uppercase;"/>
+                    <span ng-show="nameForm.secondModule.$error.minlength">模块名须由两位字符组成</span>
+                    <span ng-show="nameForm.secondModule.$error.pattern">模块名的第一位须是字母</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">序号</label>
+                <div class="col-sm-3">
+                    <input name="no" type="text" class="form-control" placeholder="例如：01" ng-model="config.no"
+                           required maxlength="2" ng-pattern="/^[a-zA-Z0-9][a-zA-Z0-9]$/" style="text-transform:uppercase;"/>
+                    <span ng-show="nameForm.no.$error.required">请输入序号</span>
+                    <span ng-show="nameForm.no.$error.pattern">须由数字或字母组成,长度为2</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">扩展序号</label>
+                <div class="col-sm-3">
+                    <input name="no_extension" type="text" class="form-control" placeholder="选填" ng-model="config.no_extension"
+                           maxlength="2" ng-pattern="/^[a-zA-Z0-9][a-zA-Z0-9]$/" style="text-transform:uppercase;"/>
+                    <span ng-show="nameForm.no_extension.$error.pattern">须由数字或字母组成,长度为2</span>
+                </div>
+            </div>
+            <div class="form-group" style="border-top: 1px solid lightgray;margin-bottom: 0;">
+                <label class="col-sm-2 control-label">文件名</label>
+                <label class="col-sm-6 control-label" style="text-align: left;display: block;">
+                    {{config.firstModule | uppercase}}{{config.secondModule | uppercase}}{{config.no | uppercase}}{{config.no_extension | uppercase}}.jsp<br />
+                    {{config.firstModule | uppercase}}{{config.secondModule | uppercase}}{{config.no | uppercase}}{{config.no_extension | uppercase}}.js<br />
+                    Service{{config.firstModule | uppercase}}{{config.secondModule | uppercase}}{{config.no | uppercase}}{{config.no_extension | uppercase}}.java
+                </label>
+            </div>
+        </div>
+        <div class="panel-footer" style="padding:5px 15px;">
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-disabled="!nameForm.$valid"
+                    ng-click="navToFormQuery()">下一步</button>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</form>

@@ -35,6 +35,17 @@ bssim.controller("TablesController", function($scope, Tables, $location, Noty){
     });
 
     $scope.tableClicked = function(fullTable){
-        $location.path("/tables/"+fullTable);
+        $scope.currentTable = fullTable;
+        $('#myModal').modal('show');
     };
+
+    $scope.navToServiceJspJs = function() {
+        $('#myModal').modal('hide');
+        $location.path("/form/name/"+$scope.currentTable+"/{}");
+    }
+
+    $scope.navToModelSql = function() {
+        $('#myModal').modal('hide');
+        $location.path("/tables/"+$scope.currentTable);
+    }
 });

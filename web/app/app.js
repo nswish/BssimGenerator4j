@@ -13,6 +13,15 @@ bssim.config(function($routeProvider){
     }).when("/docs/:docName", {
         templateUrl: "app/views/doc.html",
         controller: "DocController"
+    }).when("/form/name/:schemaTable/:config", {
+        templateUrl: "app/views/form_name.html",
+        controller: "FormNameController"
+    }).when("/form/query/:schemaTable/:config", {
+        templateUrl: "app/views/form_query.html",
+        controller: "FormQueryController"
+    }).when("/form/:schemaTable/:config", {
+        templateUrl: "app/views/form.html",
+        controller: "FormController"
     });
 });
 

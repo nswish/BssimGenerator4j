@@ -1,0 +1,24 @@
+<form class="form-horizontal" role="form" name="queryForm">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span style="font-size: 16px;">设定初始查询条件 (2/2)</span></div>
+        <div class="panel-body">
+            <table class="table" style="margin-bottom: 0;">
+                <tr>
+                    <th width="45%">英文名称</th>
+                    <th width="45%">中文名称</th>
+                    <th width="10%">作为条件</th>
+                </tr>
+                <tr ng-repeat="column in columns">
+                    <td>{{column.meta.name}}</td>
+                    <td>{{column.meta.comment}}</td>
+                    <td><input type="checkbox" value="{{column.meta.name}}" ng-model="columns[$index].checked"/></td>
+                </tr>
+            </table>
+        </div>
+        <div class="panel-footer" style="padding:5px 15px;">
+            <button type="button" class="btn btn-default btn-sm" ng-click="navToFormName()">上一步</button>
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="navToFormCode()">下一步</button>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</form>
