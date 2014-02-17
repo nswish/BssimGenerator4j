@@ -36,7 +36,9 @@ bssim.controller("TablesController", function($scope, Tables, $location, Noty){
 
     $scope.tableClicked = function(fullTable){
         $scope.currentTable = fullTable;
-        $('#myModal').modal('show');
+        $('#myModal').on("hide.bs.modal", function(){
+            $('body').removeClass("modal-open");
+        }).modal('show');
     };
 
     $scope.navToServiceJspJs = function() {

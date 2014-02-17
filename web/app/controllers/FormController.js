@@ -41,7 +41,6 @@ bssim.controller("FormController", function($scope, $routeParams, Noty, $http, $
         jspCm.refresh();
     };
 
-    console.log(schemaTable);
     Noty.loading('Loading...', path);
     $http.get("/form/"+schemaTable+"/"+angular.toJson(config)).success(function(result){
         if(!result.status){
@@ -58,7 +57,6 @@ bssim.controller("FormController", function($scope, $routeParams, Noty, $http, $
 
     $scope.commit = function(){
         Noty.loading('正在提交...', path);
-        console.log(schemaTable);
 
         $http.post('form/'+schemaTable+'/commit/'+angular.toJson(config)).success(function(result){
             if(result.status){
@@ -69,5 +67,9 @@ bssim.controller("FormController", function($scope, $routeParams, Noty, $http, $
         }).error(function(){
             Noty.error('网络异常...', path);
         });
+    };
+
+    $scope.navToFormName = function(){
+        $location.path("/form/name/"+schemaTable+"/{}");
     };
 });

@@ -38,7 +38,6 @@ bssim.factory("Config", function($http){
             return $http({"method":"GET", url:"config"});
         },
         "save" : function(data) {
-            console.log(data);
             return $http({"method":"POST", url:'config', "data":data});
         }
     }
