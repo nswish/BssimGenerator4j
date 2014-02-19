@@ -38,6 +38,10 @@ public class JspModelTestCase {
         String actualJavaCode = table.genJspCode(config);
         System.out.println(actualJavaCode);
 
-        assertEquals(expectJavaCode, actualJavaCode);
+        assertEquals(expectJavaCode, removeGenenrateDateStr(actualJavaCode));
+    }
+
+    private String removeGenenrateDateStr(String str) {
+        return str.replaceAll("<!-- Created at .*\\n", "");
     }
 }
