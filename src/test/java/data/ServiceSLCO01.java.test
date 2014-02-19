@@ -52,7 +52,7 @@ public class ServiceSLCO01 extends ServiceEPBase {
         } catch (Exception ex) {
             inInfo.setStatus(-1);
             inInfo.setMsg(ex.getMessage());
-            return inInfo;
+            return _query(inInfo);
         }
     }
 
@@ -75,7 +75,7 @@ public class ServiceSLCO01 extends ServiceEPBase {
         } catch (Exception ex) {
             inInfo.setStatus(-1);
             inInfo.setMsg(ex.getMessage());
-            return inInfo;
+            return _query(inInfo);
         }
     }
 
