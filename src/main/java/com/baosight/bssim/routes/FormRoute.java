@@ -28,7 +28,7 @@ public class FormRoute {
                     config.put("jsName", config.get("formName")+"");
                     config.put("serviceName", "Service"+config.get("formName"));
 
-                    TableModel table = new TableModel("BSSIM.TSLCO01");
+                    TableModel table = new TableModel(request.params(":schemaTable"));
                     result.put("jspCode", table.genJspCode(config));
                     result.put("jsCode", table.genJsCode(config));
                     result.put("serviceCode", table.genServiceCode(config));
