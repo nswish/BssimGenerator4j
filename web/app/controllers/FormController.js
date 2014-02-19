@@ -60,7 +60,9 @@ bssim.controller("FormController", function($scope, $routeParams, Noty, $http, $
 
         $http.post('form/'+schemaTable+'/commit/'+angular.toJson(config)).success(function(result){
             if(result.status){
-                Noty.success(result.message, path, 4000);
+                Noty.success(result.message, path, 5000, {
+                    template: '<div class="noty_message"><pre class="noty_text" style="text-align: left;background-color: transparent; border: 0; width: 500px; margin: 0;"></pre><div class="noty_close"></div></div>'
+                });
             } else {
                 Noty.error(result.message, path);
             }

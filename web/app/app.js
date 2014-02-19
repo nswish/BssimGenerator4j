@@ -56,11 +56,11 @@ bssim.factory("Noty", function($rootScope, $location){
                 noty({"text":message, "timeout":timeout});
             }
         },
-        "success": function(message, path, timeout){
+        "success": function(message, path, timeout, option){
             path = path || '/';
             timeout = timeout || 2000;
             if(path == $location.path()) {
-                noty({"text":message, "type":"success", "timeout":timeout});
+                noty($.extend({"text":message, "type":"success", "timeout":timeout}, option));
             }
         },
         "error": function(message, path){
@@ -70,13 +70,13 @@ bssim.factory("Noty", function($rootScope, $location){
                 noty({"text":message, "type":"error", "timeout":timeout});
             }
         },
-        "loading": function(message, path){
+        "loading": function(message, path, option){
             path = path || '/';
             if(path == $location.path()) {
-                noty({
+                noty($.extend({
                     "text":message,
                     "template":'<div class="noty_message"><img src="assets/img/loading.gif" width="14" height="14" class="pull-left"/><span class="noty_text"></span><div class="noty_close"></div></div>'
-                });
+                }, option));
             }
         },
         "closeAll": function() {

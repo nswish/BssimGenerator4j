@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="EF" uri="/WEB-INF/framework/tlds/EF-2.0.tld" %>
+<!-- Created at ${generateDate?string("yyyy-MM-dd HH:mm:ss")} -->
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
