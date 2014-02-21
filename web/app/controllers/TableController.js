@@ -46,7 +46,9 @@ bssim.controller("TableController", function($scope, $http, $routeParams, Noty, 
         Noty.loading('正在提交...', path);
         $http.post('tables/'+schemaTable+'/commit').success(function(result){
             if(result.status){
-                Noty.success(result.message, path, 4000);
+                Noty.success(result.message, path, 4000, {
+                    template: '<div class="noty_message"><pre class="noty_text" style="text-align: left; background-color: transparent; border: 0; margin: 0;"></pre><div class="noty_close"></div></div>'
+                });
             } else {
                 Noty.error(result.message, path);
             }
