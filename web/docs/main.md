@@ -42,6 +42,11 @@ BSSIM辅助开发工具是为销售物流研发项目开发的一种代码生成
 
 <br />
 
+#### Bssim模块代码规范
+[参见相关文档](#/docs/module_codeset)
+
+<br />
+
 #### 源代码
 作为开源软件，托管于[Github](https://github.com/nswish/BssimGenerator4j)。
 
