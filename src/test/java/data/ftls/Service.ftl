@@ -3,11 +3,11 @@ package com.baosight.bssim.${firstModule?lower_case}<#if secondModule?has_conten
 import com.baosight.bssim.common.exception.BssimException;
 import ${table.package}.${table.className};
 import com.baosight.iplat4j.core.ei.EiBlock;
+import com.baosight.iplat4j.core.ei.EiConstant;
 import com.baosight.iplat4j.core.ei.EiInfo;
 import com.baosight.iplat4j.ep.ServiceEPBase;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class ${serviceName} extends ServiceEPBase {
@@ -80,7 +80,7 @@ public class ${serviceName} extends ServiceEPBase {
     }
 
     private EiInfo _query(EiInfo inInfo) {
-        List result = ${table.className}.where(new HashMap()).limit(inInfo.getBlock("result")).all();
+        List result = ${table.className}.where(inInfo.getRow(EiConstant.queryBlock, 0)).limit(inInfo.getBlock("result")).all();
         inInfo.addBlock("result").setBlockMeta(new ${table.className}().eiMetadata);
         inInfo.getBlock("result").setRows(result);
         return inInfo;
