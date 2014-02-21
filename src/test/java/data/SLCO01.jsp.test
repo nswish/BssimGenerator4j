@@ -5,6 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="./EF/iplat-ui-2.0.js"></script>
+    <script type="text/javascript" src="bssim/lib/requirejs/require.js"></script>
     <script type="text/javascript" src="./SL/CO/SLCO01.js"></script>
     <link href="bssim/css/bssim.css" rel="stylesheet" />
 </head>

@@ -6,6 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="./EF/iplat-ui-2.0.js"></script>
+    <script type="text/javascript" src="bssim/lib/requirejs/require.js"></script>
     <script type="text/javascript" src="./${firstModule}<#if secondModule?has_content>/${secondModule}</#if>/${jspName}.js"></script>
     <link href="bssim/css/bssim.css" rel="stylesheet" />
 </head>
