@@ -47,23 +47,23 @@
             <table class="bssim-table">
                 <tr>
                     <td class="col-3-r">仓库代码：</td>
-                    <td class="col-4"><EF:EFInput blockId="save" row="0" ename="stockCode"></EF:EFInput></td>
+                    <td class="col-3"><EF:EFInput blockId="save" row="0" ename="stockCode"></EF:EFInput></td>
                 </tr>
                 <tr>
                     <td class="col-3-r">仓库名称：</td>
-                    <td class="col-4"><EF:EFInput blockId="save" row="0" ename="stockName"></EF:EFInput></td>
+                    <td class="col-3"><EF:EFInput blockId="save" row="0" ename="stockName"></EF:EFInput></td>
                 </tr>
                 <tr>
                     <td class="col-3-r">仓库地址：</td>
-                    <td class="col-4"><EF:EFInput blockId="save" row="0" ename="stockAddress"></EF:EFInput></td>
+                    <td class="col-3"><EF:EFInput blockId="save" row="0" ename="stockAddress"></EF:EFInput></td>
                 </tr>
                 <tr>
                     <td class="col-3-r">联系人：</td>
-                    <td class="col-4"><EF:EFInput blockId="save" row="0" ename="contactPerson"></EF:EFInput></td>
+                    <td class="col-3"><EF:EFInput blockId="save" row="0" ename="contactPerson"></EF:EFInput></td>
                 </tr>
                 <tr>
                     <td class="col-3-r">联系电话号码：</td>
-                    <td class="col-4"><EF:EFInput blockId="save" row="0" ename="contactTelNo"></EF:EFInput></td>
+                    <td class="col-3"><EF:EFInput blockId="save" row="0" ename="contactTelNo"></EF:EFInput></td>
                 </tr>
                 <tr>
                     <td></td><td><EF:EFButton ename="save" cname="保存"></EF:EFButton></td>

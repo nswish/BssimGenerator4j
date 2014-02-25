@@ -80,7 +80,7 @@
             <#else>
                 <tr>
                     <td class="col-3-r">${column.comment}：</td>
-                    <td class="col-4"><EF:EFInput blockId="save" row="0" ename="${column.camelName}"></EF:EFInput></td>
+                    <td class="col-3"><EF:EFInput blockId="save" row="0" ename="${column.camelName}"></EF:EFInput></td>
                 </tr>
             </#if>
         </#list>

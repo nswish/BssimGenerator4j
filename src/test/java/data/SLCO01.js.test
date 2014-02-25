@@ -19,7 +19,7 @@ button_create_onclick = function()
     $('#dialog *[name|=save-0]').val(''); // 清空模态对话框
 };
 
-// 复制新增按钮事件
+// 复制按钮事件
 button_copy_onclick = function()
 {
     var grid = efform.getGrid("ef_grid_result");

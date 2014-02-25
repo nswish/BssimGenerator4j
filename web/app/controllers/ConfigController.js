@@ -1,6 +1,6 @@
 bssim.controller("ConfigController", function($scope, Config, $http, Noty, $location){
     var path = $location.path();
-    $scope.tableAdding = {"user":"", "table":""};
+    $scope.tableAdding = {"user":"BSSIM", "table":""};
 
     var query = function(){
         Config.get().success(function(result){
@@ -50,17 +50,26 @@ bssim.controller("ConfigController", function($scope, Config, $http, Noty, $loca
         $http.post('/config/tables', $scope.tableAdding).success(function(result){
             if (result.status){
                 $('#myModal').modal('hide');
-                $scope.tableAdding.user = "";
                 $scope.tableAdding.table = "";
                 $scope.config = result.data;
+            } else {
+                Noty.error(result.message, path);
             }
+        }).error(function(message){
+            Noty.error(message, path);
         });
     };
 
     $scope['delete'] = function(fullTableName) {
         if(confirm('删除 ['+fullTableName+'] 么?')) {
             $http['delete']('/config/tables/'+fullTableName).success(function(result){
-                $scope.config = result.data;
+                if (result.status){
+                    $scope.config = result.data;
+                } else {
+                    Noty.error(result.message, path);
+                }
+            }).error(function(message){
+                Noty.error(message, path);
             });
         }
     };
