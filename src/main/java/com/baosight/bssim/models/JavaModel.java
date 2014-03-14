@@ -37,7 +37,7 @@ public class JavaModel {
                 JSONObject json = convertRelationConfig(belongsTo.get(i));
 
                 String fullName = json.getString("table"); // 关系表全名，例如：XSSD.TSDSD01
-                String suffix = json.optString("suffix", "");
+                String suffix = StringUtils.capitalize(json.optString("suffix", "").toLowerCase());
 
                 TableModel anotherOne = new TableModel(fullName);
                 String table_name = anotherOne.getClassName().toLowerCase();
@@ -73,7 +73,7 @@ public class JavaModel {
                 JSONObject json = convertRelationConfig(hasMany.get(i));
 
                 String fullName = json.getString("table"); // 关系表全名，例如：XSSD.TSDSD02
-                String suffix = json.optString("suffix", "");
+                String suffix = StringUtils.capitalize(json.optString("suffix", "").toLowerCase());
                 String columnName = table.getName() + "_ID" + ("".equals(suffix) ? suffix : ("_" + suffix.toUpperCase()));
 
                 TableModel anotherOne = new TableModel(fullName);

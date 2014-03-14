@@ -80,7 +80,7 @@ public class ServiceSLCO01 extends ServiceEPBase {
     }
 
     private EiInfo _query(EiInfo inInfo) {
-        List result = Tslco01.where(inInfo.getRow(EiConstant.queryBlock, 0)).limit(inInfo.getBlock("result")).all();
+        List result = Tslco01.where(inInfo.getRow(EiConstant.queryBlock, 0)).limit(inInfo.addBlock("result")).all();
         inInfo.addBlock("result").setBlockMeta(new Tslco01().eiMetadata);
         inInfo.getBlock("result").setRows(result);
         return inInfo;

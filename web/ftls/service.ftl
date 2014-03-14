@@ -80,7 +80,7 @@ public class ${serviceName} extends ServiceEPBase {
     }
 
     private EiInfo _query(EiInfo inInfo) {
-        List result = ${table.className}.where(inInfo.getRow(EiConstant.queryBlock, 0)).limit(inInfo.getBlock("result")).all();
+        List result = ${table.className}.where(inInfo.getRow(EiConstant.queryBlock, 0)).limit(inInfo.addBlock("result")).all();
         inInfo.addBlock("result").setBlockMeta(new ${table.className}().eiMetadata);
         inInfo.getBlock("result").setRows(result);
         return inInfo;

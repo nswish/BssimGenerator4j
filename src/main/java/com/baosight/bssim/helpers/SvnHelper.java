@@ -50,7 +50,21 @@ public class SvnHelper {
             // svn add
             String[] addTokens = statusMsg.split("\n");
             for (int i=0; i<addTokens.length; i++) {
-                cmd = "svn add " + addTokens[i];
+                if(!addTokens[i].startsWith("?")) {
+                    continue;
+                }
+
+                int index = addTokens[i].indexOf(" src/");
+                if(index == -1) {
+                    index = addTokens[i].indexOf(" web/");
+                }
+                if (index == -1) {
+                    throw new HelperException("找不到文件！");
+                }
+
+                String path = addTokens[i].substring(index);
+
+                cmd = "svn add " + path;
                 p = Runtime.getRuntime().exec(cmd, null, dir);
                 p.waitFor();
                 if (debug)
