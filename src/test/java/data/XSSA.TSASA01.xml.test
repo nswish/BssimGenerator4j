@@ -32,7 +32,7 @@
     货款信息配置主表ID "TSASCC1_ID" NUMBER(18) NOT NULL
 -->
 
-<sqlMap namespace="SASA01E">
+<sqlMap namespace="SASA01T">
     <select id="select_by_id" parameterClass="java.util.HashMap" resultClass="com.baosight.bssim.sa.sa.domain.model.Tsasa01">
         SELECT
             REC_CREATOR as "recCreator"   <!-- 记录创建者 -->,

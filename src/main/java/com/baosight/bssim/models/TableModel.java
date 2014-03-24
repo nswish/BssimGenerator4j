@@ -279,7 +279,7 @@ public class TableModel {
         return "com" + File.separator + "baosight" + File.separator + "bssim" + File.separator
                 + getFirstModuleName().toLowerCase()
                 + (StringUtils.isBlank(getSecondModuleName()) ? "" : File.separator + getSecondModuleName().toLowerCase())
-                + File.separator + "sql" + File.separator + getName().substring(1) + "E.xml";
+                + File.separator + "sql" + File.separator + getName().substring(1) + getName().substring(0, 1) + ".xml";
     }
 
     /**

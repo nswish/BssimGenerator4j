@@ -1095,7 +1095,7 @@ public class Tsasa01 extends ModelEPBase {
         Map arg = new HashMap();
         arg.put("id", id);
         if(isLocked)arg.put("forUpdate", "FOR UPDATE");
-        List<Tsasa01> result = getDao().query("SASA01E.select_by_id", arg);
+        List<Tsasa01> result = getDao().query("SASA01T.select_by_id", arg);
 
         if(result.size() > 0){
             Tsasa01 a = result.get(0);
@@ -1147,7 +1147,7 @@ public class Tsasa01 extends ModelEPBase {
         Map arg = new HashMap();
         arg.put("ids", ids);
         if(isLocked)arg.put("forUpdate", "FOR UPDATE");
-        List<Tsasa01> result = getDao().query("SASA01E.select_by_ids", arg);
+        List<Tsasa01> result = getDao().query("SASA01T.select_by_ids", arg);
 
         if(result.size() != ids.length) {
             throw new ModelException("结果集包含的项数少于id数组的项数");

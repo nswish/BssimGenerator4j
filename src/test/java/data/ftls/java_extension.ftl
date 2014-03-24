@@ -137,7 +137,7 @@
         Map arg = new HashMap();
         arg.put("id", id);
         if(isLocked)arg.put("forUpdate", "FOR UPDATE");
-        List<${table.className}> result = getDao().query("${table.name?substring(1)}E.select_by_id", arg);
+        List<${table.className}> result = getDao().query("${table.name?substring(1)}${table.name?substring(0,1)}.select_by_id", arg);
 
         if(result.size() > 0){
             ${table.className} a = result.get(0);
@@ -189,7 +189,7 @@
         Map arg = new HashMap();
         arg.put("ids", ids);
         if(isLocked)arg.put("forUpdate", "FOR UPDATE");
-        List<${table.className}> result = getDao().query("${table.name?substring(1)}E.select_by_ids", arg);
+        List<${table.className}> result = getDao().query("${table.name?substring(1)}${table.name?substring(0,1)}.select_by_ids", arg);
 
         if(result.size() != ids.length) {
             throw new ModelException("结果集包含的项数少于id数组的项数");

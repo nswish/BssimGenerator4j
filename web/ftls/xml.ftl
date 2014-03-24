@@ -9,7 +9,7 @@
     </#list>
 -->
 
-<sqlMap namespace="${table.name?substring(1)}E">
+<sqlMap namespace="${table.name?substring(1)}${table.name?substring(0, 1)}">
     <select id="select_by_id" parameterClass="java.util.HashMap" resultClass="${table.package}.${table.className}">
         SELECT
         <#list table.columns as column>
