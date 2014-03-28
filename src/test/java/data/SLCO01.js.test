@@ -12,9 +12,7 @@ button_query_onclick = function()
 // 新增按钮事件
 button_create_onclick = function()
 {
-    EFColorbox({href:"#dialog", title:"新增", width:"50%", inline:true}); // 打开模态对话框
-
-    $('#colorbox').appendTo('#mainForm'); // 将模态对话框节点移动到表单节点内
+    Bssim.dialog("#dialog", {title:"新增"});
 
     $('#dialog *[name|=save-0]').val(''); // 清空模态对话框
 };
@@ -29,9 +27,7 @@ button_copy_onclick = function()
         return;
     }
 
-    EFColorbox({href:"#dialog", title:"复制", width:"50%", inline:true}); // 打开模态对话框
-
-    $('#colorbox').appendTo('#mainForm'); // 将模态对话框节点移动到表单节点内
+    Bssim.dialog("#dialog", {title:"复制"});
 
     // 将选中的第一行数据复制到对话框中
     var row = grid.getRowData(grid.getCheckedRows()[0]);
@@ -52,9 +48,7 @@ button_edit_onclick = function()
         return;
     }
 
-    EFColorbox({href:"#dialog", title:"编辑", width:"50%", inline:true}); // 打开模态对话框
-
-    $('#colorbox').appendTo('#mainForm'); // 将模态对话框节点移动到表单节点内
+    Bssim.dialog("#dialog", {title:"编辑"});
 
     // 将选中的第一行数据复制到对话框中
     var row = grid.getRowData(grid.getCheckedRows()[0]);

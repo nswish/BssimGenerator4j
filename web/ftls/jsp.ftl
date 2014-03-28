@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="./EF/iplat-ui-2.0.js"></script>
-    <script type="text/javascript" src="bssim/lib/requirejs/require.js"></script>
+    <script type="text/javascript" data-main="bssim/js/Bssim" src="bssim/lib/requirejs/require.js"></script>
     <script type="text/javascript" src="./${firstModule}<#if secondModule?has_content>/${secondModule}</#if>/${jspName}.js"></script>
     <link href="bssim/css/bssim.css" rel="stylesheet" />
 </head>
@@ -72,7 +72,7 @@
 </#list>
         </EF:EFGrid>
 
-        <div style='display: none'><div id='dialog' style="background-color: white;">
+        <div id="dialog" class="bssim-hidden bssim-dialog">
             <EF:EFInput type="hidden" blockId="save" row="0" ename="id"></EF:EFInput>
             <table class="bssim-table">
         <#list table.columns as column>
@@ -88,7 +88,7 @@
                     <td></td><td><EF:EFButton ename="save" cname="保存"></EF:EFButton></td>
                 </tr>
             </table>
-        </div></div>
+        </div>
 
         <jsp:include flush="false" page="../../EF/Form/iplat.ef.tail.jsp"></jsp:include>
     </form>
